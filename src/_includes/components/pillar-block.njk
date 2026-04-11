@@ -1,5 +1,7 @@
 <div class="pillar-block">
-  <div class="pillar-block__icon">{{ pillar_icon | safe }}</div>
+  {% if pillar_number %}
+  <span class="pillar-block__number">{{ pillar_number }}</span>
+  {% endif %}
   <h3 class="pillar-block__title">{{ pillar_title }}</h3>
   <p class="pillar-block__description">{{ pillar_description }}</p>
 </div>

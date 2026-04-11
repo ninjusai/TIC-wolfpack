@@ -12,12 +12,12 @@
 
 /* Sections — alternating dark/light bands */
 .section {
-  padding-block: var(--space-xl);
+  padding-block: var(--space-2xl);
 }
 
 @media (min-width: 768px) {
   .section {
-    padding-block: var(--space-2xl);
+    padding-block: var(--space-3xl);
   }
 }
 

@@ -27,19 +27,19 @@ permalink: "/"
 {# Value Creation — Acquire. Operate. Support. #}
 <section class="section section--light" id="value-creation">
   <div class="container">
-    <h2>Acquire. Operate. Support.</h2>
-    <div class="pillar-grid">
-      {% set pillar_icon = "🏢" %}
+    <h2 data-animate="fade-up">Acquire. Operate. Support.</h2>
+    <div class="pillar-grid" data-stagger>
+      {% set pillar_number = "01" %}
       {% set pillar_title = "Acquire" %}
       {% set pillar_description = "We acquire driving school businesses with continuity and respect for owners, teams, and brand equity." %}
       {% include "components/pillar-block.njk" %}
 
-      {% set pillar_icon = "⚙️" %}
+      {% set pillar_number = "02" %}
       {% set pillar_title = "Operate" %}
       {% set pillar_description = "We operate schools better through shared systems, management, marketing, fleet, and operational standards." %}
       {% include "components/pillar-block.njk" %}
 
-      {% set pillar_icon = "🤝" %}
+      {% set pillar_number = "03" %}
       {% set pillar_title = "Support" %}
       {% set pillar_description = "We support the wider industry with specialist services built for driving schools." %}
       {% include "components/pillar-block.njk" %}
@@ -50,18 +50,18 @@ permalink: "/"
 {# Our Group Preview #}
 <section class="section section--light" id="our-group-preview">
   <div class="container">
-    <h2>Our Group</h2>
-    <div class="brand-grid">
+    <h2 data-animate="fade-up">Our Group</h2>
+    <div class="brand-grid" data-stagger>
       {% for brand in collections.brands | batch(3) | first %}
         {% include "components/brand-card.njk" %}
       {% endfor %}
     </div>
-    <p class="section__link"><a href="/our-group/" class="btn btn--secondary">View All Brands</a></p>
+    <p class="section__link" data-animate="fade-up"><a href="/our-group/" class="btn btn--secondary">View All Brands</a></p>
   </div>
 </section>
 
 {# Services Preview #}
-<section class="section section--alt" id="services-preview">
+<section class="section section--alt" id="services-preview" data-animate="fade-up">
   <div class="container">
     <h2>Services for Driving Schools</h2>
     <p>From operational systems to fleet support, TIC Group provides specialist services designed for driving school businesses. Full details coming soon.</p>

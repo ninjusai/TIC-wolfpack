@@ -1,0 +1,67 @@
+/* ==========================================================================
+   Scroll Reveal Animations
+   ========================================================================== */
+
+/* Base state — hidden, shifted down */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Fade up — default */
+[data-animate="fade-up"].is-visible,
+[data-animate].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade in — no movement */
+[data-animate="fade-in"] {
+  opacity: 0;
+  transform: none;
+}
+[data-animate="fade-in"].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Slide left */
+[data-animate="slide-left"] {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+[data-animate="slide-left"].is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide right */
+[data-animate="slide-right"] {
+  opacity: 0;
+  transform: translateX(40px);
+}
+[data-animate="slide-right"].is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale in */
+[data-animate="scale-in"] {
+  opacity: 0;
+  transform: scale(0.92);
+}
+[data-animate="scale-in"].is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

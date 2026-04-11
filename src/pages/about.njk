@@ -12,7 +12,7 @@ breadcrumb: true
 {% include "components/hero.njk" %}
 
 {# Who We Are #}
-<section class="section section--light" id="who-we-are">
+<section class="section section--light" id="who-we-are" data-animate="fade-up">
   <div class="container">
     <h2>Who We Are</h2>
     <p>TIC Group is a driving industry group based in Queensland. We own, operate, and support a growing portfolio of driving school businesses across the state.</p>
@@ -20,7 +20,7 @@ breadcrumb: true
 </section>
 
 {# Our Story #}
-<section class="section section--alt" id="our-story">
+<section class="section section--alt" id="our-story" data-animate="fade-up">
   <div class="container">
     <h2>Our Story</h2>
     <p>Founded with over 20 years of experience in the driving instruction industry, TIC Group has evolved from a single operation into a group of driving school brands and industry services. Our journey is built on a belief that driving schools thrive when they have access to better systems, stronger operations, and specialist industry support.</p>
@@ -30,19 +30,19 @@ breadcrumb: true
 {# Our Model #}
 <section class="section section--light" id="our-model">
   <div class="container">
-    <h2>Our Model — Acquire. Operate. Support.</h2>
-    <div class="pillar-grid">
-      {% set pillar_icon = "🏢" %}
+    <h2 data-animate="fade-up">Our Model — Acquire. Operate. Support.</h2>
+    <div class="pillar-grid" data-stagger>
+      {% set pillar_number = "01" %}
       {% set pillar_title = "Acquire" %}
       {% set pillar_description = "We acquire driving school businesses with continuity and respect for owners, teams, and brand equity." %}
       {% include "components/pillar-block.njk" %}
 
-      {% set pillar_icon = "⚙️" %}
+      {% set pillar_number = "02" %}
       {% set pillar_title = "Operate" %}
       {% set pillar_description = "We operate schools better through shared systems, management, marketing, fleet, and operational standards." %}
       {% include "components/pillar-block.njk" %}
 
-      {% set pillar_icon = "🤝" %}
+      {% set pillar_number = "03" %}
       {% set pillar_title = "Support" %}
       {% set pillar_description = "We support the wider industry with specialist services built for driving schools." %}
       {% include "components/pillar-block.njk" %}
@@ -53,8 +53,8 @@ breadcrumb: true
 {# Our Values #}
 <section class="section section--alt" id="our-values">
   <div class="container">
-    <h2>Our Values</h2>
-    <ul class="values-list">
+    <h2 data-animate="fade-up">Our Values</h2>
+    <ul class="values-list" data-stagger>
       <li><strong>Quality</strong> — We hold ourselves and our brands to the highest operational and instructional standards.</li>
       <li><strong>Continuity</strong> — We protect the identity, reputation, and teams of the businesses we acquire.</li>
       <li><strong>Transparency</strong> — We operate with honesty and openness in every relationship.</li>
@@ -67,7 +67,7 @@ breadcrumb: true
 {# FAQ #}
 <section class="section section--light" id="faq">
   <div class="container">
-    <h2>Frequently Asked Questions</h2>
+    <h2 data-animate="fade-up">Frequently Asked Questions</h2>
     {% set faqs = [
       { question: "What does TIC Group do?", answer: "TIC Group is a driving industry group that acquires, operates, and supports driving school businesses across Queensland." },
       { question: "Is TIC Group a driving school?", answer: "No. TIC Group is the parent company behind multiple driving school brands. Each brand operates independently under the TIC Group umbrella." },
