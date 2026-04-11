@@ -1,0 +1,5 @@
+<section class="section section--{{ section_variant | default('light') }}" {% if section_id %}id="{{ section_id }}"{% endif %}>
+  <div class="container">
+    {{ caller() if caller else content | safe }}
+  </div>
+</section>

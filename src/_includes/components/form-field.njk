@@ -1,0 +1,18 @@
+<div class="form-field">
+  <label for="{{ field_name }}" class="form-field__label">
+    {{ field_label }}{% if field_required %} <span aria-hidden="true">*</span>{% endif %}
+  </label>
+  {% if field_type == "textarea" %}
+  <textarea id="{{ field_name }}" name="{{ field_name }}" class="form-field__input form-field__textarea" {% if field_required %}required aria-required="true"{% endif %} {% if field_placeholder %}placeholder="{{ field_placeholder }}"{% endif %} rows="5"></textarea>
+  {% elif field_type == "select" %}
+  <select id="{{ field_name }}" name="{{ field_name }}" class="form-field__input form-field__select" {% if field_required %}required aria-required="true"{% endif %}>
+    <option value="">Select...</option>
+    {% for option in field_options %}
+    <option value="{{ option.value }}">{{ option.label }}</option>
+    {% endfor %}
+  </select>
+  {% else %}
+  <input type="{{ field_type | default('text') }}" id="{{ field_name }}" name="{{ field_name }}" class="form-field__input" {% if field_required %}required aria-required="true"{% endif %} {% if field_placeholder %}placeholder="{{ field_placeholder }}"{% endif %}>
+  {% endif %}
+  <span class="form-field__error" aria-live="polite"></span>
+</div>

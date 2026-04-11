@@ -1,0 +1,11 @@
+<ol class="process-steps">
+  {% for step in steps %}
+  <li class="process-step">
+    <span class="process-step__number">{{ loop.index }}</span>
+    <div class="process-step__content">
+      <h3 class="process-step__title">{{ step.title }}</h3>
+      <p class="process-step__description">{{ step.description }}</p>
+    </div>
+  </li>
+  {% endfor %}
+</ol>

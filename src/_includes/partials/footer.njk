@@ -1,0 +1,30 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p class="footer-logo">TIC Group</p>
+        <p class="footer-tagline">{{ site.tagline }}</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer">
+        <ul>
+          {% for item in navigation.primary %}
+          <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <p>{{ site.phone }}</p>
+        <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+        <p>{{ site.address.street }}, {{ site.address.suburb }} {{ site.address.state }} {{ site.address.postcode }}</p>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <ul>
+        {% for item in navigation.footer %}
+        <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+        {% endfor %}
+      </ul>
+      <p>© {% year %} {{ site.name }}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

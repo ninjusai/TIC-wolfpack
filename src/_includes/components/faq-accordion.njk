@@ -1,0 +1,10 @@
+<div class="faq-accordion">
+  {% for item in faqs %}
+  <details class="faq-item">
+    <summary class="faq-item__question">{{ item.question }}</summary>
+    <div class="faq-item__answer">
+      {{ item.answer | safe }}
+    </div>
+  </details>
+  {% endfor %}
+</div>

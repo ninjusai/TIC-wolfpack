@@ -1,0 +1,9 @@
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list">
+    <li class="breadcrumb__item"><a href="/">Home</a></li>
+    {% if breadcrumb_parent %}
+    <li class="breadcrumb__item"><a href="{{ breadcrumb_parent.url }}">{{ breadcrumb_parent.label }}</a></li>
+    {% endif %}
+    <li class="breadcrumb__item" aria-current="page">{{ title }}</li>
+  </ol>
+</nav>

@@ -1,8 +1,34 @@
 ---
-layout: "layouts/base.njk"
+layout: layouts/base.njk
 ---
-
-<article>
-  <h1>{{ title }}</h1>
-  {{ content | safe }}
+{% include "partials/breadcrumb.njk" %}
+<article class="brand-detail">
+  <header class="brand-hero">
+    {% if featured_image %}
+    <img src="{{ featured_image }}" alt="{{ title }}" class="brand-hero__image" width="1200" height="600" loading="eager">
+    {% endif %}
+    <h1>{{ title }}</h1>
+    <p class="brand-region">{{ region }}</p>
+  </header>
+  <div class="brand-content">
+    <div class="brand-body">
+      {{ content | safe }}
+    </div>
+    <aside class="brand-sidebar">
+      {% if service_areas %}
+      <div class="brand-meta">
+        <h2>Service Areas</h2>
+        <ul>
+          {% for area in service_areas %}
+          <li>{{ area }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if website_url %}
+      <a href="{{ website_url }}" target="_blank" rel="noopener" class="brand-website-link">Visit Website →</a>
+      {% endif %}
+    </aside>
+  </div>
+  <a href="/our-group/" class="back-link">← Back to Our Group</a>
 </article>

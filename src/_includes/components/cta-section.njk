@@ -1,0 +1,9 @@
+<section class="cta-section cta-section--{{ cta_variant | default('dark') }}">
+  <div class="container">
+    <h2 class="cta-section__heading">{{ cta_heading }}</h2>
+    {% if cta_body %}
+    <p class="cta-section__body">{{ cta_body }}</p>
+    {% endif %}
+    <a href="{{ cta_url }}" class="btn btn--{{ cta_style | default('primary') }}">{{ cta_text }}</a>
+  </div>
+</section>

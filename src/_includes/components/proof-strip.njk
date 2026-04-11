@@ -1,0 +1,12 @@
+<section class="proof-strip">
+  <div class="container">
+    <div class="proof-strip__grid">
+      {% for stat in proof_stats %}
+      <div class="proof-strip__item">
+        <span class="proof-strip__number">{{ stat.number }}</span>
+        <span class="proof-strip__label">{{ stat.label }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

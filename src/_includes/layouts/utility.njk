@@ -1,0 +1,12 @@
+---
+layout: layouts/base.njk
+---
+<article class="utility-page">
+  <h1>{{ title }}</h1>
+  <div class="utility-content">
+    {{ content | safe }}
+  </div>
+  {% if date %}
+  <p class="utility-updated"><small>Last updated: {{ date | dateFormat }}</small></p>
+  {% endif %}
+</article>

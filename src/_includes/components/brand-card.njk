@@ -1,0 +1,10 @@
+<a href="{{ brand.url }}" class="brand-card">
+  {% if brand.data.featured_image %}
+  <img src="{{ brand.data.featured_image }}" alt="{{ brand.data.title }}" class="brand-card__image" width="400" height="250" loading="lazy">
+  {% endif %}
+  <div class="brand-card__body">
+    <h3 class="brand-card__title">{{ brand.data.title }}</h3>
+    <p class="brand-card__region">{{ brand.data.region }}</p>
+    <p class="brand-card__summary">{{ brand.data.brand_summary }}</p>
+  </div>
+</a>
