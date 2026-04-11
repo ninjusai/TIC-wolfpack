@@ -1,3 +1,31 @@
-<title>{{ seo.title or title }} — {{ site.name }}</title>
+{# Page title #}
+<title>{{ seo.title or title }}{% if title != site.name %} — {{ site.name }}{% endif %}</title>
+
+{# Meta description #}
 <meta name="description" content="{{ seo.description or description or site.description }}">
+
+{# Canonical URL #}
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+{# Open Graph #}
+<meta property="og:title" content="{{ seo.title or title }} — {{ site.name }}">
+<meta property="og:description" content="{{ seo.description or description or site.description }}">
+<meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.name }}">
+{% if seo.image or featured_image %}
+<meta property="og:image" content="{{ site.url }}{{ seo.image or featured_image }}">
+{% endif %}
+
+{# Twitter Card #}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ seo.title or title }} — {{ site.name }}">
+<meta name="twitter:description" content="{{ seo.description or description or site.description }}">
+{% if seo.image or featured_image %}
+<meta name="twitter:image" content="{{ site.url }}{{ seo.image or featured_image }}">
+{% endif %}
+
+{# Robots — noindex preview/staging deploys #}
+{% if not env.isProduction %}
+<meta name="robots" content="noindex, nofollow">
+{% endif %}

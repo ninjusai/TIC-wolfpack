@@ -1,0 +1,40 @@
+---
+title: "Our Group of Brands"
+description: "TIC Group owns and operates a portfolio of driving school brands across Queensland. Explore our group."
+layout: "layouts/page.njk"
+permalink: "/our-group/"
+breadcrumb: true
+---
+
+{# Hero #}
+{% set hero_title = "Our Group of Brands" %}
+{% set hero_subtitle = "Driving school brands across Queensland — each with its own identity, team, and local reputation." %}
+{% include "components/hero.njk" %}
+
+{# Overview #}
+<section class="section section--light" id="overview">
+  <div class="container">
+    <h2>Our Portfolio</h2>
+    <p>TIC Group owns and operates a portfolio of driving school brands across Queensland. Each brand maintains its own identity, team, and local reputation while benefiting from the group's shared operational systems, support, and investment.</p>
+  </div>
+</section>
+
+{# Brand Directory #}
+<section class="section section--alt" id="brand-directory">
+  <div class="container">
+    <h2>Our Brands</h2>
+    <div class="brand-grid">
+      {% for brand in collections.brands %}
+        {% include "components/brand-card.njk" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# CTA #}
+{% set cta_heading = "Want to join our group?" %}
+{% set cta_body = "We're always interested in speaking with driving school owners who are considering their next chapter." %}
+{% set cta_url = "/acquisitions/" %}
+{% set cta_text = "Learn About Selling" %}
+{% set cta_variant = "dark" %}
+{% include "components/cta-section.njk" %}

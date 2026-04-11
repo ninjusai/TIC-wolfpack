@@ -1,0 +1,84 @@
+---
+title: "Sell Your Driving School"
+description: "TIC Group acquires driving school businesses with continuity, respect, and long-term commitment. Start a confidential conversation today."
+layout: "layouts/page.njk"
+permalink: "/acquisitions/"
+breadcrumb: true
+---
+
+{# Hero #}
+{% set hero_title = "Sell Your Driving School" %}
+{% set hero_subtitle = "TIC Group acquires driving school businesses with continuity, respect, and long-term commitment." %}
+{% include "components/hero.njk" %}
+
+{# Why Owners Choose TIC #}
+<section class="section section--light" id="why-tic">
+  <div class="container">
+    <h2>Why Owners Choose TIC Group</h2>
+    <ul class="feature-list">
+      <li><strong>Brand continuity</strong> — your name, reputation, and identity stay intact</li>
+      <li><strong>Team stability</strong> — your instructors and staff are valued and retained</li>
+      <li><strong>Operational improvement</strong> — access to group systems, marketing, and support</li>
+      <li><strong>Fair and transparent process</strong> — no pressure, no hidden terms</li>
+      <li><strong>Industry expertise</strong> — we understand driving schools because we run them</li>
+    </ul>
+  </div>
+</section>
+
+{# What We Look For #}
+<section class="section section--alt" id="what-we-look-for">
+  <div class="container">
+    <h2>What We Look For</h2>
+    <p>Established driving schools in Australia with a track record of quality instruction, a solid local reputation, and a team committed to learner outcomes.</p>
+  </div>
+</section>
+
+{# The Process #}
+<section class="section section--light" id="the-process">
+  <div class="container">
+    <h2>The Process</h2>
+    {% set steps = [
+      { title: "Initial Conversation", description: "A confidential, no-obligation discussion about your business and your goals." },
+      { title: "Understanding Your Business", description: "We learn about your operations, team, clients, and what makes your school special." },
+      { title: "Proposal", description: "A clear, fair proposal with terms that respect what you've built." },
+      { title: "Transition", description: "A smooth handover with full support. Your brand and team remain central." },
+      { title: "Ongoing Partnership", description: "Continued operational support, investment, and growth as part of the TIC Group." }
+    ] %}
+    {% include "components/process-steps.njk" %}
+  </div>
+</section>
+
+{# Seller FAQ #}
+<section class="section section--alt" id="seller-faq">
+  <div class="container">
+    <h2>Frequently Asked Questions</h2>
+    {% set faqs = [
+      { question: "Is the process confidential?", answer: "Absolutely. We treat every conversation with complete discretion." },
+      { question: "Will my brand name change?", answer: "No. We acquire schools because of what they've built — including their brand." },
+      { question: "What happens to my staff?", answer: "Instructor and staff continuity is a priority. We retain and support existing teams." },
+      { question: "How long does the process take?", answer: "Typically 4–8 weeks from initial conversation to completion, depending on complexity." },
+      { question: "Do I need to stay involved?", answer: "That's up to you. Some owners stay on in an advisory capacity, others prefer a clean transition." }
+    ] %}
+    {% include "components/faq-accordion.njk" %}
+  </div>
+</section>
+
+{# Enquiry Form #}
+<section class="section section--light" id="acquisition-enquiry">
+  <div class="container">
+    <h2>Start a Confidential Conversation</h2>
+    <p>Complete the form below and a member of our team will be in touch. All enquiries are treated with complete confidentiality.</p>
+    <form data-enquiry-form>
+      <input type="hidden" name="type" value="acquisition">
+      {% set field_name = "name" %}{% set field_label = "Your Name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+      {% set field_name = "email" %}{% set field_label = "Email Address" %}{% set field_type = "email" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+      {% set field_name = "phone" %}{% set field_label = "Phone Number" %}{% set field_type = "tel" %}{% set field_required = false %}{% include "components/form-field.njk" %}
+      {% set field_name = "business_name" %}{% set field_label = "Business Name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+      {% set field_name = "region" %}{% set field_label = "Region" %}{% set field_type = "text" %}{% set field_required = false %}{% include "components/form-field.njk" %}
+      {% set field_name = "message" %}{% set field_label = "Tell us about your business" %}{% set field_type = "textarea" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+      {% include "partials/turnstile.njk" %}
+      <div class="form-message" aria-live="polite"></div>
+      <button type="submit" class="btn btn--primary">Send Confidential Enquiry</button>
+    </form>
+  </div>
+</section>

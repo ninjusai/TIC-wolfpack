@@ -1,9 +1,86 @@
 ---
-title: "TIC Group"
-description: "A driving industry group that acquires, operates, and supports driving school businesses."
-layout: "layouts/base.njk"
+title: "TIC Group — Acquire. Operate. Support."
+description: "TIC Group is a driving industry group that acquires, operates, and supports driving school businesses across Australia."
+layout: "layouts/page.njk"
 permalink: "/"
 ---
 
-<h1>{{ site.name }}</h1>
-<p>{{ site.description }}</p>
+{# Hero #}
+{% set hero_title = "We acquire, operate, and support driving school businesses." %}
+{% set hero_subtitle = "TIC Group is the group behind a growing portfolio of driving school brands and industry services across Australia." %}
+{% set hero_ctas = [
+  { text: "Sell Your Driving School", url: "/acquisitions/", style: "primary" },
+  { text: "Explore Our Group", url: "/our-group/", style: "secondary" },
+  { text: "Contact Us", url: "/contact/", style: "outline" }
+] %}
+{% include "components/hero.njk" %}
+
+{# Proof Strip #}
+{% set proof_stats = [
+  { number: "6+", label: "Brands" },
+  { number: "20+", label: "Years Industry Experience" },
+  { number: "QLD", label: "Queensland Wide" },
+  { number: "Dedicated", label: "Operations Support" }
+] %}
+{% include "components/proof-strip.njk" %}
+
+{# Value Creation — Acquire. Operate. Support. #}
+<section class="section section--light" id="value-creation">
+  <div class="container">
+    <h2>Acquire. Operate. Support.</h2>
+    <div class="pillar-grid">
+      {% set pillar_icon = "🏢" %}
+      {% set pillar_title = "Acquire" %}
+      {% set pillar_description = "We acquire driving school businesses with continuity and respect for owners, teams, and brand equity." %}
+      {% include "components/pillar-block.njk" %}
+
+      {% set pillar_icon = "⚙️" %}
+      {% set pillar_title = "Operate" %}
+      {% set pillar_description = "We operate schools better through shared systems, management, marketing, fleet, and operational standards." %}
+      {% include "components/pillar-block.njk" %}
+
+      {% set pillar_icon = "🤝" %}
+      {% set pillar_title = "Support" %}
+      {% set pillar_description = "We support the wider industry with specialist services built for driving schools." %}
+      {% include "components/pillar-block.njk" %}
+    </div>
+  </div>
+</section>
+
+{# Our Group Preview #}
+<section class="section section--light" id="our-group-preview">
+  <div class="container">
+    <h2>Our Group</h2>
+    <div class="brand-grid">
+      {% for brand in collections.brands | batch(3) | first %}
+        {% include "components/brand-card.njk" %}
+      {% endfor %}
+    </div>
+    <p class="section__link"><a href="/our-group/" class="btn btn--secondary">View All Brands</a></p>
+  </div>
+</section>
+
+{# Services Preview #}
+<section class="section section--alt" id="services-preview">
+  <div class="container">
+    <h2>Services for Driving Schools</h2>
+    <p>From operational systems to fleet support, TIC Group provides specialist services designed for driving school businesses. Full details coming soon.</p>
+    <a href="/contact/" class="btn btn--primary">Get in Touch</a>
+  </div>
+</section>
+
+{# Acquisition CTA #}
+{% set cta_heading = "Thinking of selling your driving school?" %}
+{% set cta_body = "Contact us for a confidential conversation." %}
+{% set cta_url = "/acquisitions/" %}
+{% set cta_text = "Sell Your Driving School" %}
+{% set cta_variant = "dark" %}
+{% include "components/cta-section.njk" %}
+
+{# Contact CTA #}
+{% set cta_heading = "Ready to talk?" %}
+{% set cta_body = "Get in touch with the TIC Group team today." %}
+{% set cta_url = "/contact/" %}
+{% set cta_text = "Contact Us" %}
+{% set cta_variant = "light" %}
+{% include "components/cta-section.njk" %}
