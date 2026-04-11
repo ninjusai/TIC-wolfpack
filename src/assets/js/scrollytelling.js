@@ -41,11 +41,12 @@
   const CH2_END = 1.0;
 
   // Text overlay progress ranges [enter, full-visible-start, full-visible-end, exit]
+  // Wider hold ranges = text persists longer; overlapping enter/exit = smoother transitions
   const TEXT_RANGES = [
-    { id: 'block-1', enter: 0.00, peak: 0.05, hold: 0.16, exit: 0.22 },
-    { id: 'block-2', enter: 0.20, peak: 0.25, hold: 0.38, exit: 0.45 },
-    { id: 'block-3', enter: 0.50, peak: 0.55, hold: 0.68, exit: 0.75 },
-    { id: 'block-4', enter: 0.73, peak: 0.78, hold: 0.88, exit: 0.95 },
+    { id: 'block-1', enter: 0.00, peak: 0.03, hold: 0.20, exit: 0.26 },
+    { id: 'block-2', enter: 0.22, peak: 0.26, hold: 0.44, exit: 0.50 },
+    { id: 'block-3', enter: 0.46, peak: 0.50, hold: 0.70, exit: 0.76 },
+    { id: 'block-4', enter: 0.72, peak: 0.76, hold: 0.93, exit: 0.98 },
   ];
 
   // ── DOM references ─────────────────────────────────────────────────────

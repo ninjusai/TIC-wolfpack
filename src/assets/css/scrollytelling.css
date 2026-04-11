@@ -48,14 +48,15 @@
   inset: 0;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  text-align: center;
   padding: clamp(2rem, 6vw, 8rem);
-  /* Subtle gradient for text legibility */
-  background: linear-gradient(
-    135deg,
-    rgba(0, 0, 0, 0.65) 0%,
-    rgba(0, 0, 0, 0.25) 50%,
-    rgba(0, 0, 0, 0.05) 100%
+  /* Centered vignette gradient for text legibility */
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.1) 100%
   );
   z-index: 2;
   pointer-events: none;
@@ -64,7 +65,7 @@
 /* ── Text blocks: copy that fades in/out ─────────────────────────────── */
 .scrollytelling__text-block {
   position: absolute;
-  max-width: 540px;
+  max-width: 600px;
   opacity: 0;
   transform: translateY(20px);
   will-change: opacity, transform;
@@ -174,19 +175,19 @@
 
   .scrollytelling__overlay {
     padding: 1.5rem;
-    align-items: flex-end;
-    /* Bottom-aligned text on mobile for less overlap with center action */
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.3) 40%,
-      rgba(0, 0, 0, 0.05) 100%
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.35) 50%,
+      rgba(0, 0, 0, 0.1) 100%
     );
   }
 
   .scrollytelling__text-block {
     max-width: 100%;
-    bottom: 6rem;
   }
 
   .scrollytelling__headline {
