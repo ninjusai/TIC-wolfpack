@@ -1,1 +1,10 @@
-/* TIC Group — main stylesheet */
+/* ==========================================================================
+   TIC Group — Main Stylesheet
+   ========================================================================== */
+
+@import 'reset.css';
+@import 'tokens.css';
+@import 'typography.css';
+@import 'layout.css';
+@import 'components.css';
+@import 'utilities.css';

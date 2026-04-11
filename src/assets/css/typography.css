@@ -1,0 +1,158 @@
+/* ==========================================================================
+   Typography — Base type styles, heading scale, prose
+   ========================================================================== */
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--color-text-on-light);
+  background-color: var(--color-bg-light);
+}
+
+/* Heading scale */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: inherit;
+}
+
+h1 {
+  font-size: var(--text-4xl);
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-lg);
+}
+
+h3 {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-md);
+}
+
+h4 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-sm);
+}
+
+h5, h6 {
+  font-size: var(--text-base);
+  margin-bottom: var(--space-sm);
+}
+
+/* Prose — running text in content areas */
+p {
+  margin-bottom: var(--space-md);
+  max-width: 72ch;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--color-brand-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-brand-primary-hover);
+}
+
+strong {
+  font-weight: 600;
+}
+
+small {
+  font-size: var(--text-sm);
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--color-bg-muted);
+  padding: 0.15em 0.35em;
+  border-radius: var(--radius-sm);
+}
+
+/* Lists in prose context */
+.brand-body ul,
+.brand-body ol,
+.utility-content ul,
+.utility-content ol {
+  margin-bottom: var(--space-md);
+  padding-left: var(--space-lg);
+}
+
+.brand-body ul {
+  list-style: disc;
+}
+
+.brand-body ol,
+.utility-content ol {
+  list-style: decimal;
+}
+
+.utility-content ul {
+  list-style: disc;
+}
+
+.brand-body li,
+.utility-content li {
+  margin-bottom: var(--space-xs);
+  line-height: 1.6;
+}
+
+/* Feature list (acquisitions page) */
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-list li {
+  position: relative;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-md);
+  line-height: 1.6;
+}
+
+.feature-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  background: var(--color-brand-primary);
+  border-radius: 50%;
+}
+
+/* Values list (about page) */
+.values-list {
+  list-style: none;
+  padding: 0;
+}
+
+.values-list li {
+  position: relative;
+  padding-left: var(--space-lg);
+  margin-bottom: var(--space-md);
+  line-height: 1.6;
+}
+
+.values-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 8px;
+  height: 8px;
+  background: var(--color-brand-primary);
+  border-radius: 50%;
+}

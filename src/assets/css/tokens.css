@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Design Tokens — CSS Custom Properties
+   ========================================================================== */
+
+:root {
+  /* Colours — dark/light layered sections */
+  --color-bg-dark: #0f1117;
+  --color-bg-light: #f8f8f6;
+  --color-bg-accent: #1a1f2e;
+  --color-bg-muted: #e8e8e4;
+  --color-text-on-dark: #e8e8e4;
+  --color-text-on-light: #1a1a1a;
+  --color-text-muted: #6b7280;
+  --color-brand-primary: #2563eb;
+  --color-brand-primary-hover: #1d4ed8;
+  --color-brand-secondary: #f59e0b;
+  --color-border: #d1d5db;
+  --color-border-dark: #374151;
+  --color-success: #059669;
+  --color-error: #dc2626;
+
+  /* Typography */
+  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  /* Type scale (fluid) */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
+  --text-base: clamp(1rem, 0.9rem + 0.4vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 1rem + 0.8vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.1rem + 1.2vw, 2rem);
+  --text-3xl: clamp(2rem, 1.4rem + 2vw, 3rem);
+  --text-4xl: clamp(2.5rem, 1.6rem + 3vw, 4rem);
+
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --space-3xl: 8rem;
+
+  /* Layout */
+  --container-max: 1200px;
+  --container-padding: clamp(1rem, 2vw, 2rem);
+  --grid-gap: var(--space-lg);
+
+  /* Border radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-slow: 0ms;
+  }
+}

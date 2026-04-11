@@ -1,0 +1,118 @@
+/* ==========================================================================
+   Layout — Container, grid, section utilities
+   ========================================================================== */
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
+
+/* Sections — alternating dark/light bands */
+.section {
+  padding-block: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: var(--space-2xl);
+  }
+}
+
+.section--light {
+  background-color: var(--color-bg-light);
+  color: var(--color-text-on-light);
+}
+
+.section--dark {
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-on-dark);
+}
+
+.section--dark a {
+  color: var(--color-text-on-dark);
+}
+
+.section--dark a:hover {
+  color: #fff;
+}
+
+.section--accent {
+  background-color: var(--color-bg-accent);
+  color: var(--color-text-on-dark);
+}
+
+.section--alt {
+  background-color: var(--color-bg-muted);
+  color: var(--color-text-on-light);
+}
+
+.section__link {
+  margin-top: var(--space-lg);
+}
+
+/* Pillar grid — 3 columns on desktop */
+.pillar-grid {
+  display: grid;
+  gap: var(--grid-gap);
+  margin-top: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+  .pillar-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Brand grid — responsive card grid */
+.brand-grid {
+  display: grid;
+  gap: var(--grid-gap);
+  margin-top: var(--space-lg);
+}
+
+@media (min-width: 600px) {
+  .brand-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .brand-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Contact details grid */
+.contact-details {
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+@media (min-width: 768px) {
+  .contact-details {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.contact-detail h3 {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.contact-detail p {
+  font-size: var(--text-lg);
+}
+
+.contact-detail a {
+  text-decoration: none;
+}
+
+.contact-detail a:hover {
+  text-decoration: underline;
+}
