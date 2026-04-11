@@ -1,1 +1,41 @@
-{# JSON-LD placeholder — will be built by Schema agent #}
+{# Organisation JSON-LD — home page only #}
+{% if page.url == "/" %}
+<script type="application/ld+json">
+{{ organisation | dump | safe }}
+</script>
+{% endif %}
+
+{# BreadcrumbList JSON-LD — all pages except home #}
+{% if page.url != "/" %}
+{% set segments = page.url | split("/") | reject("equalto", "") %}
+{% set segmentList = [] %}
+{% for seg in segments %}
+  {% set _ = segmentList.push(seg) %}
+{% endfor %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "{{ site.url }}/"
+    }
+    {% for segment in segmentList %},
+    {
+      "@type": "ListItem",
+      "position": {{ loop.index + 1 }},
+      {% if loop.last -%}
+      "name": "{{ title }}"
+      {%- else -%}
+      "name": "{{ segment | replace("-", " ") | title }}",
+      "item": "{{ site.url }}/{{ segmentList | slice(0, loop.index) | join("/") }}/"
+      {%- endif %}
+    }
+    {% endfor %}
+  ]
+}
+</script>
+{% endif %}

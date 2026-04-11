@@ -27,6 +27,16 @@ module.exports = function(eleventyConfig) {
     return d.toLocaleDateString("en-AU", options);
   });
 
+  eleventyConfig.addFilter("split", function(str, separator) {
+    if (!str) return [];
+    return str.split(separator);
+  });
+
+  eleventyConfig.addFilter("slice", function(arr, start, end) {
+    if (!arr) return [];
+    return arr.slice(start, end);
+  });
+
   eleventyConfig.addFilter("excerpt", function(content) {
     if (!content) return "";
     const text = content.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
