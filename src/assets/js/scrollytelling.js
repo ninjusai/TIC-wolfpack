@@ -68,8 +68,8 @@
 
   // ── Mobile check — simplified experience on small screens ──────────────
   let isMobile = window.innerWidth < 768;
-  // On narrow/portrait screens, use contain-fit so full frame is visible
-  let fitMode = isMobile ? 'contain' : 'cover';
+  // Always cover-fit — CSS handles the height constraint
+  let fitMode = 'cover';
 
   // ── Frame loading ──────────────────────────────────────────────────────
   const chapter1Frames = [];
@@ -162,10 +162,10 @@
    * Size the canvas to fill the viewport while maintaining aspect ratio
    */
   function sizeCanvas() {
-    if (!canvas) return;
+    if (!canvas || !stickyWrap) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    const w = stickyWrap.offsetWidth;
+    const h = stickyWrap.offsetHeight;
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     canvas.style.width = w + 'px';
@@ -178,8 +178,9 @@
    */
   function drawFrame(img, alpha) {
     if (!img || !ctx) return;
-    const cw = canvas.width / (Math.min(window.devicePixelRatio || 1, 2));
-    const ch = canvas.height / (Math.min(window.devicePixelRatio || 1, 2));
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const cw = canvas.width / dpr;
+    const ch = canvas.height / dpr;
 
     // Cover or contain fit depending on viewport
     const imgRatio = img.naturalWidth / img.naturalHeight;
@@ -391,7 +392,6 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', () => {
       isMobile = window.innerWidth < 768;
-      fitMode = isMobile ? 'contain' : 'cover';
       sizeCanvas();
       // Force redraw on resize
       lastFrameIndex1 = -1;

@@ -189,20 +189,24 @@
     height: 350vh;
   }
 
-  /* On mobile the canvas uses contain-fit, so the video is letterboxed.
-     Position text in the lower portion so it doesn't clash with the frame. */
-  .scrollytelling__overlay {
-    padding: 1.5rem;
-    align-items: flex-end;
-    justify-content: center;
-    text-align: center;
-    /* No gradient needed — text sits on the dark letterbox bars */
-    background: none;
+  /* Cap height to ~16:9 ratio so frames aren't over-cropped */
+  .scrollytelling__sticky {
+    height: 56.25vw;
+    min-height: 320px;
+    max-height: 75vh;
   }
 
-  .scrollytelling__text-block {
-    position: relative;
-    margin-bottom: 3rem;
+  .scrollytelling__overlay {
+    padding: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.35) 50%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
   }
 
   .scrollytelling__text-block {
