@@ -162,10 +162,10 @@
    * Size the canvas to fill the viewport while maintaining aspect ratio
    */
   function sizeCanvas() {
-    if (!canvas || !stickyWrap) return;
+    if (!canvas) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x
-    const w = stickyWrap.offsetWidth;
-    const h = stickyWrap.offsetHeight;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
     canvas.width = w * dpr;
     canvas.height = h * dpr;
     canvas.style.width = w + 'px';

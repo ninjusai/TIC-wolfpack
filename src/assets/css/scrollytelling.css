@@ -189,13 +189,6 @@
     height: 350vh;
   }
 
-  /* Cap height to ~16:9 ratio so frames aren't over-cropped */
-  .scrollytelling__sticky {
-    height: 56.25vw;
-    min-height: 320px;
-    max-height: 75vh;
-  }
-
   .scrollytelling__overlay {
     padding: 1.5rem;
     align-items: center;
