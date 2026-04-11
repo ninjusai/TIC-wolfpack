@@ -1,0 +1,252 @@
+/* =============================================================================
+   Scrollytelling — Scroll-scrubbed cinematic section
+   =============================================================================
+   Structure:
+   .scrollytelling                → tall outer container (sets scroll distance)
+     .scrollytelling__sticky      → viewport-pinned inner wrapper
+       .scrollytelling__canvas    → full-bleed canvas for frame rendering
+       .scrollytelling__overlay   → gradient + text container
+         .scrollytelling__text-block → individual copy block
+       .scrollytelling__progress  → thin progress bar at bottom
+     .scrollytelling__poster      → static fallback for no-JS / reduced-motion
+   ============================================================================= */
+
+/* ── Container: sets the scroll distance ─────────────────────────────── */
+.scrollytelling {
+  position: relative;
+  height: 420vh; /* Total scroll distance — adjust for pacing */
+  background: var(--color-bg-dark, #0f1117);
+}
+
+/* ── Sticky wrapper: stays pinned during scroll ──────────────────────── */
+.scrollytelling__sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Canvas: full-viewport frame rendering ───────────────────────────── */
+.scrollytelling__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.scrollytelling--ready .scrollytelling__canvas {
+  opacity: 1;
+}
+
+/* ── Overlay: gradient + text on top of video ────────────────────────── */
+.scrollytelling__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: clamp(2rem, 6vw, 8rem);
+  /* Subtle gradient for text legibility */
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.25) 50%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Text blocks: copy that fades in/out ─────────────────────────────── */
+.scrollytelling__text-block {
+  position: absolute;
+  max-width: 540px;
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
+  pointer-events: auto;
+}
+
+/* Eyebrow */
+.scrollytelling__eyebrow {
+  display: block;
+  font-size: var(--text-xs, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-brand-secondary, #f59e0b);
+  margin-bottom: 0.75rem;
+}
+
+/* Headline */
+.scrollytelling__headline {
+  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #fff;
+  margin: 0 0 1rem;
+  letter-spacing: -0.02em;
+}
+
+/* Body */
+.scrollytelling__body {
+  font-size: var(--text-base, 1rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  max-width: 460px;
+}
+
+/* ── Progress bar ────────────────────────────────────────────────────── */
+.scrollytelling__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--color-brand-primary, #2563eb);
+  transform-origin: left center;
+  transform: scaleX(0);
+  z-index: 3;
+  will-change: transform;
+}
+
+/* ── Static poster fallback ──────────────────────────────────────────── */
+.scrollytelling__poster {
+  display: none;
+}
+
+/* No-JS fallback: show poster, hide canvas */
+.no-js .scrollytelling__canvas,
+.scrollytelling--reduced-motion .scrollytelling__canvas {
+  display: none;
+}
+
+.no-js .scrollytelling__poster,
+.scrollytelling--reduced-motion .scrollytelling__poster {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Reduced motion: shorter scroll, show all text statically */
+.scrollytelling--reduced-motion {
+  height: auto;
+}
+
+.scrollytelling--reduced-motion .scrollytelling__sticky {
+  position: relative;
+  height: auto;
+}
+
+.scrollytelling--reduced-motion .scrollytelling__overlay {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl, 4rem);
+  padding: var(--space-3xl, 6rem) var(--space-xl, 2rem);
+  background: var(--color-bg-dark, #0f1117);
+}
+
+.scrollytelling--reduced-motion .scrollytelling__text-block {
+  position: relative;
+  opacity: 1;
+  transform: none;
+  max-width: 640px;
+}
+
+.scrollytelling--reduced-motion .scrollytelling__progress {
+  display: none;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .scrollytelling {
+    height: 350vh; /* Slightly shorter on mobile */
+  }
+
+  .scrollytelling__overlay {
+    padding: 1.5rem;
+    align-items: flex-end;
+    /* Bottom-aligned text on mobile for less overlap with center action */
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.3) 40%,
+      rgba(0, 0, 0, 0.05) 100%
+    );
+  }
+
+  .scrollytelling__text-block {
+    max-width: 100%;
+    bottom: 6rem;
+  }
+
+  .scrollytelling__headline {
+    font-size: clamp(1.4rem, 5vw, 2rem);
+  }
+
+  .scrollytelling__body {
+    font-size: var(--text-sm, 0.9rem);
+  }
+}
+
+/* ── Loading state ───────────────────────────────────────────────────── */
+.scrollytelling:not(.scrollytelling--ready) .scrollytelling__overlay {
+  opacity: 0;
+}
+
+.scrollytelling--ready .scrollytelling__overlay {
+  opacity: 1;
+  transition: opacity 0.4s ease 0.2s;
+}
+
+/* ── Scroll hint ─────────────────────────────────────────────────────── */
+.scrollytelling__scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: var(--text-xs, 0.75rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-align: center;
+  animation: scrollHintPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.scrollytelling__scroll-hint::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.4);
+  margin: 0.5rem auto 0;
+  animation: scrollHintLine 2s ease-in-out infinite;
+}
+
+@keyframes scrollHintPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes scrollHintLine {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Hide scroll hint after user starts scrolling */
+.scrollytelling--ready.scrollytelling--loaded .scrollytelling__scroll-hint {
+  transition: opacity 0.3s ease;
+}

@@ -5,15 +5,8 @@ layout: "layouts/page.njk"
 permalink: "/"
 ---
 
-{# Hero #}
-{% set hero_title = "We acquire, operate, and support driving school businesses." %}
-{% set hero_subtitle = "TIC Group is the group behind a growing portfolio of driving school brands and industry services across Australia." %}
-{% set hero_ctas = [
-  { text: "Sell Your Driving School", url: "/acquisitions/", style: "primary" },
-  { text: "Explore Our Group", url: "/our-group/", style: "secondary" },
-  { text: "Contact Us", url: "/contact/", style: "outline" }
-] %}
-{% include "components/hero.njk" %}
+{# Scrollytelling — cinematic scroll-scrubbed section #}
+{% include "components/scrollytelling.njk" %}
 
 {# Proof Strip #}
 {% set proof_stats = [

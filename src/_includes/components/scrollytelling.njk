@@ -1,0 +1,74 @@
+{# =============================================================================
+   Scrollytelling — Scroll-scrubbed cinematic section
+
+   A full-viewport pinned section that scrubs through two image sequences
+   (extracted from video) as the user scrolls. Overlay copy fades in/out
+   at defined progress ranges.
+
+   Usage: {% include "components/scrollytelling.njk" %}
+
+   Requires:
+   - /assets/js/scrollytelling.js
+   - /assets/css/scrollytelling.css
+   - Frame images in /assets/images/scroll-sequence/chapter-1/ and chapter-2/
+   ============================================================================= #}
+
+<section id="scrollytelling" class="scrollytelling" aria-label="Our story — from the road to behind the scenes">
+
+  <div class="scrollytelling__sticky">
+
+    {# Canvas for frame rendering — JS draws here #}
+    <canvas class="scrollytelling__canvas" aria-hidden="true"></canvas>
+
+    {# Static poster fallback for no-JS and reduced-motion #}
+    <img
+      src="/assets/images/scroll-sequence/chapter-1/frame-000.jpg"
+      alt="A driving lesson in progress on a suburban Australian road"
+      class="scrollytelling__poster"
+      width="1280"
+      height="712"
+      loading="eager"
+    >
+
+    {# Text overlay container #}
+    <div class="scrollytelling__overlay">
+
+      {# Block 1: Opening statement #}
+      <div class="scrollytelling__text-block" aria-hidden="false">
+        <span class="scrollytelling__eyebrow">Real operations</span>
+        <h2 class="scrollytelling__headline">Driving schools run on more than lessons</h2>
+        <p class="scrollytelling__body">Behind every lesson is a business powered by people, vehicles, systems, and support.</p>
+      </div>
+
+      {# Block 2: On the road #}
+      <div class="scrollytelling__text-block" aria-hidden="false">
+        <span class="scrollytelling__eyebrow">On the road</span>
+        <h2 class="scrollytelling__headline">Real instruction. Real trust.</h2>
+        <p class="scrollytelling__body">Great schools are built through consistent service, calm professionalism, and reliable day-to-day delivery.</p>
+      </div>
+
+      {# Block 3: Behind the scenes #}
+      <div class="scrollytelling__text-block" aria-hidden="false">
+        <span class="scrollytelling__eyebrow">Behind the scenes</span>
+        <h2 class="scrollytelling__headline">Systems keep schools moving</h2>
+        <p class="scrollytelling__body">Scheduling, support, coordination, and admin are what turn daily activity into a stronger operation.</p>
+      </div>
+
+      {# Block 4: The bigger picture #}
+      <div class="scrollytelling__text-block" aria-hidden="false">
+        <span class="scrollytelling__eyebrow">The bigger picture</span>
+        <h2 class="scrollytelling__headline">Built to support better driving school businesses</h2>
+        <p class="scrollytelling__body">The Instructor College is evolving into a group focused on operations, support, and long-term value across the industry.</p>
+      </div>
+
+    </div>
+
+    {# Scroll progress indicator #}
+    <div class="scrollytelling__progress" aria-hidden="true"></div>
+
+    {# Scroll hint — visible before user starts scrolling #}
+    <div class="scrollytelling__scroll-hint" aria-hidden="true">Scroll</div>
+
+  </div>
+
+</section>
