@@ -1,0 +1,17 @@
+{
+  "name": "tic-group-website",
+  "version": "1.0.0",
+  "description": "TIC Group — a driving industry group that acquires, operates, and supports driving school businesses",
+  "scripts": {
+    "dev": "eleventy --serve",
+    "build": "ELEVENTY_ENV=production eleventy",
+    "build:preview": "eleventy",
+    "clean": "rm -rf _site"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^5.0.0",
+    "@11ty/eleventy-navigation": "^0.3.5",
+    "@11ty/eleventy-plugin-rss": "^2.0.2"
+  }
+}

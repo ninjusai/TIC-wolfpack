@@ -1,0 +1,17 @@
+{
+  "name": "TIC Group",
+  "url": "https://ticgroup.com.au",
+  "description": "A driving industry group that acquires, operates, and supports driving school businesses.",
+  "tagline": "Acquire. Operate. Support.",
+  "email": "hello@theinstructorcollege.com.au",
+  "phone": "1300 68 72 92",
+  "address": {
+    "street": "Level 1, Unit 1/44 Proprietary Street",
+    "suburb": "Tingalpa",
+    "state": "QLD",
+    "postcode": "4173"
+  },
+  "social": {
+    "linkedin": ""
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "layout": "layouts/brand.njk",
+  "tags": "brands",
+  "permalink": "/our-group/{{ page.fileSlug }}/"
+}

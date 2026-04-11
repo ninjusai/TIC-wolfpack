@@ -1,0 +1,11 @@
+name = "tic-group-website"
+compatibility_date = "2024-09-23"
+
+[site]
+bucket = "./_site"
+
+# Pages-specific settings are configured via the Cloudflare dashboard
+# This file is primarily for local development with wrangler pages dev
+
+[vars]
+ELEVENTY_ENV = "development"

@@ -1,0 +1,1 @@
+// TIC Group — main JavaScript

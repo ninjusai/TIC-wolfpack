@@ -1,0 +1,15 @@
+{
+  "primary": [
+    { "label": "About", "url": "/about/" },
+    { "label": "Our Group", "url": "/our-group/" },
+    { "label": "Acquisitions", "url": "/acquisitions/" },
+    { "label": "Contact", "url": "/contact/" }
+  ],
+  "footer": [
+    { "label": "Privacy Policy", "url": "/privacy-policy/" },
+    { "label": "Terms", "url": "/terms/" },
+    { "label": "Cookie Policy", "url": "/cookie-policy/" },
+    { "label": "Accessibility", "url": "/accessibility/" },
+    { "label": "Sitemap", "url": "/sitemap/" }
+  ]
+}
