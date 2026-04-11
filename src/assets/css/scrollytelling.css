@@ -186,20 +186,23 @@
 /* ── Responsive ──────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .scrollytelling {
-    height: 350vh; /* Slightly shorter on mobile */
+    height: 350vh;
   }
 
+  /* On mobile the canvas uses contain-fit, so the video is letterboxed.
+     Position text in the lower portion so it doesn't clash with the frame. */
   .scrollytelling__overlay {
     padding: 1.5rem;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     text-align: center;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0.35) 50%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
+    /* No gradient needed — text sits on the dark letterbox bars */
+    background: none;
+  }
+
+  .scrollytelling__text-block {
+    position: relative;
+    margin-bottom: 3rem;
   }
 
   .scrollytelling__text-block {

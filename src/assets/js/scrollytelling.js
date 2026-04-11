@@ -67,7 +67,9 @@
   }
 
   // ── Mobile check — simplified experience on small screens ──────────────
-  const isMobile = window.innerWidth < 768;
+  let isMobile = window.innerWidth < 768;
+  // On narrow/portrait screens, use contain-fit so full frame is visible
+  let fitMode = isMobile ? 'contain' : 'cover';
 
   // ── Frame loading ──────────────────────────────────────────────────────
   const chapter1Frames = [];
@@ -179,21 +181,37 @@
     const cw = canvas.width / (Math.min(window.devicePixelRatio || 1, 2));
     const ch = canvas.height / (Math.min(window.devicePixelRatio || 1, 2));
 
-    // Cover-fit: scale image to fill canvas
+    // Cover or contain fit depending on viewport
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const canvasRatio = cw / ch;
     let drawW, drawH, drawX, drawY;
 
-    if (canvasRatio > imgRatio) {
-      drawW = cw;
-      drawH = cw / imgRatio;
-      drawX = 0;
-      drawY = (ch - drawH) / 2;
+    if (fitMode === 'contain') {
+      // Contain: show full frame, letterboxed
+      if (canvasRatio > imgRatio) {
+        drawH = ch;
+        drawW = ch * imgRatio;
+        drawX = (cw - drawW) / 2;
+        drawY = 0;
+      } else {
+        drawW = cw;
+        drawH = cw / imgRatio;
+        drawX = 0;
+        drawY = (ch - drawH) / 2;
+      }
     } else {
-      drawH = ch;
-      drawW = ch * imgRatio;
-      drawX = (cw - drawW) / 2;
-      drawY = 0;
+      // Cover: fill viewport, crop edges
+      if (canvasRatio > imgRatio) {
+        drawW = cw;
+        drawH = cw / imgRatio;
+        drawX = 0;
+        drawY = (ch - drawH) / 2;
+      } else {
+        drawH = ch;
+        drawW = ch * imgRatio;
+        drawX = (cw - drawW) / 2;
+        drawY = 0;
+      }
     }
 
     if (alpha !== undefined && alpha < 1) {
@@ -372,6 +390,8 @@
     // Event listeners
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', () => {
+      isMobile = window.innerWidth < 768;
+      fitMode = isMobile ? 'contain' : 'cover';
       sizeCanvas();
       // Force redraw on resize
       lastFrameIndex1 = -1;
