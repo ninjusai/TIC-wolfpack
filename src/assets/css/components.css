@@ -26,6 +26,14 @@
 .site-logo {
   text-decoration: none;
   color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.site-logo__img {
+  height: 100%;
+  width: auto;
+  display: block;
 }
 
 .site-logo__text {
