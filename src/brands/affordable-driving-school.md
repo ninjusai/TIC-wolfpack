@@ -5,7 +5,7 @@ region: "Queensland"
 service_areas: ["Brisbane", "Gold Coast"]
 brand_summary: "Affordable Driving School has been helping Queenslanders learn to drive for decades, combining friendly instructors with competitive pricing to make professional driving instruction accessible."
 website_url: "https://affordabledrivingschoolbrisbane.com.au"
-featured_image: "/assets/images/brands/affordable-driving-school.jpg"
+featured_image: "/assets/images/brands/affordable-driving-school.png"
 status: "published"
 order: 5
 type: "driving-school"

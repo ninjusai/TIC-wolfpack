@@ -5,7 +5,7 @@ region: "Queensland"
 service_areas: ["Brisbane"]
 brand_summary: "Driving Instructor Car Hire provides dual-control replacement vehicles for driving instructors and driving schools across Brisbane, supporting the driver training industry with reliable B2B vehicle rental."
 website_url: "https://drivinginstructorcarhire.com.au"
-featured_image: "/assets/images/brands/driving-instructor-car-hire.jpg"
+featured_image: "/assets/images/brands/driving-instructor-car-hire.png"
 status: "published"
 order: 6
 type: "industry-service"

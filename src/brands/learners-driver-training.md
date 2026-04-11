@@ -5,7 +5,7 @@ region: "Queensland"
 service_areas: ["Gold Coast"]
 brand_summary: "Learners Driver Training takes a fun and engaging approach to learning to drive, with accredited instructors who make the journey enjoyable and effective."
 website_url: "https://learnersdrivertraining.com.au"
-featured_image: "/assets/images/brands/learners-driver-training.jpg"
+featured_image: "/assets/images/brands/learners-driver-training.png"
 status: "published"
 order: 4
 type: "driving-school"

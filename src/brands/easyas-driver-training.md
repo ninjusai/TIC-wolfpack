@@ -5,7 +5,7 @@ region: "Queensland"
 service_areas: ["Brisbane", "Gold Coast"]
 brand_summary: "EasyAs Driver Training Australia delivers structured driving lessons with a strong emphasis on hazard identification and accident prevention."
 website_url: "https://easyasdta.com.au"
-featured_image: "/assets/images/brands/easyas-driver-training.jpg"
+featured_image: "/assets/images/brands/easyas-driver-training.png"
 status: "published"
 order: 2
 type: "driving-school"

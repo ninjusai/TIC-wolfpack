@@ -5,7 +5,7 @@ region: "Queensland"
 service_areas: ["Brisbane", "Gold Coast", "Sunshine Coast", "Cairns"]
 brand_summary: "Renowned for an exceptional standard of tuition, Metro Driving School offers students across Queensland the best possible chance of success on the road."
 website_url: "https://metrodriving.com.au"
-featured_image: "/assets/images/brands/metro-driving-school.jpg"
+featured_image: "/assets/images/brands/metro-driving-school.png"
 status: "published"
 order: 1
 type: "driving-school"
