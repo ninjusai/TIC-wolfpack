@@ -42,6 +42,16 @@
   opacity: 1;
 }
 
+/* Grey tint over video for contrast */
+.scrollytelling__sticky::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 17, 23, 0.35);
+  z-index: 1;
+  pointer-events: none;
+}
+
 /* ── Overlay: gradient + text on top of video ────────────────────────── */
 .scrollytelling__overlay {
   position: absolute;
@@ -65,41 +75,47 @@
 /* ── Text blocks: copy that fades in/out ─────────────────────────────── */
 .scrollytelling__text-block {
   position: absolute;
-  max-width: 600px;
+  max-width: 680px;
+  width: 100%;
   opacity: 0;
   transform: translateY(20px);
   will-change: opacity, transform;
   pointer-events: auto;
+  /* Ensure all children centre within the block */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 /* Eyebrow */
 .scrollytelling__eyebrow {
   display: block;
-  font-size: var(--text-xs, 0.8rem);
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
   font-weight: 600;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-brand-secondary, #f59e0b);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 /* Headline */
 .scrollytelling__headline {
-  font-size: clamp(1.75rem, 3.5vw, 3rem);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.1;
   color: #fff;
-  margin: 0 0 1rem;
-  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.025em;
 }
 
 /* Body */
 .scrollytelling__body {
-  font-size: var(--text-base, 1rem);
-  line-height: 1.65;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.88);
   margin: 0;
-  max-width: 460px;
+  max-width: 540px;
 }
 
 /* ── Progress bar ────────────────────────────────────────────────────── */
@@ -191,11 +207,11 @@
   }
 
   .scrollytelling__headline {
-    font-size: clamp(1.4rem, 5vw, 2rem);
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
   }
 
   .scrollytelling__body {
-    font-size: var(--text-sm, 0.9rem);
+    font-size: clamp(0.95rem, 3vw, 1.1rem);
   }
 }
 
