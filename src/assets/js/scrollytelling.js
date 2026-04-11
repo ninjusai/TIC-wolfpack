@@ -43,10 +43,10 @@
   // Text overlay progress ranges [enter, full-visible-start, full-visible-end, exit]
   // Wider hold ranges = text persists longer; overlapping enter/exit = smoother transitions
   const TEXT_RANGES = [
-    { id: 'block-1', enter: 0.00, peak: 0.03, hold: 0.20, exit: 0.26 },
-    { id: 'block-2', enter: 0.22, peak: 0.26, hold: 0.44, exit: 0.50 },
-    { id: 'block-3', enter: 0.46, peak: 0.50, hold: 0.70, exit: 0.76 },
-    { id: 'block-4', enter: 0.72, peak: 0.76, hold: 0.93, exit: 0.98 },
+    { id: 'block-1', enter: 0.00, peak: 0.03, hold: 0.26, exit: 0.32 },
+    { id: 'block-2', enter: 0.28, peak: 0.32, hold: 0.48, exit: 0.54 },
+    { id: 'block-3', enter: 0.50, peak: 0.54, hold: 0.72, exit: 0.78 },
+    { id: 'block-4', enter: 0.74, peak: 0.78, hold: 0.93, exit: 0.98 },
   ];
 
   // ── DOM references ─────────────────────────────────────────────────────
