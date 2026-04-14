@@ -1,0 +1,75 @@
+---
+title: "Data Flow - CSS Scraping to Content Export Pipeline"
+---
+graph LR
+    subgraph Scraping["1. CSS Scraping"]
+        Sites["Bookingtimes.com<br/>Live Sites"]
+        Fetch["Worker fetches<br/>page HTML"]
+        Extract["Extract stylesheet<br/>links + style tags"]
+        Filter["Filter out<br/>CDN URLs"]
+        Parse["Parse custom CSS<br/>(css-tree/postcss)"]
+    end
+
+    subgraph Catalogue["2. Catalogue Assembly"]
+        BS5["Bootstrap 5<br/>baseline classes"]
+        FA6["Font Awesome 6<br/>icon classes"]
+        Custom["Per-site custom<br/>override classes"]
+        Merge["Merge into per-site<br/>CSS catalogue"]
+        Store["Store in D1 +<br/>cache in KV"]
+    end
+
+    subgraph Generation["3. AI Content Generation"]
+        Template["Load template<br/>sections + rules"]
+        Prompt["Build structured<br/>prompt with context"]
+        Claude["Claude API<br/>streaming call"]
+        Validate["Validate HTML:<br/>classes, structure,<br/>no placeholders"]
+    end
+
+    subgraph Preview["4. Preview + Refine"]
+        Inject["Inject HTML into<br/>sandboxed iframe"]
+        CSS["Load BS5 + FA6 +<br/>site CSS in iframe"]
+        Review["User reviews<br/>rendered preview"]
+        Feedback["User provides<br/>feedback"]
+    end
+
+    subgraph Export["5. Export"]
+        Final["Final class<br/>validation"]
+        Version["Save as new<br/>page_version in D1"]
+        Clipboard["Copy validated HTML<br/>to clipboard"]
+        Paste["User pastes into<br/>WYSIWYG editor"]
+    end
+
+    Sites --> Fetch --> Extract --> Filter --> Parse
+    Parse --> Custom
+    BS5 --> Merge
+    FA6 --> Merge
+    Custom --> Merge
+    Merge --> Store
+
+    Store -->|"CSS catalogue<br/>context"| Prompt
+    Template --> Prompt
+    Prompt --> Claude
+    Claude --> Validate
+
+    Validate -->|"Valid HTML"| Inject
+    CSS --> Inject
+    Inject --> Review
+    Review --> Feedback
+    Feedback -->|"Refine request"| Prompt
+
+    Review -->|"Approved"| Final
+    Final --> Version
+    Version --> Clipboard
+    Clipboard --> Paste
+
+    classDef scrape fill:#4A90D9,stroke:#2E6295,color:#fff
+    classDef catalogue fill:#7B68EE,stroke:#5A4FCF,color:#fff
+    classDef generate fill:#E67E22,stroke:#C0651C,color:#fff
+    classDef preview fill:#27AE60,stroke:#1E8C4C,color:#fff
+    classDef export fill:#E74C3C,stroke:#C0392B,color:#fff
+
+    class Sites,Fetch,Extract,Filter,Parse scrape
+    class BS5,FA6,Custom,Merge,Store catalogue
+    class Template,Prompt,Claude,Validate generate
+    class Inject,CSS,Review,Feedback preview
+    class Final,Version,Clipboard,Paste export

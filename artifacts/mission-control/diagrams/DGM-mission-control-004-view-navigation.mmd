@@ -1,0 +1,52 @@
+%% id: DGM-mission-control-004
+%% type: navigation
+%% format: mermaid
+%% traces-to: [REQ-mission-control-007, REQ-mission-control-012, REQ-mission-control-013]
+%% author: sketch
+%% last-updated: 2026-03-30
+
+graph TB
+    %% ── Sidebar (always visible) ──
+    sidebar["<b>Sidebar Navigation</b><br/><i>Always visible</i><br/>Links to all 7 views"]
+
+    %% ── Views ──
+    dashboard["<b>Dashboard</b><br/><i>/dashboard</i><br/>Project cards, stats,<br/>recent activity feed"]
+    project["<b>Project View</b><br/><i>/project/:slug</i><br/>Full project detail,<br/>artifact chain, tasks"]
+    intake["<b>Intake View</b><br/><i>/intake</i><br/>6-field form,<br/>project scaffolding"]
+    pipeline["<b>Pipeline View</b><br/><i>/project/:slug/pipeline</i><br/>5-stage visualization,<br/>gate history"]
+    dbExplorer["<b>DB Explorer</b><br/><i>/db</i><br/>4-table browser,<br/>filter by project/agent"]
+    artifacts["<b>Artifact Viewer</b><br/><i>/project/:slug/artifacts</i><br/>File list, Markdown<br/>render, code blocks"]
+    agentRoster["<b>Agent Roster</b><br/><i>/agents</i><br/>Agent list, activity<br/>summary, status"]
+    settings["<b>Settings</b><br/><i>/settings</i><br/>DB path, project root,<br/>artifacts dir"]
+
+    %% ── Sidebar to All Views ──
+    sidebar -- "Dashboard" --> dashboard
+    sidebar -- "New Project" --> intake
+    sidebar -- "DB Explorer" --> dbExplorer
+    sidebar -- "Agents" --> agentRoster
+    sidebar -- "Settings" --> settings
+
+    %% ── Cross-View Navigation ──
+    dashboard -- "Click project card" --> project
+    dashboard -- "Click 'New Project'" --> intake
+    project -- "Click 'Pipeline'" --> pipeline
+    project -- "Click artifact file" --> artifacts
+    project -- "Click agent name" --> agentRoster
+    pipeline -- "Click stage artifact" --> artifacts
+    dbExplorer -- "Click project filter" --> project
+    dbExplorer -- "Click agent filter" --> agentRoster
+    intake -- "Submit success:<br/>navigate to new project" --> project
+
+    %% ── Back Navigation ──
+    project -. "Back to list" .-> dashboard
+    pipeline -. "Back to project" .-> project
+    artifacts -. "Back to project" .-> project
+
+    %% ── Styles ──
+    classDef nav fill:#f97316,stroke:#f97316,color:#0d1117,font-weight:bold
+    classDef primary fill:#161b22,stroke:#58a6ff,color:#e6edf3
+    classDef secondary fill:#161b22,stroke:#3fb950,color:#e6edf3
+
+    class sidebar nav
+    class dashboard,project,pipeline,artifacts primary
+    class intake,dbExplorer,agentRoster,settings secondary

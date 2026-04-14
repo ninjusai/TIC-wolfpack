@@ -1,0 +1,117 @@
+---
+title: "Entity Relationship Diagram - Bookingtimes Content Emulator"
+---
+erDiagram
+    sites {
+        int id PK
+        text name
+        text url
+        text theme "light or dark"
+        text last_scraped_at
+    }
+
+    css_catalogues {
+        int id PK
+        int site_id FK
+        text scraped_at
+        text bootstrap_version
+    }
+
+    catalogue_classes {
+        int id PK
+        int catalogue_id FK
+        text class_name
+        text css_properties "JSON"
+        text source "bootstrap|fontawesome|custom"
+        boolean verified
+    }
+
+    templates {
+        int id PK
+        text name
+        text description
+        text site_ids "JSON array"
+        text created_at
+        text updated_at
+    }
+
+    template_sections {
+        int id PK
+        int template_id FK
+        text section_id
+        int order
+        boolean required
+        text structure_html
+        text required_classes "JSON"
+        text content_rules "JSON"
+        text variants "JSON nullable"
+    }
+
+    pages {
+        int id PK
+        int site_id FK
+        int template_id FK
+        text suburb_name
+        text slug
+        int current_version
+        text status
+        text created_at
+    }
+
+    page_versions {
+        int id PK
+        int page_id FK
+        int version_number
+        text html_content
+        text source "manual|ai_generate|ai_refine|batch|rollback"
+        text change_summary
+        int parent_version
+        text created_at
+    }
+
+    ai_sessions {
+        int id PK
+        int page_id FK
+        text started_at
+        int turn_count
+    }
+
+    ai_turns {
+        int id PK
+        int session_id FK
+        text role "user|assistant"
+        text content
+        text created_at
+    }
+
+    batch_jobs {
+        int id PK
+        int template_id FK
+        int site_id FK
+        text suburb_data "JSON"
+        text status "pending|processing|complete|failed|needs_review"
+        text started_at
+        text completed_at
+        text error_message
+    }
+
+    suburb_data {
+        int id PK
+        text name
+        text postcode
+        text region
+        real distance_cbd_km
+        text landmarks "JSON"
+        text custom_notes
+    }
+
+    sites ||--o{ css_catalogues : "has"
+    css_catalogues ||--o{ catalogue_classes : "contains"
+    sites ||--o{ pages : "hosts"
+    templates ||--o{ template_sections : "defines"
+    templates ||--o{ pages : "structures"
+    pages ||--o{ page_versions : "tracks"
+    pages ||--o{ ai_sessions : "has"
+    ai_sessions ||--o{ ai_turns : "contains"
+    templates ||--o{ batch_jobs : "used by"
+    sites ||--o{ batch_jobs : "targets"

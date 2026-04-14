@@ -1,0 +1,38 @@
+%% PeakProtocol Container Diagram (C4 Level 2)
+%% Shows the high-level technical building blocks
+
+C4Container
+    title PeakProtocol Container Diagram
+
+    Person(optimizer, "The Optimizer", "Health-conscious individual")
+
+    System_Boundary(peakprotocol, "PeakProtocol System") {
+        Container(pwa, "SolidJS PWA", "SolidJS, UnoCSS, Vite", "Mobile-first Progressive Web App with offline support, dashboard, logging interfaces, and reports")
+
+        Container(sw, "Service Worker", "Workbox", "Handles offline caching, background sync, and Web Push notifications")
+
+        Container(api, "API Workers", "Cloudflare Workers, Hono", "Edge-deployed REST API handling auth, CRUD operations, scheduled tasks, and analysis")
+
+        ContainerDb(d1, "D1 Database", "Cloudflare D1 (SQLite)", "Stores supplements, logs, food entries, training sessions, daily metrics, cached foods")
+
+        ContainerDb(kv, "KV Store", "Cloudflare KV", "Session tokens, push subscriptions, user preferences")
+
+        ContainerDb(r2, "R2 Storage", "Cloudflare R2", "Data exports and database backups")
+    }
+
+    System_Ext(usda, "USDA FoodData Central", "Food nutritional data API")
+    System_Ext(webpush, "Web Push Service", "Push notification delivery")
+
+    Rel(optimizer, pwa, "Uses", "HTTPS")
+    Rel(pwa, sw, "Registers and communicates with", "Service Worker API")
+    Rel(pwa, api, "Makes API calls", "HTTPS/JSON")
+    Rel(sw, api, "Background sync requests", "HTTPS")
+    Rel(sw, webpush, "Receives push messages", "Push API")
+
+    Rel(api, d1, "Reads/writes data", "SQL")
+    Rel(api, kv, "Manages sessions", "KV API")
+    Rel(api, r2, "Stores exports", "R2 API")
+    Rel(api, usda, "Fetches food data", "HTTPS/REST")
+    Rel(api, webpush, "Sends notifications", "Web Push")
+
+    UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")

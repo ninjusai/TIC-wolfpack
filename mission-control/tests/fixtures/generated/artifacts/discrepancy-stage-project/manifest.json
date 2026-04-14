@@ -1,0 +1,26 @@
+{
+  "slug": "discrepancy-stage-project",
+  "title": "Discrepancy Test - DISC-001",
+  "mode": "standard",
+  "priority": 99,
+  "status": "active",
+  "current_stage": "eval-spec",
+  "created": "2026-03-31T12:54:05Z",
+  "project": {
+    "slug": "discrepancy-stage-project",
+    "title": "Discrepancy Test - DISC-001"
+  },
+  "pipeline": {
+    "current_stage": "eval-spec",
+    "stages": {
+      "problem": {
+        "status": "approved",
+        "assigned_to": "framer",
+        "gate": {
+          "status": "passed",
+          "attempts": 1
+        }
+      }
+    }
+  }
+}

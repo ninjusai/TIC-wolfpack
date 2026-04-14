@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wolf Pack - Mission Control</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.js"></script>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #f97316;
+    --accent-dim: #9a3412;
+    --green: #3fb950;
+    --red: #f85149;
+    --yellow: #d29922;
+    --blue: #58a6ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header h1 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--accent);
+  }
+  .header h1 span { color: var(--text-dim); font-weight: 400; }
+  .header-stats {
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .header-stats strong { color: var(--text); }
+
+  /* Drop zone */
+  .drop-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    border: 2px dashed var(--border);
+    border-radius: 12px;
+    margin: 40px;
+    padding: 60px;
+    text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .drop-zone.active {
+    border-color: var(--accent);
+    background: rgba(249, 115, 22, 0.05);
+  }
+  .drop-zone h2 { font-size: 24px; margin-bottom: 8px; }
+  .drop-zone p { color: var(--text-dim); margin-bottom: 24px; }
+  .drop-zone button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .drop-zone button:hover { background: #ea580c; }
+
+  /* Main layout */
+  .main { display: none; }
+  .main.visible { display: block; }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .tab {
+    padding: 12px 20px;
+    font-size: 14px;
+    color: var(--text-dim);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    user-select: none;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .tab .count {
+    background: var(--border);
+    color: var(--text-dim);
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 11px;
+    margin-left: 6px;
+  }
+
+  /* Filters */
+  .filters {
+    padding: 16px 24px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .filters input, .filters select {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+  }
+  .filters input:focus, .filters select:focus {
+    border-color: var(--accent);
+  }
+  .filters input[type="text"] { width: 240px; }
+  .filters input[type="date"] { width: 150px; }
+  .filters label {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  /* Table */
+  .table-wrap {
+    padding: 0 24px 24px;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin-top: 16px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+  }
+  th:hover { color: var(--text); }
+  th.sorted { color: var(--accent); }
+  th .arrow { margin-left: 4px; font-size: 10px; }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  tr:hover td { background: rgba(249, 115, 22, 0.04); }
+
+  /* Status badges */
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .badge-complete { background: rgba(63, 185, 80, 0.15); color: var(--green); }
+  .badge-in_progress, .badge-in-progress { background: rgba(210, 153, 34, 0.15); color: var(--yellow); }
+  .badge-blocked { background: rgba(248, 81, 73, 0.15); color: var(--red); }
+  .badge-pending { background: rgba(139, 148, 158, 0.15); color: var(--text-dim); }
+  .badge-active { background: rgba(63, 185, 80, 0.15); color: var(--green); }
+  .badge-inactive { background: rgba(139, 148, 158, 0.15); color: var(--text-dim); }
+  .badge-request { background: rgba(88, 166, 255, 0.15); color: var(--blue); }
+  .badge-delegation { background: rgba(249, 115, 22, 0.15); color: var(--accent); }
+  .badge-report { background: rgba(63, 185, 80, 0.15); color: var(--green); }
+  .badge-decision { background: rgba(210, 153, 34, 0.15); color: var(--yellow); }
+
+  /* Detail modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.visible { display: flex; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 24px;
+  }
+  .modal h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--accent);
+  }
+  .modal .field {
+    margin-bottom: 12px;
+  }
+  .modal .field-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+    letter-spacing: 0.5px;
+  }
+  .modal .field-value {
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .modal .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  /* Empty state */
+  .empty {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-dim);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Wolf Pack <span>Mission Control</span></h1>
+  <div class="header-stats" id="headerStats"></div>
+  <div style="display:flex;gap:8px;">
+    <button onclick="reloadDbFromPicker()" style="background:var(--accent);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600;">Reload DB</button>
+    <button onclick="refreshData()" style="background:var(--border);color:var(--text);border:none;padding:6px 14px;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600;">Refresh Data</button>
+  </div>
+</div>
+
+<!-- Drop zone (initial state) -->
+<div class="drop-zone" id="dropZone">
+  <h2>Load Wolf Pack Database</h2>
+  <p>Drag and drop <code>wolfpack.db</code> here, or click to browse</p>
+  <button onclick="document.getElementById('fileInput').click()">Choose File</button>
+  <input type="file" id="fileInput" accept=".db,.sqlite,.sqlite3" style="display:none">
+</div>
+
+<!-- Main content (after db loaded) -->
+<div class="main" id="mainContent">
+  <div class="tabs" id="tabBar">
+    <div class="tab active" data-tab="reports">Reports <span class="count" id="countReports">0</span></div>
+    <div class="tab" data-tab="tasks">Tasks <span class="count" id="countTasks">0</span></div>
+    <div class="tab" data-tab="session">Session Log <span class="count" id="countSession">0</span></div>
+    <div class="tab" data-tab="agents">Agents <span class="count" id="countAgents">0</span></div>
+  </div>
+
+  <div class="filters" id="filters"></div>
+  <div class="table-wrap">
+    <table>
+      <thead id="tableHead"></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <div class="empty" id="emptyState" style="display:none">No records found matching your filters.</div>
+  </div>
+</div>
+
+<!-- Detail modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+let db = null;
+let currentTab = 'reports';
+let sortCol = null;
+let sortDir = 'desc';
+
+// --- Hardcoded DB path (fetch via HTTP when served) ---
+const DB_URL = 'wolfpack.db';
+
+async function loadFromUrl() {
+  try {
+    const resp = await fetch(DB_URL, { cache: 'no-store' });
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const buf = await resp.arrayBuffer();
+    const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
+    db = new SQL.Database(new Uint8Array(buf));
+    dropZone.style.display = 'none';
+    document.getElementById('mainContent').classList.add('visible');
+    updateCounts();
+    renderTab();
+    console.log('Loaded wolfpack.db from server');
+    return true;
+  } catch(e) {
+    console.warn('Could not fetch wolfpack.db from server:', e.message);
+    return false;
+  }
+}
+
+async function autoLoad() {
+  const loaded = await loadFromUrl();
+  if (!loaded) {
+    // Fallback: show drop zone for manual file pick
+    dropZone.style.display = '';
+  }
+}
+
+function reloadDbFromPicker() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.db,.sqlite,.sqlite3';
+  input.onchange = e => { if (e.target.files.length) loadFile(e.target.files[0]); };
+  input.click();
+}
+
+async function refreshData() {
+  await loadFromUrl();
+}
+
+// Tab configs
+const tabConfig = {
+  reports: {
+    query: 'SELECT id, date, agent, subject, status, summary, decisions, deliverables, issues, next_steps, task_id, created_at FROM reports',
+    columns: ['date', 'agent', 'subject', 'status', 'summary'],
+    allColumns: ['date', 'agent', 'subject', 'task_id', 'status', 'summary', 'decisions', 'deliverables', 'issues', 'next_steps', 'created_at'],
+    filters: ['search', 'agent', 'status', 'dateFrom', 'dateTo'],
+    statusOptions: ['complete', 'in_progress', 'blocked'],
+    defaultSort: 'created_at',
+  },
+  tasks: {
+    query: 'SELECT id, task_id, date, title, status, assigned_to, objective, context, created_at, updated_at FROM tasks',
+    columns: ['task_id', 'date', 'title', 'status', 'assigned_to'],
+    allColumns: ['task_id', 'date', 'title', 'status', 'assigned_to', 'objective', 'context', 'created_at', 'updated_at'],
+    filters: ['search', 'agent', 'status', 'dateFrom', 'dateTo'],
+    statusOptions: ['pending', 'in_progress', 'complete', 'blocked'],
+    agentField: 'assigned_to',
+    defaultSort: 'created_at',
+  },
+  session: {
+    query: 'SELECT id, date, session_id, timestamp, event_type, agent, content, created_at FROM session_logs',
+    columns: ['timestamp', 'event_type', 'agent', 'content'],
+    allColumns: ['date', 'session_id', 'timestamp', 'event_type', 'agent', 'content', 'created_at'],
+    filters: ['search', 'agent', 'eventType', 'dateFrom', 'dateTo'],
+    defaultSort: 'created_at',
+  },
+  agents: {
+    query: 'SELECT id, name, role, status, file, reports_to, description, created_at, deactivated_at FROM agents',
+    columns: ['name', 'role', 'status', 'reports_to', 'description'],
+    allColumns: ['name', 'role', 'status', 'file', 'reports_to', 'description', 'created_at', 'deactivated_at'],
+    filters: ['search', 'status'],
+    statusOptions: ['active', 'inactive'],
+    defaultSort: 'created_at',
+  },
+};
+
+// File loading
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('active'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('active'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('active');
+  if (e.dataTransfer.files.length) loadFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', e => { if (e.target.files.length) loadFile(e.target.files[0]); });
+
+async function loadFile(file) {
+  const SQL = await initSqlJs({ locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${f}` });
+  const buf = await file.arrayBuffer();
+  db = new SQL.Database(new Uint8Array(buf));
+  dropZone.style.display = 'none';
+  document.getElementById('mainContent').classList.add('visible');
+  updateCounts();
+  renderTab();
+}
+
+// Tabs
+document.getElementById('tabBar').addEventListener('click', e => {
+  const tab = e.target.closest('.tab');
+  if (!tab) return;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  currentTab = tab.dataset.tab;
+  sortCol = null;
+  sortDir = 'desc';
+  renderTab();
+});
+
+// Modal
+document.getElementById('modalOverlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('visible');
+}
+
+function showDetail(row, columns) {
+  const modal = document.getElementById('modalContent');
+  let html = `<h3>${columns.includes('subject') ? row.subject || row.title : row.name || row.task_id || 'Detail'}</h3>`;
+  for (const col of columns) {
+    const val = row[col];
+    if (val === null || val === undefined || val === '') continue;
+    html += `<div class="field"><div class="field-label">${col.replace(/_/g, ' ')}</div><div class="field-value">${escapeHtml(String(val))}</div></div>`;
+  }
+  modal.innerHTML = html;
+  document.getElementById('modalOverlay').classList.add('visible');
+}
+
+function updateCounts() {
+  try {
+    document.getElementById('countReports').textContent = queryScalar('SELECT COUNT(*) FROM reports');
+    document.getElementById('countTasks').textContent = queryScalar('SELECT COUNT(*) FROM tasks');
+    document.getElementById('countSession').textContent = queryScalar('SELECT COUNT(*) FROM session_logs');
+    document.getElementById('countAgents').textContent = queryScalar('SELECT COUNT(*) FROM agents');
+  } catch(e) {}
+
+  // Header stats
+  const stats = document.getElementById('headerStats');
+  try {
+    const activeAgents = queryScalar("SELECT COUNT(*) FROM agents WHERE status='active'");
+    const openTasks = queryScalar("SELECT COUNT(*) FROM tasks WHERE status IN ('pending','in_progress')");
+    const totalReports = queryScalar("SELECT COUNT(*) FROM reports");
+    stats.innerHTML = `<span>Agents: <strong>${activeAgents}</strong></span><span>Open Tasks: <strong>${openTasks}</strong></span><span>Reports: <strong>${totalReports}</strong></span>`;
+  } catch(e) {}
+}
+
+function queryScalar(sql) {
+  const res = db.exec(sql);
+  return res.length ? res[0].values[0][0] : 0;
+}
+
+function renderTab() {
+  const config = tabConfig[currentTab];
+  renderFilters(config);
+  applyFilters();
+}
+
+function renderFilters(config) {
+  const container = document.getElementById('filters');
+  let html = '';
+
+  if (config.filters.includes('search')) {
+    html += `<div class="filter-group"><label>Search</label><input type="text" id="filterSearch" placeholder="Search..." oninput="applyFilters()"></div>`;
+  }
+  if (config.filters.includes('agent')) {
+    const field = config.agentField || 'agent';
+    const agents = getDistinct(config.query, field);
+    html += `<div class="filter-group"><label>Agent</label><select id="filterAgent" onchange="applyFilters()"><option value="">All</option>${agents.map(a => `<option value="${a}">${a}</option>`).join('')}</select></div>`;
+  }
+  if (config.filters.includes('status')) {
+    const opts = config.statusOptions || [];
+    html += `<div class="filter-group"><label>Status</label><select id="filterStatus" onchange="applyFilters()"><option value="">All</option>${opts.map(s => `<option value="${s}">${s}</option>`).join('')}</select></div>`;
+  }
+  if (config.filters.includes('eventType')) {
+    const types = getDistinct(config.query, 'event_type');
+    html += `<div class="filter-group"><label>Event Type</label><select id="filterEventType" onchange="applyFilters()"><option value="">All</option>${types.map(t => `<option value="${t}">${t}</option>`).join('')}</select></div>`;
+  }
+  if (config.filters.includes('dateFrom')) {
+    html += `<div class="filter-group"><label>From</label><input type="date" id="filterDateFrom" onchange="applyFilters()"></div>`;
+    html += `<div class="filter-group"><label>To</label><input type="date" id="filterDateTo" onchange="applyFilters()"></div>`;
+  }
+
+  container.innerHTML = html;
+}
+
+function getDistinct(baseQuery, field) {
+  try {
+    const res = db.exec(`SELECT DISTINCT ${field} FROM (${baseQuery}) WHERE ${field} IS NOT NULL AND ${field} != '' ORDER BY ${field}`);
+    return res.length ? res[0].values.map(r => r[0]) : [];
+  } catch(e) { return []; }
+}
+
+function applyFilters() {
+  const config = tabConfig[currentTab];
+  let query = config.query;
+  const conditions = [];
+  const params = [];
+
+  const search = document.getElementById('filterSearch')?.value?.toLowerCase();
+  const agent = document.getElementById('filterAgent')?.value;
+  const status = document.getElementById('filterStatus')?.value;
+  const eventType = document.getElementById('filterEventType')?.value;
+  const dateFrom = document.getElementById('filterDateFrom')?.value;
+  const dateTo = document.getElementById('filterDateTo')?.value;
+
+  if (agent) {
+    const field = config.agentField || 'agent';
+    conditions.push(`${field} = '${escapeSql(agent)}'`);
+  }
+  if (status) conditions.push(`status = '${escapeSql(status)}'`);
+  if (eventType) conditions.push(`event_type = '${escapeSql(eventType)}'`);
+  if (dateFrom) conditions.push(`date >= '${escapeSql(dateFrom)}'`);
+  if (dateTo) conditions.push(`date <= '${escapeSql(dateTo)}'`);
+
+  if (conditions.length) query += ' WHERE ' + conditions.join(' AND ');
+
+  const sort = sortCol || config.defaultSort;
+  query += ` ORDER BY ${sort} ${sortDir}`;
+  query += ' LIMIT 500';
+
+  try {
+    const res = db.exec(query);
+    let rows = [];
+    if (res.length) {
+      const cols = res[0].columns;
+      rows = res[0].values.map(v => {
+        const obj = {};
+        cols.forEach((c, i) => obj[c] = v[i]);
+        return obj;
+      });
+    }
+
+    // Client-side text search
+    if (search) {
+      rows = rows.filter(r => Object.values(r).some(v => v && String(v).toLowerCase().includes(search)));
+    }
+
+    renderTable(config.columns, config.allColumns, rows);
+  } catch(e) {
+    console.error(e);
+    document.getElementById('tableBody').innerHTML = '';
+    document.getElementById('emptyState').style.display = 'block';
+  }
+}
+
+function renderTable(visibleCols, allCols, rows) {
+  const thead = document.getElementById('tableHead');
+  const tbody = document.getElementById('tableBody');
+  const empty = document.getElementById('emptyState');
+
+  // Header
+  let headHtml = '<tr>';
+  for (const col of visibleCols) {
+    const isSorted = sortCol === col;
+    const arrow = isSorted ? (sortDir === 'asc' ? '&#9650;' : '&#9660;') : '';
+    headHtml += `<th class="${isSorted ? 'sorted' : ''}" onclick="toggleSort('${col}')">${col.replace(/_/g, ' ')}<span class="arrow">${arrow}</span></th>`;
+  }
+  headHtml += '</tr>';
+  thead.innerHTML = headHtml;
+
+  // Body
+  if (!rows.length) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  let bodyHtml = '';
+  for (const row of rows) {
+    bodyHtml += `<tr style="cursor:pointer" onclick='showRowDetail(${JSON.stringify(row).replace(/'/g, "&#39;")}, ${JSON.stringify(allCols).replace(/'/g, "&#39;")})'>`;
+    for (const col of visibleCols) {
+      const val = row[col];
+      if (col === 'status' || col === 'event_type') {
+        bodyHtml += `<td><span class="badge badge-${(val || '').replace(/ /g, '-')}">${val || ''}</span></td>`;
+      } else {
+        bodyHtml += `<td title="${escapeHtml(String(val || ''))}">${escapeHtml(String(val || ''))}</td>`;
+      }
+    }
+    bodyHtml += '</tr>';
+  }
+  tbody.innerHTML = bodyHtml;
+}
+
+function showRowDetail(row, columns) {
+  showDetail(row, columns);
+}
+
+function toggleSort(col) {
+  if (sortCol === col) {
+    sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+  } else {
+    sortCol = col;
+    sortDir = 'desc';
+  }
+  applyFilters();
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function escapeSql(str) {
+  return str.replace(/'/g, "''");
+}
+
+// Auto-load db on page load (fetch from server, fallback to drop zone)
+autoLoad();
+</script>
+</body>
+</html>

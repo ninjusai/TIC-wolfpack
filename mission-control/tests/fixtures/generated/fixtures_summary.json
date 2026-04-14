@@ -1,0 +1,211 @@
+{
+  "output_dir": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated",
+  "database_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\wolfpack.db",
+  "datasets": {
+    "DS-mission-control-001": {
+      "name": "Project State Fixtures",
+      "count": 5,
+      "projects": [
+        {
+          "fixture_id": "FIX-001",
+          "slug": "alpha-project",
+          "path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\alpha-project",
+          "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\alpha-project\\manifest.json",
+          "artifacts": [
+            "problem.md",
+            "eval-spec.md",
+            "prd.md",
+            "build-plan.md",
+            "diagrams/architecture.mmd"
+          ],
+          "tags": [
+            "all-stages-complete"
+          ]
+        },
+        {
+          "fixture_id": "FIX-002",
+          "slug": "beta-project",
+          "path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\beta-project",
+          "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\beta-project\\manifest.json",
+          "artifacts": [
+            "problem.md",
+            "eval-spec.md"
+          ],
+          "tags": [
+            "mid-pipeline"
+          ]
+        },
+        {
+          "fixture_id": "FIX-003",
+          "slug": "gamma-project",
+          "path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\gamma-project",
+          "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\gamma-project\\manifest.json",
+          "artifacts": [
+            "problem.md"
+          ],
+          "tags": [
+            "gate-retry"
+          ]
+        },
+        {
+          "fixture_id": "FIX-004",
+          "slug": "delta-project",
+          "path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\delta-project",
+          "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\delta-project\\manifest.json",
+          "artifacts": [
+            "problem.md",
+            "eval-spec.md",
+            "prd.md"
+          ],
+          "tags": [
+            "mid-pipeline"
+          ]
+        },
+        {
+          "fixture_id": "FIX-005",
+          "slug": "epsilon-project",
+          "path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\epsilon-project",
+          "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\epsilon-project\\manifest.json",
+          "artifacts": [
+            "problem.md"
+          ],
+          "tags": [
+            "fresh-project"
+          ]
+        }
+      ]
+    },
+    "DS-mission-control-002": {
+      "name": "Intake Form Inputs",
+      "count": 3,
+      "scenarios": [
+        {
+          "case_id": "INTAKE-001",
+          "tags": [
+            "complete-intake"
+          ],
+          "input": {
+            "problem": "Users cannot efficiently track their daily tasks across multiple devices, leading to missed deadlines and lost productivity.",
+            "users": [
+              "busy professionals",
+              "remote workers",
+              "students"
+            ],
+            "scope_in": [
+              "cross-device sync",
+              "deadline notifications",
+              "daily digest email"
+            ],
+            "scope_out": [
+              "team collaboration features",
+              "calendar integration",
+              "mobile app v1"
+            ],
+            "constraints": [
+              "Must work offline",
+              "GDPR compliant",
+              "Load under 2 seconds"
+            ],
+            "success_criteria": [
+              "Task sync latency < 500ms",
+              "Zero data loss on offline/online transition",
+              "User satisfaction >= 4.5/5"
+            ],
+            "prior_art": [
+              "Existing todo.txt system",
+              "Legacy PHP task manager"
+            ]
+          },
+          "expected_output_valid": true
+        },
+        {
+          "case_id": "INTAKE-002",
+          "tags": [
+            "minimal-intake"
+          ],
+          "input": {
+            "problem": "Need a simple CLI tool to convert markdown files to HTML.",
+            "users": [
+              "developers"
+            ],
+            "scope_in": [
+              "markdown to HTML conversion"
+            ],
+            "scope_out": [],
+            "constraints": [],
+            "success_criteria": [
+              "Output valid HTML5"
+            ],
+            "prior_art": []
+          },
+          "expected_output_valid": true
+        },
+        {
+          "case_id": "INTAKE-003",
+          "tags": [
+            "no-constraints"
+          ],
+          "input": {
+            "problem": "Customer support tickets take too long to resolve, averaging 48 hours response time.",
+            "users": [
+              "customer support agents",
+              "end customers",
+              "support managers"
+            ],
+            "scope_in": [
+              "ticket categorization",
+              "priority assignment",
+              "response templates",
+              "SLA tracking"
+            ],
+            "scope_out": [
+              "chatbot integration",
+              "phone support"
+            ],
+            "constraints": [],
+            "success_criteria": [
+              "Average response time < 4 hours",
+              "Customer satisfaction >= 4.0/5",
+              "Agent throughput increased by 30%"
+            ],
+            "prior_art": []
+          },
+          "expected_output_valid": true
+        }
+      ]
+    },
+    "DS-mission-control-003": {
+      "name": "Discrepancy Scenarios",
+      "count": 3,
+      "scenarios": [
+        {
+          "case_id": "DISC-001",
+          "project_slug": "discrepancy-stage-project",
+          "description": "manifest.json says stage 'eval-spec', last DB task entry says stage 'prd'",
+          "tags": [
+            "stage-mismatch"
+          ],
+          "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\discrepancy-stage-project\\manifest.json"
+        },
+        {
+          "case_id": "DISC-002",
+          "project_slug": "discrepancy-agent-project",
+          "description": "manifest.json lists agent 'framer', DB report lists agent 'quill' for same artifact",
+          "tags": [
+            "agent-mismatch"
+          ],
+          "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\discrepancy-agent-project\\manifest.json"
+        },
+        {
+          "case_id": "DISC-003",
+          "project_slug": "discrepancy-audit-project",
+          "description": "manifest.json gate status 'passed', DB has no corresponding gate-passed session log",
+          "tags": [
+            "missing-audit"
+          ],
+          "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\discrepancy-audit-project\\manifest.json"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,92 @@
+{
+  "project": {
+    "slug": "beta-project",
+    "title": "Beta Project - Mid Pipeline",
+    "created": "2026-03-01T12:54:05Z",
+    "mode": "standard",
+    "priority": 2,
+    "status": "active"
+  },
+  "pipeline": {
+    "current_stage": "eval-spec",
+    "stages": {
+      "problem": {
+        "status": "approved",
+        "artifact_id": "PRB-beta-project-001",
+        "file": "artifacts/beta-project/problem.md",
+        "assigned_to": "framer",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": "2026-03-31T12:54:05Z",
+        "gate": {
+          "id": "G1",
+          "status": "passed",
+          "passed_at": "2026-03-31T12:54:05Z",
+          "attempts": 1
+        }
+      },
+      "eval-spec": {
+        "status": "in-progress",
+        "artifact_id": "EVL-beta-project-001",
+        "file": "artifacts/beta-project/eval-spec.md",
+        "assigned_to": "eval",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": null,
+        "gate": {
+          "id": "G2",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      },
+      "prd": {
+        "status": "pending",
+        "artifact_id": null,
+        "file": null,
+        "assigned_to": "quill",
+        "started": null,
+        "completed": null,
+        "gate": {
+          "id": "G3",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      },
+      "diagrams": {
+        "status": "pending",
+        "artifact_id": null,
+        "file": null,
+        "assigned_to": "sketch",
+        "started": null,
+        "completed": null,
+        "gate": {
+          "id": "G4",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      },
+      "build-plan": {
+        "status": "pending",
+        "artifact_id": null,
+        "file": null,
+        "assigned_to": "planner",
+        "started": null,
+        "completed": null,
+        "gate": {
+          "id": "G5",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      }
+    }
+  },
+  "slug": "beta-project",
+  "title": "Beta Project - Mid Pipeline",
+  "mode": "standard",
+  "priority": 2,
+  "status": "active",
+  "current_stage": "eval-spec",
+  "created": "2026-03-01T12:54:05Z"
+}

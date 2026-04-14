@@ -1,0 +1,63 @@
+%% id: DGM-mission-control-006
+%% type: flow
+%% format: mermaid
+%% traces-to: [REQ-mission-control-004, REQ-mission-control-005]
+%% author: sketch
+%% last-updated: 2026-03-30
+
+graph LR
+    %% ── Entry ──
+    start(["Pack Owner clicks<br/>'New Project'"])
+
+    %% ── Form Steps ──
+    form["<b>Intake Form</b><br/>6 Fields:<br/>1. Problem *<br/>2. Users<br/>3. Scope In / Out<br/>4. Constraints<br/>5. Success Criteria<br/>6. Prior Art"]
+
+    %% ── Validation ──
+    validate{"<b>Validate</b><br/>Required fields<br/>present?<br/><i>(Problem is required)</i>"}
+    showError["<b>Show Validation<br/>Error</b><br/><i>Highlight empty<br/>required fields</i>"]
+
+    %% ── Slug Generation ──
+    genSlug["<b>Generate Slug</b><br/>Auto from problem text<br/><i>Editable by user</i>"]
+    checkSlug{"<b>Slug Unique?</b><br/><i>validate_slug()</i>"}
+    slugError["<b>Slug Conflict</b><br/><i>Prompt user to<br/>change slug</i>"]
+
+    %% ── Scaffolding ──
+    scaffold["<b>Scaffold Project</b><br/><i>scaffold_project()</i><br/>1. Create artifacts/{slug}/<br/>2. Create artifacts/{slug}/diagrams/"]
+
+    %% ── File Writes ──
+    writeIntake["<b>Write intake.json</b><br/><i>All 6 fields in<br/>valid JSON</i>"]
+    writeManifest["<b>Write manifest.json</b><br/><i>Stage: 1, Status: pending,<br/>Priority, Creation date</i>"]
+
+    %% ── Logging ──
+    logEvent["<b>Log Session Event</b><br/><i>log_session_event()</i><br/>Record scaffolding<br/>in wolfpack.db"]
+
+    %% ── Completion ──
+    navigate(["Navigate to<br/>Project View<br/><i>/project/:slug</i>"])
+
+    %% ── Flow ──
+    start --> form
+    form -- "Submit" --> validate
+    validate -- "Fail" --> showError
+    showError -- "User corrects" --> form
+    validate -- "Pass" --> genSlug
+    genSlug --> checkSlug
+    checkSlug -- "Not unique" --> slugError
+    slugError -- "User edits slug" --> checkSlug
+    checkSlug -- "Unique" --> scaffold
+    scaffold --> writeIntake
+    writeIntake --> writeManifest
+    writeManifest --> logEvent
+    logEvent --> navigate
+
+    %% ── Styles ──
+    classDef startEnd fill:#f97316,stroke:#f97316,color:#0d1117,font-weight:bold
+    classDef process fill:#161b22,stroke:#58a6ff,color:#e6edf3
+    classDef decision fill:#161b22,stroke:#d29922,color:#e6edf3
+    classDef error fill:#161b22,stroke:#f85149,color:#e6edf3
+    classDef write fill:#161b22,stroke:#3fb950,color:#e6edf3
+
+    class start,navigate startEnd
+    class form,genSlug,scaffold process
+    class validate,checkSlug decision
+    class showError,slugError error
+    class writeIntake,writeManifest,logEvent write

@@ -1,0 +1,92 @@
+{
+  "project": {
+    "slug": "alpha-project",
+    "title": "Alpha Project - Complete Pipeline",
+    "created": "2026-03-01T12:54:05Z",
+    "mode": "standard",
+    "priority": 1,
+    "status": "active"
+  },
+  "pipeline": {
+    "current_stage": "build-plan",
+    "stages": {
+      "problem": {
+        "status": "approved",
+        "artifact_id": "PRB-alpha-project-001",
+        "file": "artifacts/alpha-project/problem.md",
+        "assigned_to": "framer",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": "2026-03-31T12:54:05Z",
+        "gate": {
+          "id": "G1",
+          "status": "passed",
+          "passed_at": "2026-03-31T12:54:05Z",
+          "attempts": 1
+        }
+      },
+      "eval-spec": {
+        "status": "approved",
+        "artifact_id": "EVL-alpha-project-001",
+        "file": "artifacts/alpha-project/eval-spec.md",
+        "assigned_to": "eval",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": "2026-03-31T12:54:05Z",
+        "gate": {
+          "id": "G2",
+          "status": "passed",
+          "passed_at": "2026-03-31T12:54:05Z",
+          "attempts": 1
+        }
+      },
+      "prd": {
+        "status": "approved",
+        "artifact_id": "PRD-alpha-project-001",
+        "file": "artifacts/alpha-project/prd.md",
+        "assigned_to": "quill",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": "2026-03-31T12:54:05Z",
+        "gate": {
+          "id": "G3",
+          "status": "passed",
+          "passed_at": "2026-03-31T12:54:05Z",
+          "attempts": 1
+        }
+      },
+      "diagrams": {
+        "status": "approved",
+        "artifact_id": "DGM-alpha-project-001",
+        "file": "artifacts/alpha-project/diagrams/",
+        "assigned_to": "sketch",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": "2026-03-31T12:54:05Z",
+        "gate": {
+          "id": "G4",
+          "status": "passed",
+          "passed_at": "2026-03-31T12:54:05Z",
+          "attempts": 1
+        }
+      },
+      "build-plan": {
+        "status": "approved",
+        "artifact_id": "BLD-alpha-project-001",
+        "file": "artifacts/alpha-project/build-plan.md",
+        "assigned_to": "planner",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": "2026-03-31T12:54:05Z",
+        "gate": {
+          "id": "G5",
+          "status": "passed",
+          "passed_at": "2026-03-31T12:54:05Z",
+          "attempts": 1
+        }
+      }
+    }
+  },
+  "slug": "alpha-project",
+  "title": "Alpha Project - Complete Pipeline",
+  "mode": "standard",
+  "priority": 1,
+  "status": "active",
+  "current_stage": "build-plan",
+  "created": "2026-03-01T12:54:05Z"
+}

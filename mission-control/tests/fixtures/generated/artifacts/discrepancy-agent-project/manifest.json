@@ -1,0 +1,26 @@
+{
+  "slug": "discrepancy-agent-project",
+  "title": "Discrepancy Test - DISC-002",
+  "mode": "standard",
+  "priority": 99,
+  "status": "active",
+  "current_stage": "problem",
+  "created": "2026-03-31T12:54:05Z",
+  "project": {
+    "slug": "discrepancy-agent-project",
+    "title": "Discrepancy Test - DISC-002"
+  },
+  "pipeline": {
+    "current_stage": "problem",
+    "stages": {
+      "problem": {
+        "status": "approved",
+        "assigned_to": "framer",
+        "gate": {
+          "status": "passed",
+          "attempts": 1
+        }
+      }
+    }
+  }
+}

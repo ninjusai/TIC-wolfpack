@@ -1,0 +1,134 @@
+%% PeakProtocol Entity Relationship Diagram
+%% D1 Database Schema
+
+erDiagram
+    supplements {
+        text id PK "UUID"
+        text name "Supplement name"
+        text current_dose "Current dosage amount"
+        text unit "mg, mcg, IU, ml, etc."
+        text schedule_type "daily, every_n_days, weekly, specific_days"
+        text schedule_value "JSON: n value or day array"
+        text time_of_day "morning, evening, with_food, anytime"
+        text tags "JSON array of tag strings"
+        int active "1=active, 0=inactive"
+        text created_at "ISO timestamp"
+        text updated_at "ISO timestamp"
+    }
+
+    dose_history {
+        text id PK "UUID"
+        text supplement_id FK "References supplements"
+        text dose "Dose amount at this point"
+        text unit "Unit at this point"
+        text changed_at "When dose was changed"
+        text notes "Reason for change"
+    }
+
+    supplement_logs {
+        text id PK "UUID"
+        text supplement_id FK "References supplements"
+        text scheduled_date "Date supplement was due"
+        text scheduled_time "Time window"
+        text taken_at "When actually taken"
+        text actual_dose "Dose taken (may differ)"
+        int skipped "1=skipped, 0=taken"
+        text notes "Optional notes"
+    }
+
+    food_cache {
+        text fdc_id PK "USDA FoodData Central ID"
+        text name "Food name from USDA"
+        real serving_size "Standard serving size"
+        text serving_unit "g, ml, oz, etc."
+        real calories "kcal per serving"
+        real protein "grams per serving"
+        real carbs "grams per serving"
+        real fat "grams per serving"
+        real fiber "grams per serving"
+        text cached_at "When cached from API"
+    }
+
+    saved_foods {
+        text id PK "UUID"
+        text name "User-facing name"
+        text fdc_id FK "References food_cache or null"
+        real custom_serving_size "User preferred serving"
+        text custom_serving_unit "User preferred unit"
+        int is_custom "1=user created, 0=from USDA"
+        real calories "kcal per custom serving"
+        real protein "grams"
+        real carbs "grams"
+        real fat "grams"
+        real fiber "grams"
+        int usage_count "Times used for quick-add"
+    }
+
+    food_entries {
+        text id PK "UUID"
+        text date "YYYY-MM-DD"
+        text meal "breakfast, lunch, dinner, snack"
+        text food_name "Name as logged"
+        text fdc_id FK "References food_cache if applicable"
+        real serving_size "Amount consumed"
+        text serving_unit "Unit"
+        real calories "Calculated kcal"
+        real protein "Calculated grams"
+        real carbs "Calculated grams"
+        real fat "Calculated grams"
+        real fiber "Calculated grams"
+        text logged_at "ISO timestamp"
+    }
+
+    daily_metrics {
+        text date PK "YYYY-MM-DD"
+        real weight "Body weight"
+        text weight_unit "kg or lbs"
+        int water_ml "Water consumed in ml"
+        int water_target_ml "Daily target"
+        text notes "Daily notes"
+        text tags "JSON array"
+        text logged_at "ISO timestamp"
+    }
+
+    training_sessions {
+        text id PK "UUID"
+        text date "YYYY-MM-DD"
+        text type "weights, bjj, cardio, walk"
+        int duration_minutes "Session length"
+        text intensity "low, medium, high"
+        text details "JSON: exercises, distance, etc."
+        text notes "Freeform notes"
+        text logged_at "ISO timestamp"
+    }
+
+    journal_entries {
+        text id PK "UUID"
+        text date "YYYY-MM-DD"
+        text content "Freeform journal text"
+        text tags "JSON array for search"
+        text created_at "ISO timestamp"
+        text updated_at "ISO timestamp"
+    }
+
+    credentials {
+        text id PK "Credential ID from WebAuthn"
+        text public_key "Public key for verification"
+        text created_at "When passkey registered"
+        text last_used_at "Last authentication"
+    }
+
+    weekly_reports {
+        text id PK "UUID"
+        text week_start "YYYY-MM-DD (Monday)"
+        text week_end "YYYY-MM-DD (Sunday)"
+        text metrics_json "Computed stats JSON"
+        text correlations_json "Correlation results"
+        text generated_at "ISO timestamp"
+    }
+
+    supplements ||--o{ dose_history : "tracks dose changes"
+    supplements ||--o{ supplement_logs : "has intake logs"
+    food_cache ||--o{ saved_foods : "can be saved as"
+    food_cache ||--o{ food_entries : "referenced by"
+    saved_foods ||--o{ food_entries : "quick-added to"

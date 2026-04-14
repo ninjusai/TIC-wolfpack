@@ -1,0 +1,44 @@
+---
+title: "Container Diagram (C4 Level 2) - Bookingtimes Content Creation Emulator"
+---
+graph TB
+    User["<b>User</b><br/>Business Owner / Staff"]
+
+    subgraph CloudflarePages["Cloudflare Pages Deployment"]
+        SvelteKit["<b>SvelteKit Frontend</b><br/><i>SSR + Static Assets</i><br/>Editor UI, template manager,<br/>batch dashboard, settings"]
+
+        Workers["<b>Workers API Routes</b><br/><i>SvelteKit Server Routes</i><br/>/api/scrape, /api/generate,<br/>/api/export, /api/ai/*,<br/>/api/batch, /api/templates"]
+
+        Iframe["<b>Preview Iframe</b><br/><i>Sandboxed Browser Context</i><br/>Renders HTML with BS5 + FA6<br/>+ site custom CSS injected"]
+    end
+
+    subgraph CloudflareStorage["Cloudflare Storage Services"]
+        D1["<b>D1 Database</b><br/><i>SQLite</i><br/>sites, css_catalogues,<br/>templates, pages,<br/>page_versions, ai_sessions,<br/>batch_jobs, suburb_data"]
+
+        R2["<b>R2 Object Storage</b><br/><i>S3-compatible</i><br/>Cached CSS files,<br/>export backups,<br/>D1 data exports"]
+
+        KV["<b>KV Store</b><br/><i>Key-Value Cache</i><br/>CSS catalogue lookups,<br/>preview render cache"]
+    end
+
+    Claude["<b>Claude AI API</b><br/><i>External Service</i>"]
+    BT["<b>Bookingtimes.com</b><br/><i>Live Sites</i>"]
+
+    User -->|"Interacts with UI"| SvelteKit
+    SvelteKit -->|"API requests"| Workers
+    SvelteKit -->|"Renders preview"| Iframe
+    Workers -->|"CRUD operations,<br/>queries, migrations"| D1
+    Workers -->|"Store/fetch CSS,<br/>backups"| R2
+    Workers -->|"Fast lookups,<br/>cache reads"| KV
+    Workers -->|"Prompt + context,<br/>streaming responses"| Claude
+    Workers -->|"Scrape stylesheets,<br/>fetch page HTML"| BT
+    R2 -->|"Serve cached CSS"| Iframe
+
+    classDef person fill:#08427B,stroke:#052E56,color:#fff
+    classDef container fill:#438DD5,stroke:#2E6295,color:#fff
+    classDef storage fill:#1168BD,stroke:#0B4884,color:#fff
+    classDef external fill:#999999,stroke:#6B6B6B,color:#fff
+
+    class User person
+    class SvelteKit,Workers,Iframe container
+    class D1,R2,KV storage
+    class Claude,BT external

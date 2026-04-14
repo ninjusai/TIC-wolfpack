@@ -1,0 +1,13 @@
+{
+  "constraints": "I want to deploy this on a cloudflare workers pages.dev so I can use it on my mobile. Open to suggestion for a different stack but need access on phone as a priority. Im on android. Not against creating an android app for it",
+  "prior_art": "none",
+  "problem": "what to build a personal app for tracking training, peptide stack/dose/routine, food dairy.",
+  "scope_in": [
+    "I need a full suite from the start. I need planning to include anticipation of feature I have mentioned and others that might be implied by what I have identified but missed that might be of value."
+  ],
+  "scope_out": [],
+  "success_criteria": [
+    "I need to see at a glance that I have not missed taking any of my supplements and what outcomes have relative to my stack, eating and training. Id like a clear notification is something has been missed or forgotten"
+  ],
+  "users": "Its just for me. Im taking a stack of supplements. Some I take weekly, some I take every other day, every 2 days, every 3 days for example. I need that flexibility to set up scheduling. I need to track the doses as I may be titrating up or down. I need a checkbox for each day for me to track that it was taken and what dose. I want to track my weight daily, water intake and food intake. I want to be able to save set foods I eat for quick entry. I want the tool to convert food to calories and macros. I also want to track my training. Might be weight, jiu jitsu, walk etc... I then want reporting to look for patterns in terms of what macros were best for weight loss, weight gain etc... Also I think basic note/journal functionality"
+}

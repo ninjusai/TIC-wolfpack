@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#3b82f6" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icons/icon-placeholder.svg" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>PeakProtocol</title>
+  </head>
+  <body>
+    <noscript>JavaScript is required to run this application.</noscript>
+    <div id="root"><p style="padding:20px;font-size:18px;">Loading PeakProtocol...</p></div>
+    <script>
+      // Unregister stale service workers that may serve cached production builds
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          registrations.forEach(function(reg) {
+            reg.unregister().then(function() {
+              console.warn('[PeakProtocol] Unregistered stale service worker:', reg.scope);
+            });
+          });
+        });
+      }
+      // Catch any module-level errors that would otherwise be silent
+      window.addEventListener('error', function(e) {
+        console.error('[PeakProtocol] Global error:', e.message, e.filename, e.lineno);
+        var root = document.getElementById('root');
+        if (root && root.querySelector('p')) {
+          root.innerHTML = '<pre style="padding:20px;color:red;white-space:pre-wrap;">Module error: ' + e.message + '\n' + (e.filename || '') + ':' + (e.lineno || '') + '</pre>';
+        }
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        console.error('[PeakProtocol] Unhandled rejection:', e.reason);
+      });
+      // Detect if module script never executes (timeout)
+      window.__ppModuleLoaded = false;
+      setTimeout(function() {
+        if (!window.__ppModuleLoaded) {
+          console.error('[PeakProtocol] Module did not execute within 10s — likely a silent import failure');
+        }
+      }, 10000);
+    </script>
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>

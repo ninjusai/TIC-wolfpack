@@ -1,0 +1,28 @@
+# Wolf Pack Mission Control V1 - Eval Test Harness Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core test framework
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+pytest-timeout>=2.2.0
+
+# Data validation
+pydantic>=2.5.0
+
+# JSON schema validation
+jsonschema>=4.20.0
+
+# SQLite utilities (built-in but we note version requirements)
+# sqlite3 - included in Python standard library
+
+# Performance timing utilities (built-in)
+# time - included in Python standard library
+
+# File system utilities (built-in)
+# os, pathlib, shutil - included in Python standard library
+
+# Type hints
+typing-extensions>=4.9.0
+
+# Test coverage (optional, recommended)
+pytest-cov>=4.1.0

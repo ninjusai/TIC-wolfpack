@@ -1,0 +1,79 @@
+---
+title: "5-Stage Pipeline Flow - BCE V2.1"
+---
+graph LR
+    subgraph S1["Stage 1: Site Audit"]
+        S1_IN["Site URL"]
+        S1_PROC["Sitemap crawl<br/>SEO audit<br/>GEO audit<br/>Schema audit<br/>Pixel audit<br/>Voice extraction"]
+        S1_OUT["Unified Site Brief<br/>+ Brand Profile<br/>+ Page Inventory"]
+        S1_GATE{"User reviews<br/>& confirms<br/>brand profile"}
+        S1_SCRIBE["SCRIBE<br/>checkpoint"]
+
+        S1_IN -->|"per site"| S1_PROC
+        S1_PROC --> S1_OUT
+        S1_OUT --> S1_GATE
+        S1_GATE -->|"approved"| S1_SCRIBE
+    end
+
+    subgraph S2["Stage 2: Research"]
+        S2_IN["Domain:<br/>driving schools<br/>QLD Australia"]
+        S2_PROC["SEO benchmarks<br/>GEO benchmarks<br/>Schema standards<br/>Page taxonomy<br/>Silo strategy"]
+        S2_OUT["Benchmark Standards<br/>+ Page Taxonomy<br/>+ Silo Definitions"]
+        S2_GATE{"User reviews<br/>benchmark &<br/>taxonomy"}
+        S2_SCRIBE["SCRIBE<br/>checkpoint"]
+
+        S2_IN -->|"domain-wide<br/>(shared)"| S2_PROC
+        S2_PROC --> S2_OUT
+        S2_OUT --> S2_GATE
+        S2_GATE -->|"approved"| S2_SCRIBE
+    end
+
+    subgraph S3["Stage 3: Gap Analysis"]
+        S3_PROC["Audit vs Benchmark<br/>Multi-dim scoring<br/>Missing pages<br/>Link graph build<br/>Backlog priority"]
+        S3_OUT["Prioritized Backlog<br/>+ Link Graph<br/>+ Silo Map"]
+        S3_GATE{"User reviews<br/>& approves<br/>backlog"}
+        S3_SCRIBE["SCRIBE<br/>checkpoint"]
+
+        S3_PROC --> S3_OUT
+        S3_OUT --> S3_GATE
+        S3_GATE -->|"approved"| S3_SCRIBE
+    end
+
+    subgraph S4["Stage 4: Design"]
+        S4_PROC["Page blueprints<br/>Dynamic section count<br/>CSS tier decisions<br/>JSON-LD specs<br/>Link assignments"]
+        S4_OUT["Page Blueprints<br/>+ Section Specs<br/>+ CSS Decisions"]
+        S4_GATE{"User reviews<br/>blueprints"}
+        S4_SCRIBE["SCRIBE<br/>checkpoint"]
+
+        S4_PROC --> S4_OUT
+        S4_OUT --> S4_GATE
+        S4_GATE -->|"approved"| S4_SCRIBE
+    end
+
+    subgraph S5["Stage 5: Build"]
+        S5_PROC["Section generation<br/>12-layer context<br/>Per-section review<br/>Feedback capture<br/>Brand enrichment"]
+        S5_OUT["Generated Pages<br/>+ Enriched Profile<br/>+ Export Artifacts"]
+        S5_GATE{"User approves<br/>each section"}
+        S5_SCRIBE["SCRIBE<br/>checkpoint"]
+
+        S5_PROC --> S5_OUT
+        S5_OUT --> S5_GATE
+        S5_GATE -->|"approved"| S5_SCRIBE
+    end
+
+    S1_SCRIBE -->|"requires S1<br/>+ S2 complete"| S3_PROC
+    S2_SCRIBE -->|"requires S1<br/>+ S2 complete"| S3_PROC
+    S3_SCRIBE -->|"sequential<br/>per site"| S4_PROC
+    S4_SCRIBE -->|"sequential<br/>per site"| S5_PROC
+
+    NOTE["S1 and S2 run in PARALLEL<br/>S1 is per-site, S2 is global<br/>S3-S5 are sequential per site"]
+
+    classDef stage fill:#438DD5,stroke:#2E6295,color:#fff
+    classDef gate fill:#E67E22,stroke:#C0651C,color:#fff
+    classDef scribe fill:#27AE60,stroke:#1E8C4C,color:#fff
+    classDef note fill:#FFF3CD,stroke:#856404,color:#333
+
+    class S1_IN,S1_PROC,S1_OUT,S2_IN,S2_PROC,S2_OUT,S3_PROC,S3_OUT,S4_PROC,S4_OUT,S5_PROC,S5_OUT stage
+    class S1_GATE,S2_GATE,S3_GATE,S4_GATE,S5_GATE gate
+    class S1_SCRIBE,S2_SCRIBE,S3_SCRIBE,S4_SCRIBE,S5_SCRIBE scribe
+    class NOTE note

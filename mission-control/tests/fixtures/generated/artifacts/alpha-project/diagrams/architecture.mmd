@@ -1,0 +1,14 @@
+---
+id: "DGM-alpha-project-001"
+title: "Alpha Project - Complete Pipeline - Architecture"
+version: "1.0.0"
+author: "sketch"
+traces-to:
+  requirements: ["REQ-alpha-project-001"]
+---
+
+graph TD
+    A[User] --> B[Frontend]
+    B --> C[Backend]
+    C --> D[Database]
+    C --> E[External API]

@@ -1,0 +1,28 @@
+---
+title: "System Context (C4 Level 1) - Bookingtimes Content Creation Emulator"
+---
+graph TB
+    User["<b>Business Owner / Staff</b><br/>Creates, previews, and exports<br/>content for 5 driving school sites"]
+
+    System["<b>Content Creation Emulator</b><br/><i>SvelteKit on Cloudflare</i><br/>Discovers styles, generates AI content,<br/>previews rendering, exports HTML"]
+
+    BT["<b>Bookingtimes.com Sites</b><br/><i>5 Driving School Websites</i><br/>ASP.NET Web Forms SaaS platform<br/>with BS5 + FA6 styling"]
+
+    Claude["<b>Claude AI API</b><br/><i>Anthropic LLM</i><br/>Generates and refines<br/>HTML content via OAuth"]
+
+    WYSIWYG["<b>Bookingtimes WYSIWYG Editor</b><br/><i>Platform Content Editor</i><br/>Receives exported HTML<br/>via manual copy-paste"]
+
+    User -->|"Creates content,<br/>reviews previews,<br/>approves batches"| System
+    System -->|"Scrapes CSS classes<br/>and stylesheets"| BT
+    System -->|"Sends structured prompts,<br/>receives streamed HTML"| Claude
+    User -->|"Pastes exported HTML<br/>into editor"| WYSIWYG
+    WYSIWYG -->|"Publishes content to"| BT
+    System -->|"Copies validated HTML<br/>to clipboard"| User
+
+    classDef person fill:#08427B,stroke:#052E56,color:#fff
+    classDef system fill:#1168BD,stroke:#0B4884,color:#fff
+    classDef external fill:#999999,stroke:#6B6B6B,color:#fff
+
+    class User person
+    class System system
+    class BT,Claude,WYSIWYG external

@@ -1,0 +1,30 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# DEPRECATED: This project has been migrated from Cloudflare to local Node.js.
+#
+# This file is retained for reference only. The app now uses:
+#   - better-sqlite3 instead of D1
+#   - filesystem storage (data/storage/) instead of R2
+#   - lru-cache instead of KV
+#
+# See README.md for local development instructions.
+# ──────────────────────────────────────────────────────────────────────────────
+
+# name = "bookingtimes-emulator"
+# compatibility_date = "2025-04-01"
+# compatibility_flags = ["nodejs_compat"]
+# pages_build_output_dir = ".svelte-kit/cloudflare"
+#
+# [[d1_databases]]
+# binding = "BCE_DB"
+# database_name = "bookingtimes-emulator-db"
+# database_id = "local"
+# migrations_dir = "migrations"
+#
+# [[r2_buckets]]
+# binding = "BCE_STORAGE"
+# bucket_name = "bookingtimes-emulator-storage"
+#
+# [[kv_namespaces]]
+# binding = "BCE_CACHE"
+# title = "bookingtimes-emulator-cache"
+# id = "local"

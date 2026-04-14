@@ -1,0 +1,69 @@
+---
+title: "Section Generation Sequence - BCE V2.1 (12-Layer Context Assembly)"
+---
+sequenceDiagram
+    participant UI as SvelteKit UI
+    participant API as API Route
+    participant PA as Prompt Assembler
+    participant DB as SQLite (25+ tables)
+    participant CLI as Claude CLI (claude -p)
+    participant User as Operator
+
+    UI->>API: Generate section (section_spec_id)
+    API->>PA: Assemble context for section
+
+    Note over PA,DB: 12-Layer Context Assembly
+
+    PA->>DB: L1: Platform constraints
+    PA->>DB: L2: brand_profiles (voice, tone)
+    PA->>DB: L3: brand_rules (filtered by scope)
+    Note right of DB: global -> page_type -> section_type
+    PA->>DB: L4: section_specs (from blueprint)
+    PA->>DB: L5: Page-level SEO requirements
+    PA->>DB: L6: internal_link_graph + anchor_text_bank
+    PA->>DB: L7: GEO requirements (direct answer, stats)
+    PA->>DB: L8: css_audit (tiered class palette)
+    PA->>DB: L9: Previously generated sections (this page)
+    PA->>DB: L10: brand_examples (few-shot approved)
+    PA->>DB: L11: Suburb/location data (if applicable)
+    PA->>DB: L12: Output format instructions
+
+    DB-->>PA: All 12 layers (~3,000-8,500 tokens)
+    PA-->>API: Assembled prompt
+
+    API->>CLI: Pipe prompt via stdin
+    Note right of CLI: Timeout: 120s<br/>Retries: 3x exponential
+
+    CLI-->>API: Generated HTML section
+
+    API->>API: Validate output
+    Note right of API: CSS class check<br/>HTML well-formedness<br/>Link presence<br/>Word count range<br/>No placeholders
+
+    alt Validation passes
+        API->>DB: Store in section_specs.generated_html
+        API-->>UI: Show section for review
+        UI->>User: Present generated section
+
+        alt User approves
+            User->>UI: Approve
+            UI->>API: Mark approved
+            API->>DB: section_specs.status = approved
+            API->>DB: Store in brand_examples (positive)
+            API->>DB: Update brand_rules (confidence++)
+        else User requests refinement
+            User->>UI: Feedback + refinement request
+            UI->>API: Store feedback, regenerate
+            API->>DB: Store feedback in section_specs.last_feedback
+            API->>DB: Create brand_rule (source=feedback, scope=relevant)
+            API->>PA: Re-assemble with feedback as additional context
+            PA->>CLI: Regenerate with feedback
+        else User rejects
+            User->>UI: Reject with reason
+            UI->>API: Mark rejected
+            API->>DB: section_specs.status = rejected
+            API->>DB: Store in brand_examples (is_negative=1)
+            API->>DB: Create anti-pattern brand_rule
+        end
+    else Validation fails
+        API->>API: Retry (up to 3 attempts)
+    end

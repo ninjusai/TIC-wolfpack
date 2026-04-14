@@ -1,0 +1,72 @@
+---
+title: "Content Architecture / Silo Structure - BCE V2.1"
+---
+graph TB
+    HP["<b>Homepage</b><br/>Full AutomotiveBusiness schema<br/>Links to all service hubs<br/>Generated FIRST per site"]
+
+    subgraph ServicesSilo["Services Silo (3-6 pages, root-level URLs)"]
+        SVC1["<b>/manual-driving-lessons/</b><br/>Content-heavy hub<br/>Links to ALL location pages"]
+        SVC2["<b>/automatic-driving-lessons/</b><br/>Content-heavy hub<br/>Links to ALL location pages"]
+        SVC3["<b>/driving-test-preparation/</b><br/>Content-heavy hub"]
+        SVC4["<b>/learner-licence-preparation/</b><br/>Content-heavy hub"]
+    end
+
+    subgraph LocationsSilo["Locations Silo (50+ pages, /areas/*)"]
+        HUB["<b>/areas/</b><br/>Hub: Areas We Serve<br/>Links to all location pages"]
+        LOC1["<b>/areas/springfield/</b><br/>Covers ALL services<br/>40-50% unique content"]
+        LOC2["<b>/areas/ipswich/</b><br/>Covers ALL services<br/>Local trust signals"]
+        LOC3["<b>/areas/redbank-plains/</b><br/>Adjacent suburb links<br/>Local driving conditions"]
+        LOCN["<b>/areas/[suburb]/</b><br/>... 50+ pages"]
+    end
+
+    subgraph TrustSilo["Trust Silo (supporting pages)"]
+        ABOUT["<b>/about/</b><br/>E-E-A-T signals<br/>Instructor bios"]
+        CONTACT["<b>/contact/</b><br/>NAP, multiple methods"]
+        FAQ["<b>/faq/</b><br/>FAQPage schema"]
+        PRICING["<b>/pricing/</b><br/>Transparent pricing<br/>Service + Offer schema"]
+        RESOURCES["<b>/resources/[topic]/</b><br/>Guides, tips, blog<br/>Article/HowTo schema"]
+    end
+
+    %% Homepage links
+    HP -->|"nav links"| SVC1
+    HP -->|"nav links"| SVC2
+    HP -->|"nav links"| SVC3
+    HP -->|"nav links"| HUB
+    HP -->|"trust links"| ABOUT
+
+    %% Service-to-Location (hub-and-spoke)
+    SVC1 -->|"Available In section<br/>rotated anchor text"| LOC1
+    SVC1 -->|"Available In"| LOC2
+    SVC1 -->|"Available In"| LOC3
+    SVC2 -->|"Available In"| LOC1
+    SVC2 -->|"Available In"| LOC2
+
+    %% Location-to-Service (bidirectional)
+    LOC1 -->|"Services in [Suburb]<br/>links to ALL services"| SVC1
+    LOC1 -->|"Services link"| SVC2
+    LOC2 -->|"Services link"| SVC1
+
+    %% Geographic clustering (adjacent suburbs)
+    LOC1 <-->|"Nearby Areas<br/>3-5 adjacent"| LOC3
+    LOC2 <-->|"Nearby Areas"| LOC3
+    LOC1 <-->|"Nearby Areas"| LOC2
+
+    %% Trust cross-links
+    SVC1 -.->|"cross-silo<br/>contextual"| FAQ
+    LOC1 -.->|"cross-silo<br/>contextual"| PRICING
+
+    NOTE["Anchor Text Rotation:<br/>Exact 10-20% | Partial 30-40%<br/>Branded 10-15% | Natural 30-40%<br/>Generic < 5%<br/>Max 3 exact uses per target"]
+
+    classDef homepage fill:#E74C3C,stroke:#C0392B,color:#fff
+    classDef service fill:#3498DB,stroke:#2980B9,color:#fff
+    classDef location fill:#27AE60,stroke:#1E8C4C,color:#fff
+    classDef trust fill:#9B59B6,stroke:#7D3C98,color:#fff
+    classDef hub fill:#F39C12,stroke:#D68910,color:#fff
+    classDef note fill:#FFF3CD,stroke:#856404,color:#333
+
+    class HP homepage
+    class SVC1,SVC2,SVC3,SVC4 service
+    class LOC1,LOC2,LOC3,LOCN location
+    class HUB hub
+    class ABOUT,CONTACT,FAQ,PRICING,RESOURCES trust
+    class NOTE note

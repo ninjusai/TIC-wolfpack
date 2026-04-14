@@ -1,0 +1,87 @@
+{
+  "id": "INT-bookingtimes-content-emulator-001",
+  "project_slug": "bookingtimes-content-emulator",
+  "project_title": "Bookingtimes.com Content Creation Emulator",
+  "version": "1.0.0",
+  "status": "complete",
+  "created_at": "2026-04-02T00:00:00Z",
+  "updated_at": "2026-04-02T00:00:00Z",
+  "interview": {
+    "session_id": "interview-bookingtimes-content-emulator-001",
+    "started_at": "2026-04-02T00:00:00Z",
+    "completed_at": "2026-04-02T00:00:00Z",
+    "turn_count": 12,
+    "abandoned": false
+  },
+  "fields": {
+    "problem_statement": "Managing content across 5 driving school websites on the bookingtimes.com booking platform in Queensland, Australia is painful and manual. The platform is a booking system, not a CMS — its WYSIWYG editor is basic, there is no visibility into available CSS classes or styles, and there is no way to preview styled content before deploying to the live site. Previous attempts at template-based batch content creation produced insufficient quality. Creating and maintaining consistent, high-quality content at scale across all 5 sites requires repetitive manual work with no feedback loop on how content will actually render.",
+    "users": [
+      {
+        "role": "Business owner",
+        "goal": "Efficiently create, preview, and deploy high-quality styled content across all 5 driving school sites on bookingtimes.com without manual repetition",
+        "context": "Primary user. Manages all 5 sites. Currently does all content work manually through the bookingtimes.com WYSIWYG editor."
+      },
+      {
+        "role": "Staff/other site owners with full access",
+        "goal": "Create and update content on their assigned sites using the same tooling",
+        "context": "Secondary users. Select few individuals with full access. No auth differentiation needed for v1."
+      }
+    ],
+    "scope_in": [
+      "CSS/style scraping from live bookingtimes.com sites to discover available classes and styles",
+      "Emulator/preview rendering that shows content as it would appear on the real bookingtimes.com site",
+      "AI-assisted content generation via iterative loop (AI generates, user provides feedback, AI updates, repeat)",
+      "Template system with sections, rules/styles per section, and support for randomization",
+      "HTML export that produces copy-paste ready output for the bookingtimes.com WYSIWYG editor",
+      "Version history and content rollback",
+      "Batch/longtail page generation — feed a list of suburbs to generate localized content with local data and datasets for each",
+      "Deep dive into bookingtimes.com knowledge base to understand platform capabilities and constraints"
+    ],
+    "scope_out": [
+      "No API integration with bookingtimes.com (no API exists)",
+      "No multi-user collaboration or role-based permissions",
+      "No booking or scheduling management functionality",
+      "No mobile-optimized editing interface",
+      "No user authentication system"
+    ],
+    "constraints": [
+      "No deadline — ship when ready",
+      "Deploy on Cloudflare infrastructure (Workers, Pages, D1, KV, R2 as needed) for internal use",
+      "AI provider: Claude via OAuth (internal tool, no separate API key management needed)",
+      "No bookingtimes.com API exists — all platform interaction is via scraping and manual copy-paste"
+    ],
+    "success_criteria": [
+      {
+        "criterion": "Exported HTML uses ONLY CSS classes that exist on the live bookingtimes.com site",
+        "testable": true,
+        "measurement": "Validate all class names in exported HTML against the scraped stylesheet from the live site; zero unknown classes"
+      },
+      {
+        "criterion": "Emulator preview matches real site rendering closely",
+        "testable": true,
+        "measurement": "Visual comparison between emulator preview and actual bookingtimes.com page rendering; side-by-side screenshot comparison shows consistent layout, typography, and spacing"
+      },
+      {
+        "criterion": "Batch-generated suburb pages all pass validation — correct local data, no placeholder text, proper structure",
+        "testable": true,
+        "measurement": "Automated validation checks on generated content: no placeholder tokens remain, local suburb data is accurate and present, HTML structure matches template rules"
+      }
+    ],
+    "prior_art": [
+      "Previous template-based batch content creation system (produced insufficient quality)",
+      "5 existing driving school sites on bookingtimes.com platform"
+    ]
+  },
+  "validation": {
+    "passed": true,
+    "checks": {
+      "problem_no_solution_language": true,
+      "has_user": true,
+      "has_scope_in": true,
+      "scope_out_addressed": true,
+      "has_testable_criterion": true,
+      "constraints_addressed": true
+    },
+    "gaps": []
+  }
+}

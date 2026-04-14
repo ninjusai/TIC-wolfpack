@@ -1,0 +1,58 @@
+{
+  "created": "2026-06-01T11:30:45Z",
+  "current_stage": "problem",
+  "mode": "standard",
+  "pipeline": {
+    "stages": {
+      "build-plan": {
+        "agent": null,
+        "artifact": null,
+        "gate": {
+          "attempts": 0,
+          "status": "pending"
+        },
+        "status": "pending"
+      },
+      "diagrams": {
+        "agent": null,
+        "artifact": null,
+        "gate": {
+          "attempts": 0,
+          "status": "pending"
+        },
+        "status": "pending"
+      },
+      "eval-spec": {
+        "agent": null,
+        "artifact": null,
+        "gate": {
+          "attempts": 0,
+          "status": "pending"
+        },
+        "status": "pending"
+      },
+      "prd": {
+        "agent": null,
+        "artifact": null,
+        "gate": {
+          "attempts": 0,
+          "status": "pending"
+        },
+        "status": "pending"
+      },
+      "problem": {
+        "agent": null,
+        "artifact": null,
+        "gate": {
+          "attempts": 0,
+          "status": "pending"
+        },
+        "status": "pending"
+      }
+    }
+  },
+  "priority": 0,
+  "slug": "bookingtimes-com-content-creation-emulator",
+  "status": "active",
+  "title": "Bookingtimes.com Content Creation Emulator"
+}

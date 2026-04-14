@@ -1,0 +1,39 @@
+name = "peakprotocol-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# --- D1 Database ---
+[[d1_databases]]
+binding = "DB"
+database_name = "peakprotocol-db"
+database_id = "4dfbbc69-ff41-48d2-819d-6dbdbb2ebb4c"
+migrations_dir = "migrations"
+
+# --- KV Namespace (sessions, cache) ---
+[[kv_namespaces]]
+binding = "KV"
+id = "6333fbc1584e4097a6bd325f238d1961"
+
+# --- R2 Bucket (file storage) ---
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "peakprotocol-storage"
+
+# --- Secrets (set via `wrangler secret put`, NEVER hardcode here) ---
+# VAPID_PUBLIC_KEY    — Web Push VAPID public key
+# VAPID_PRIVATE_KEY   — Web Push VAPID private key
+# USDA_API_KEY        — USDA FoodData Central API key
+# APP_PASSCODE        — Single-user auth passcode
+# ANTHROPIC_API_KEY   — Anthropic API key for AI macro estimation (Claude Haiku)
+#
+# To set locally:  npx wrangler secret put ANTHROPIC_API_KEY --local
+# To set in prod:  npx wrangler secret put ANTHROPIC_API_KEY
+
+# --- Cron Triggers ---
+# Every 15 min: missed supplement notification check
+# Sunday 9 PM UTC: weekly report generation
+# NOTE: Commented out because account has hit the 5-cron free-plan limit.
+# Delete unused cron triggers on other workers first, then uncomment.
+# [triggers]
+# crons = ["*/15 * * * *", "0 21 * * SUN"]

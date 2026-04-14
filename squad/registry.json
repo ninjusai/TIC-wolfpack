@@ -1,0 +1,226 @@
+{
+  "pack": "Wolf Pack",
+  "version": "1.0.0",
+  "agents": [
+    {
+      "name": "alpha",
+      "role": "Orchestrator",
+      "status": "active",
+      "file": "squad/agents/alpha.md",
+      "reports_to": "human",
+      "created": "2026-03-30",
+      "description": "Pack leader. Delegates all work, orchestrates agents, maintains logs. Never implements directly.",
+      "domains": ["orchestration", "delegation", "coordination"]
+    },
+    {
+      "name": "peter",
+      "role": "Recruitment Lead",
+      "status": "active",
+      "file": "squad/agents/peter.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Defines new roles and creates agent files. Works with Scout to build capable specialists.",
+      "domains": ["agents", "recruitment", "roles"]
+    },
+    {
+      "name": "scout",
+      "role": "Talent Research Specialist",
+      "status": "active",
+      "file": "squad/agents/scout.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Researches skills, tools, and best practices needed for new roles. Reports findings to Peter via Alpha.",
+      "domains": ["research", "skills", "tools", "best-practices"]
+    },
+    {
+      "name": "sigma",
+      "role": "SQLite Database Specialist",
+      "status": "active",
+      "file": "squad/agents/sigma.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Owns all SQLite database operations: queries, schema evolution, migrations, data integrity, backups, and project lineage database support.",
+      "domains": ["python", "sqlite", "database", "sql", "migrations"]
+    },
+    {
+      "name": "architect",
+      "role": "Eval-First Product Operating Model Architect",
+      "status": "active",
+      "file": "squad/agents/architect.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Designs the eval-first planning workflow, artifact chain, gates, and specialist roster for AI product development.",
+      "domains": ["design", "architecture", "planning", "systems"]
+    },
+    {
+      "name": "forge",
+      "role": "TypeScript/Node.js Developer",
+      "status": "active",
+      "file": "squad/agents/forge.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Implements all TypeScript/Node.js modules for the orchestration pipeline, data transformers, and type-safe interfaces.",
+      "domains": ["typescript", "nodejs", "react", "solidjs", "frontend"]
+    },
+    {
+      "name": "quill",
+      "role": "Technical Writer / PRD Specialist",
+      "status": "active",
+      "file": "squad/agents/quill.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Generates PRDs, engineering specs, API docs, documentation templates, and engineering handoff packages.",
+      "domains": ["markdown", "documentation", "prd", "specs"]
+    },
+    {
+      "name": "sketch",
+      "role": "Diagram Specialist",
+      "status": "active",
+      "file": "squad/agents/sketch.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Creates architecture diagrams, ERDs, sequence diagrams, and flowcharts using Mermaid and Graphviz.",
+      "domains": ["mermaid", "graphviz", "diagrams", "visualization"]
+    },
+    {
+      "name": "eval",
+      "role": "Eval Engineer",
+      "status": "active",
+      "file": "squad/agents/eval.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Designs and implements Python evaluation frameworks, test harnesses, quality metrics, and automated validation scripts.",
+      "domains": ["python", "testing", "evals", "metrics"]
+    },
+    {
+      "name": "pipeline",
+      "role": "CI/CD Specialist",
+      "status": "active",
+      "file": "squad/agents/pipeline.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Owns GitHub Actions workflows for validation, testing, artifact generation, and quality gates.",
+      "domains": ["yaml", "github-actions", "ci-cd", "devops"]
+    },
+    {
+      "name": "framer",
+      "role": "Problem Framer",
+      "status": "active",
+      "file": "squad/agents/framer.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Takes human briefs and produces scoped Problem Definition Documents with testable success criteria.",
+      "domains": ["requirements", "problem-definition", "scoping"]
+    },
+    {
+      "name": "planner",
+      "role": "Build Planner",
+      "status": "active",
+      "file": "squad/agents/planner.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Produces execution-ready Build Plans from approved PRDs, diagrams, and eval specs.",
+      "domains": ["planning", "execution", "build-plans"]
+    },
+    {
+      "name": "anvil",
+      "role": "Rust/Tauri Backend Specialist",
+      "status": "active",
+      "file": "squad/agents/anvil.md",
+      "reports_to": "alpha",
+      "created": "2026-03-30",
+      "description": "Owns the Rust backend layer of Wolf Pack Mission Control: Tauri commands, rusqlite SQLite access, file watching, IPC bridge.",
+      "domains": ["rust", "tauri", "backend", "systems"]
+    },
+    {
+      "name": "scribe",
+      "role": "Pack Librarian",
+      "status": "active",
+      "file": "squad/agents/scribe.md",
+      "reports_to": "alpha",
+      "created": "2026-03-31",
+      "description": "Maintains persistent memory files at pack and project level. Synthesizes raw DB data into useful, compressed knowledge that survives across sessions.",
+      "domains": ["memory", "documentation", "knowledge-management"]
+    },
+    {
+      "name": "sentry",
+      "role": "QA & Integration Testing Specialist",
+      "status": "active",
+      "file": "squad/agents/sentry.md",
+      "reports_to": "alpha",
+      "created": "2026-03-31",
+      "description": "Validates builds before release. Tests cross-layer integration (frontend/backend/database), performs user acceptance testing, catches regressions, and documents test results.",
+      "domains": ["testing", "qa", "integration", "validation"]
+    },
+    {
+      "name": "interviewer",
+      "role": "Project Intake Interviewer",
+      "status": "active",
+      "file": "squad/agents/interviewer.md",
+      "reports_to": "alpha",
+      "created": "2026-04-01",
+      "description": "Conducts structured interviews to extract project requirements. Produces Intake Briefs for the pack pipeline.",
+      "domains": ["interviews", "requirements", "intake", "discovery"]
+    },
+    {
+      "name": "auditor",
+      "role": "Cross-Layer Code Auditor",
+      "status": "active",
+      "file": "squad/agents/auditor.md",
+      "reports_to": "alpha",
+      "created": "2026-04-01",
+      "description": "Systematically analyzes codebases for cross-layer integration issues—field name mismatches, null/undefined gaps, IPC violations, type safety holes—and produces actionable audit reports.",
+      "domains": ["rust", "typescript", "type-safety", "ipc", "auditing", "tauri"]
+    },
+    {
+      "name": "cloud",
+      "role": "Cloudflare Workers / Edge Platform Specialist",
+      "status": "active",
+      "file": "squad/agents/cloud.md",
+      "reports_to": "alpha",
+      "created": "2026-04-01",
+      "description": "Owns all Cloudflare edge infrastructure: Workers runtime, Hono routing, D1/KV/R2 bindings, Cron Triggers, session management, Web Push, and edge middleware.",
+      "domains": ["cloudflare-workers", "hono", "d1", "kv", "r2", "edge-runtime", "web-push", "cron-triggers"]
+    },
+    {
+      "name": "pixel",
+      "role": "Frontend UI/UX Specialist",
+      "status": "active",
+      "file": "squad/agents/pixel.md",
+      "reports_to": "alpha",
+      "created": "2026-04-01",
+      "description": "Owns all user-facing interface work: SolidJS components, uPlot charts, PWA/Service Worker, offline-first UX, accessibility, and mobile-first responsive design.",
+      "domains": ["solidjs", "unocss", "uplot", "pwa", "service-worker", "indexeddb", "accessibility", "mobile-first"]
+    },
+    {
+      "name": "seo",
+      "role": "SEO Specialist",
+      "status": "active",
+      "file": "squad/agents/seo.md",
+      "reports_to": "alpha",
+      "created": "2026-04-02",
+      "description": "Owns all search engine optimization: on-page, technical, local, content SEO, content architecture (siloing, internal linking), and SEO auditing.",
+      "domains": ["seo", "on-page", "technical-seo", "local-seo", "content-architecture", "internal-linking", "auditing"]
+    },
+    {
+      "name": "geo",
+      "role": "GEO Specialist",
+      "status": "active",
+      "file": "squad/agents/geo.md",
+      "reports_to": "alpha",
+      "created": "2026-04-02",
+      "description": "Owns optimization for AI answer engines: citation optimization, content structuring for AI consumption, multi-platform strategies (ChatGPT, Perplexity, AI Overviews), GEO auditing.",
+      "domains": ["geo", "generative-engine-optimization", "ai-citation", "ai-overviews", "content-structuring"]
+    },
+    {
+      "name": "schema",
+      "role": "Schema / Structured Data Specialist",
+      "status": "active",
+      "file": "squad/agents/schema.md",
+      "reports_to": "alpha",
+      "created": "2026-04-02",
+      "description": "Owns all schema.org and structured data: JSON-LD generation, type selection, rich results optimization, schema-content alignment, validation, and entity graph architecture.",
+      "domains": ["schema", "json-ld", "structured-data", "rich-results", "schema-org"]
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+%% id: DGM-mission-control-001
+%% type: architecture
+%% format: mermaid
+%% traces-to: [REQ-mission-control-001, REQ-mission-control-016]
+%% author: sketch
+%% last-updated: 2026-03-30
+
+graph TB
+    %% ── Actors ──
+    owner["<b>Pack Owner</b><br/>Manages 13 AI agents<br/>via five-stage pipeline"]
+
+    %% ── System Boundary ──
+    mc["<b>Wolf Pack Mission Control</b><br/><i>Tauri Desktop App</i><br/>Persistent project dashboard,<br/>pipeline visualization,<br/>artifact browsing, DB explorer"]
+
+    %% ── External Data Stores ──
+    db[("wolfpack.db<br/><i>SQLite</i><br/>reports, tasks,<br/>session_logs, agents")]
+    artifacts["artifacts/{project}/<br/><i>File System</i><br/>problem.md, eval-spec.md,<br/>prd.md, diagrams/, build-plan.md"]
+    manifests["manifest.json<br/><i>Per-Project State</i><br/>stage, gates, priority,<br/>assigned agents"]
+    registry["squad/registry.json<br/><i>Agent Registry</i><br/>Agent names, roles, status"]
+
+    %% ── External Actors ──
+    agents["<b>AI Specialist Agents</b><br/><i>13 agents via CLI</i><br/>Write artifacts, update DB,<br/>advance pipeline stages"]
+
+    %% ── Relationships ──
+    owner -- "Views projects,<br/>browses artifacts,<br/>creates intake,<br/>explores DB" --> mc
+    mc -- "Reads project state" --> manifests
+    mc -- "Reads audit trail<br/>(WAL mode, read-only)" --> db
+    mc -- "Reads artifact content<br/>(Markdown, diagrams)" --> artifacts
+    mc -- "Reads agent roster" --> registry
+    mc -- "Writes intake.json<br/>& manifest.json<br/>for new projects" --> artifacts
+    agents -- "Write artifacts,<br/>update gates" --> artifacts
+    agents -- "Insert reports,<br/>tasks, logs" --> db
+    agents -- "Update stage,<br/>gate results" --> manifests
+
+    %% ── Styles ──
+    classDef person fill:#f97316,stroke:#f97316,color:#0d1117,font-weight:bold
+    classDef system fill:#58a6ff,stroke:#58a6ff,color:#0d1117,font-weight:bold
+    classDef datastore fill:#161b22,stroke:#3fb950,color:#e6edf3
+    classDef external fill:#161b22,stroke:#8b949e,color:#e6edf3
+
+    class owner person
+    class mc system
+    class db,artifacts,manifests,registry datastore
+    class agents external

@@ -1,0 +1,95 @@
+[
+  {
+    "case_id": "INTAKE-001",
+    "tags": [
+      "complete-intake"
+    ],
+    "input": {
+      "problem": "Users cannot efficiently track their daily tasks across multiple devices, leading to missed deadlines and lost productivity.",
+      "users": [
+        "busy professionals",
+        "remote workers",
+        "students"
+      ],
+      "scope_in": [
+        "cross-device sync",
+        "deadline notifications",
+        "daily digest email"
+      ],
+      "scope_out": [
+        "team collaboration features",
+        "calendar integration",
+        "mobile app v1"
+      ],
+      "constraints": [
+        "Must work offline",
+        "GDPR compliant",
+        "Load under 2 seconds"
+      ],
+      "success_criteria": [
+        "Task sync latency < 500ms",
+        "Zero data loss on offline/online transition",
+        "User satisfaction >= 4.5/5"
+      ],
+      "prior_art": [
+        "Existing todo.txt system",
+        "Legacy PHP task manager"
+      ]
+    },
+    "expected_output_valid": true
+  },
+  {
+    "case_id": "INTAKE-002",
+    "tags": [
+      "minimal-intake"
+    ],
+    "input": {
+      "problem": "Need a simple CLI tool to convert markdown files to HTML.",
+      "users": [
+        "developers"
+      ],
+      "scope_in": [
+        "markdown to HTML conversion"
+      ],
+      "scope_out": [],
+      "constraints": [],
+      "success_criteria": [
+        "Output valid HTML5"
+      ],
+      "prior_art": []
+    },
+    "expected_output_valid": true
+  },
+  {
+    "case_id": "INTAKE-003",
+    "tags": [
+      "no-constraints"
+    ],
+    "input": {
+      "problem": "Customer support tickets take too long to resolve, averaging 48 hours response time.",
+      "users": [
+        "customer support agents",
+        "end customers",
+        "support managers"
+      ],
+      "scope_in": [
+        "ticket categorization",
+        "priority assignment",
+        "response templates",
+        "SLA tracking"
+      ],
+      "scope_out": [
+        "chatbot integration",
+        "phone support"
+      ],
+      "constraints": [],
+      "success_criteria": [
+        "Average response time < 4 hours",
+        "Customer satisfaction >= 4.0/5",
+        "Agent throughput increased by 30%"
+      ],
+      "prior_art": []
+    },
+    "expected_output_valid": true
+  }
+]

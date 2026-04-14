@@ -1,0 +1,82 @@
+%% id: DGM-mission-control-003
+%% type: flow
+%% format: mermaid
+%% traces-to: [REQ-mission-control-014, REQ-mission-control-015, REQ-mission-control-020]
+%% author: sketch
+%% last-updated: 2026-03-30
+
+graph LR
+    %% ── Data Sources ──
+    db[("wolfpack.db<br/><i>reports, tasks,<br/>session_logs, agents</i>")]
+    manifest[("manifest.json<br/><i>Per-project state</i><br/>Primary source of truth")]
+    artifactFiles["Artifact Files<br/><i>.md, .mmd, .gv</i>"]
+
+    %% ── Rust Backend Layer ──
+    subgraph rust ["Rust Backend"]
+        direction TB
+        sqlQuery["rusqlite Queries<br/><i>WAL mode read</i>"]
+        fileRead["File Reader<br/><i>Read manifest,<br/>artifacts</i>"]
+        watcher["File Watcher<br/><i>notify crate</i>"]
+        reconciler["Conflict Detector<br/><i>manifest vs DB<br/>discrepancy flags</i>"]
+    end
+
+    %% ── IPC Layer ──
+    ipc["Tauri IPC<br/><i>Commands + Events</i>"]
+
+    %% ── Frontend State Layer ──
+    subgraph solidState ["SolidJS State"]
+        direction TB
+        dbCtx["DbContext<br/><i>Query result stores</i>"]
+        projCtx["ProjectContext<br/><i>Active project,<br/>manifest data</i>"]
+        settingsCtx["SettingsContext<br/><i>DB path, project root</i>"]
+    end
+
+    %% ── UI Views ──
+    subgraph views ["UI Views"]
+        direction TB
+        dashboard["Dashboard<br/><i>Project cards,<br/>summary stats</i>"]
+        projectView["Project View<br/><i>Pipeline, gates,<br/>artifact list</i>"]
+        dbExplorer["DB Explorer<br/><i>Table browser,<br/>filters</i>"]
+        artifactView["Artifact Viewer<br/><i>Rendered Markdown,<br/>code blocks</i>"]
+    end
+
+    %% ── Data Flow: Sources to Backend ──
+    db -- "SQL queries" --> sqlQuery
+    manifest -- "File read" --> fileRead
+    artifactFiles -- "File read" --> fileRead
+    manifest -- "Change detected" --> watcher
+    db -- "Change detected" --> watcher
+
+    %% ── Backend Processing ──
+    sqlQuery -- "DB rows" --> reconciler
+    fileRead -- "Manifest data" --> reconciler
+    reconciler -- "Reconciled data<br/>+ discrepancy flags" --> ipc
+    watcher -- "Change event" --> ipc
+
+    %% ── IPC to Frontend State ──
+    ipc -- "Query results" --> dbCtx
+    ipc -- "Project state" --> projCtx
+    ipc -- "Refresh trigger" --> projCtx
+
+    %% ── State to Views ──
+    dbCtx -- "Table data" --> dbExplorer
+    projCtx -- "Project data" --> dashboard
+    projCtx -- "Pipeline state" --> projectView
+    projCtx -- "Artifact content" --> artifactView
+    settingsCtx -- "Paths config" --> projCtx
+
+    %% ── File Watch Refresh Cycle ──
+    watcher -. "Auto-refresh<br/>within 5 seconds" .-> ipc
+
+    %% ── Styles ──
+    classDef datastore fill:#161b22,stroke:#3fb950,color:#e6edf3
+    classDef backend fill:#161b22,stroke:#58a6ff,color:#e6edf3
+    classDef ipcStyle fill:#161b22,stroke:#d29922,color:#e6edf3
+    classDef stateStyle fill:#161b22,stroke:#f97316,color:#e6edf3
+    classDef viewStyle fill:#161b22,stroke:#58a6ff,color:#e6edf3
+
+    class db,manifest,artifactFiles datastore
+    class sqlQuery,fileRead,watcher,reconciler backend
+    class ipc ipcStyle
+    class dbCtx,projCtx,settingsCtx stateStyle
+    class dashboard,projectView,dbExplorer,artifactView viewStyle

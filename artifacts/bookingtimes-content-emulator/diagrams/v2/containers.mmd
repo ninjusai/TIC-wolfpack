@@ -1,0 +1,39 @@
+---
+title: "Container Diagram (C4 Level 2) - BCE V2.1 Local Architecture"
+---
+graph TB
+    User["<b>Site Manager</b><br/><i>Single Operator</i>"]
+
+    subgraph LocalMachine["Local Machine (Node.js)"]
+        Frontend["<b>SvelteKit Frontend</b><br/><i>Svelte 5 + Runes</i><br/>Pipeline dashboard, audit views,<br/>blueprint editor, section review,<br/>feedback UI, export controls"]
+
+        API["<b>SvelteKit API Routes</b><br/><i>Server Routes</i><br/>Pipeline orchestration, prompt<br/>assembly, scraping, validation,<br/>export, freshness tracking"]
+
+        SQLite["<b>SQLite Database</b><br/><i>better-sqlite3 (sync)</i><br/>25+ tables in 5 groups:<br/>Core, Brand Intelligence,<br/>Audit & Benchmark, Planning,<br/>Operations"]
+
+        FS["<b>Local Filesystem</b><br/><i>File Storage</i><br/>CSS cache, scraped HTML,<br/>export artifacts, brand<br/>examples, Scribe checkpoints"]
+
+        ClaudeCLI["<b>Claude CLI Subprocess</b><br/><i>claude -p via stdin</i><br/>Stateless, single-turn.<br/>120s timeout, 3 retries."]
+    end
+
+    BT["<b>BookingTimes Sites</b><br/><i>5 Live Websites</i>"]
+    GSC["<b>Google Search Console</b><br/><i>Traffic Data API</i>"]
+
+    User -->|"Interacts with UI"| Frontend
+    Frontend -->|"API requests"| API
+    API -->|"Sync CRUD,<br/>queries, migrations"| SQLite
+    API -->|"Read/write CSS cache,<br/>scraped HTML, exports"| FS
+    API -->|"Pipes 12-layer prompt via stdin,<br/>reads generated section from stdout"| ClaudeCLI
+    API -->|"Scrapes CSS, HTML,<br/>sitemaps, schema"| BT
+    API -->|"Fetches traffic<br/>metrics (optional)"| GSC
+    API -->|"Paste-ready HTML,<br/>JSON-LD, Head JS"| User
+
+    classDef person fill:#08427B,stroke:#052E56,color:#fff
+    classDef container fill:#438DD5,stroke:#2E6295,color:#fff
+    classDef storage fill:#1168BD,stroke:#0B4884,color:#fff
+    classDef external fill:#999999,stroke:#6B6B6B,color:#fff
+
+    class User person
+    class Frontend,API,ClaudeCLI container
+    class SQLite,FS storage
+    class BT,GSC external

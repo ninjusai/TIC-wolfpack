@@ -1,0 +1,29 @@
+[
+  {
+    "case_id": "DISC-001",
+    "project_slug": "discrepancy-stage-project",
+    "description": "manifest.json says stage 'eval-spec', last DB task entry says stage 'prd'",
+    "tags": [
+      "stage-mismatch"
+    ],
+    "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\discrepancy-stage-project\\manifest.json"
+  },
+  {
+    "case_id": "DISC-002",
+    "project_slug": "discrepancy-agent-project",
+    "description": "manifest.json lists agent 'framer', DB report lists agent 'quill' for same artifact",
+    "tags": [
+      "agent-mismatch"
+    ],
+    "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\discrepancy-agent-project\\manifest.json"
+  },
+  {
+    "case_id": "DISC-003",
+    "project_slug": "discrepancy-audit-project",
+    "description": "manifest.json gate status 'passed', DB has no corresponding gate-passed session log",
+    "tags": [
+      "missing-audit"
+    ],
+    "manifest_path": "C:\\Users\\zzz\\Documents\\GitHub\\project_development\\mission-control\\tests\\fixtures\\generated\\artifacts\\discrepancy-audit-project\\manifest.json"
+  }
+]

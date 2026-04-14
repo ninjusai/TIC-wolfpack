@@ -1,0 +1,22 @@
+{
+  "name": "PeakProtocol",
+  "short_name": "PeakProtocol",
+  "description": "Personal health optimization - supplements, nutrition, training",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#3b82f6",
+  "id": "/",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "categories": ["health", "fitness", "lifestyle"],
+  "shortcuts": [
+    { "name": "Log Supplement", "url": "/supplements", "description": "Quick supplement logging" },
+    { "name": "Log Food", "url": "/food", "description": "Log a meal" },
+    { "name": "Log Training", "url": "/training", "description": "Log a training session" }
+  ]
+}

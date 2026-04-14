@@ -1,0 +1,65 @@
+%% PeakProtocol Component Diagram (C4 Level 3 - PWA)
+%% SolidJS PWA internal component architecture
+
+C4Component
+    title PeakProtocol PWA Component Diagram
+
+    Container_Boundary(pwa, "SolidJS PWA") {
+        Component(router, "Router", "Solid Router", "Client-side routing between views")
+
+        Component(dashboard, "Dashboard", "SolidJS Component", "At-a-glance view: today's supplements, compliance status, weight trend, quick actions")
+
+        Component(supplements, "SupplementTracker", "SolidJS Component", "Manage supplements, schedules, dose titration; log intake; view compliance history")
+
+        Component(food, "FoodLogger", "SolidJS Component", "Search foods, log meals, view daily macros; manage saved foods library")
+
+        Component(training, "TrainingLog", "SolidJS Component", "Log workouts by type; simple or detailed mode; view training history")
+
+        Component(metrics, "DailyMetrics", "SolidJS Component", "Log weight, hydration; daily journal entry")
+
+        Component(reports, "Reports", "SolidJS Component", "View trends, correlations, weekly summaries; export data")
+
+        Component(settings, "Settings", "SolidJS Component", "Configure notifications, units, targets; manage passkeys; backup/restore")
+
+        Component(auth, "AuthGuard", "SolidJS Component", "Passkey authentication flow; session management")
+
+        Component(offline, "OfflineManager", "SolidJS + Service Worker", "Detect connectivity; queue offline actions; trigger background sync")
+
+        Component(state, "State Store", "Solid Signals/Store", "Reactive state management for UI; caches API responses")
+
+        Component(api, "API Client", "TypeScript Module", "HTTP client for Workers API; handles auth headers, retries")
+
+        Component(notifications, "NotificationManager", "TypeScript Module", "Request push permission; handle incoming notifications; display in-app alerts")
+    }
+
+    Container_Ext(sw, "Service Worker", "Workbox", "Caching and background sync")
+    Container_Ext(workers, "Workers API", "Cloudflare Workers", "Backend REST API")
+
+    Rel(router, dashboard, "Routes to", "/")
+    Rel(router, supplements, "Routes to", "/supplements")
+    Rel(router, food, "Routes to", "/food")
+    Rel(router, training, "Routes to", "/training")
+    Rel(router, metrics, "Routes to", "/metrics")
+    Rel(router, reports, "Routes to", "/reports")
+    Rel(router, settings, "Routes to", "/settings")
+
+    Rel(auth, router, "Protects routes")
+    Rel(auth, api, "Provides auth token")
+
+    Rel(dashboard, state, "Reads/writes")
+    Rel(supplements, state, "Reads/writes")
+    Rel(food, state, "Reads/writes")
+    Rel(training, state, "Reads/writes")
+    Rel(metrics, state, "Reads/writes")
+    Rel(reports, state, "Reads")
+    Rel(settings, state, "Reads/writes")
+
+    Rel(state, api, "Syncs with backend")
+    Rel(api, offline, "Coordinates with")
+    Rel(offline, sw, "Registers sync events")
+    Rel(api, workers, "HTTPS/JSON")
+
+    Rel(notifications, sw, "Subscribes to push")
+    Rel(settings, notifications, "Configures")
+
+    UpdateLayoutConfig($c4ShapeInRow="4", $c4BoundaryInRow="1")

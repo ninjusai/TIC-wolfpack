@@ -1,0 +1,23 @@
+{
+  "name": "@peakprotocol/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "types": "wrangler types",
+    "db:migrate": "wrangler d1 migrations apply peakprotocol-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply peakprotocol-db --remote",
+    "generate:vapid": "npx tsx scripts/generate-vapid-keys.ts"
+  },
+  "dependencies": {
+    "hono": "^4.6.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241205.0",
+    "typescript": "^5.7.0",
+    "wrangler": "^3.99.0"
+  }
+}

@@ -1,0 +1,64 @@
+---
+title: "Export Workflow - BCE V2.1 (Multi-Artifact Paste Pipeline)"
+---
+graph LR
+    subgraph Assembly["Page Assembly"]
+        SECTIONS["Approved Sections<br/>(all section_specs<br/>status = approved)"]
+        ASSEMBLE["Assemble full page<br/>HTML in section order"]
+        JSONLD["Generate JSON-LD<br/>@graph/@id pattern<br/>per page type"]
+        HEADJS["Generate Head JS<br/>(Tier 2 interactive<br/>elements only)"]
+    end
+
+    subgraph Validation["Export Validation (automated)"]
+        V_CSS["CSS class check<br/>All classes in<br/>Tier 1+2+3 catalogue"]
+        V_HTML["HTML well-formedness<br/>Proper nesting,<br/>closed tags"]
+        V_LINKS["Link validation<br/>All internal links<br/>resolve in graph"]
+        V_SCHEMA["JSON-LD validation<br/>Structural check<br/>Required properties"]
+        V_ANCHOR["Anchor text<br/>distribution check"]
+        V_CONTENT["Content checks<br/>Word count, no<br/>placeholders"]
+        GATE{"All checks<br/>pass?"}
+    end
+
+    subgraph Export["Copy & Deploy"]
+        COPY_HTML["Copy HTML + JSON-LD<br/>to clipboard"]
+        COPY_JS["Copy Head JS<br/>to clipboard<br/>(separate button)"]
+        PASTE_HTML["Paste into<br/>BookingTimes<br/>Code View Editor"]
+        PASTE_JS["Paste into<br/>BookingTimes<br/>Setup > Analytics<br/>& Tracking > Head"]
+        DEPLOY["Mark as Deployed<br/>(sets last_deployed_at)"]
+        FRESH["Freshness tracking<br/>begins: Fresh status<br/>for ~6 weeks"]
+    end
+
+    SECTIONS --> ASSEMBLE
+    ASSEMBLE --> JSONLD
+    ASSEMBLE --> HEADJS
+
+    JSONLD -->|"appended to<br/>page body"| V_CSS
+    HEADJS -->|"separate<br/>artifact"| V_HTML
+    ASSEMBLE --> V_CSS
+    V_CSS --> V_HTML
+    V_HTML --> V_LINKS
+    V_LINKS --> V_SCHEMA
+    V_SCHEMA --> V_ANCHOR
+    V_ANCHOR --> V_CONTENT
+    V_CONTENT --> GATE
+
+    GATE -->|"pass"| COPY_HTML
+    GATE -->|"fail:<br/>specific errors"| SECTIONS
+    COPY_HTML --> PASTE_HTML
+    HEADJS -.->|"if Tier 2<br/>elements exist"| COPY_JS
+    COPY_JS --> PASTE_JS
+    PASTE_HTML --> DEPLOY
+    PASTE_JS -.-> DEPLOY
+    DEPLOY --> FRESH
+
+    classDef assembly fill:#438DD5,stroke:#2E6295,color:#fff
+    classDef validate fill:#F39C12,stroke:#D68910,color:#fff
+    classDef export fill:#27AE60,stroke:#1E8C4C,color:#fff
+    classDef gate fill:#E67E22,stroke:#C0651C,color:#fff
+    classDef paste fill:#E74C3C,stroke:#C0392B,color:#fff
+
+    class SECTIONS,ASSEMBLE,JSONLD,HEADJS assembly
+    class V_CSS,V_HTML,V_LINKS,V_SCHEMA,V_ANCHOR,V_CONTENT validate
+    class GATE gate
+    class COPY_HTML,COPY_JS,DEPLOY,FRESH export
+    class PASTE_HTML,PASTE_JS paste

@@ -1,0 +1,93 @@
+---
+title: "Batch Generation Sequence - Suburb Content Pipeline"
+---
+sequenceDiagram
+    actor User
+    participant UI as SvelteKit UI
+    participant API as Workers API
+    participant D1 as D1 Database
+    participant Claude as Claude AI API
+    participant KV as KV Cache
+
+    Note over User,KV: 1. Batch Setup
+    User->>UI: Select template, site, upload suburb list
+    UI->>API: POST /api/batch {template_id, site_id, suburbs[]}
+    API->>D1: Load template sections + rules
+    D1-->>API: Template definition
+    API->>D1: Load CSS catalogue for site
+    D1-->>API: Verified class list
+    API->>D1: Create batch_jobs record (status: pending)
+    loop For each suburb in list
+        API->>D1: Create job record (status: pending)
+    end
+    D1-->>API: Job IDs created
+    API-->>UI: Batch created, N jobs queued
+    UI-->>User: Show batch dashboard
+
+    Note over User,KV: 2. Sequential Processing
+    loop For each pending job
+        API->>D1: Pick next pending job, set status: processing
+        D1-->>API: Job with suburb data
+
+        Note over API: 3. Data Enrichment
+        API->>D1: Fetch suburb_data record
+        D1-->>API: Suburb details (postcode, region, landmarks)
+        API->>API: Select variant per section (deterministic hash)
+
+        Note over API,Claude: 4. AI Generation
+        API->>API: Build prompt: template rules + CSS catalogue + suburb data + constraints
+        API->>Claude: Send structured prompt
+        Claude-->>API: Streamed HTML content
+
+        Note over API: 5. Automated Validation
+        API->>API: Check: no placeholder tokens
+        API->>API: Check: suburb name present, no cross-contamination
+        API->>API: Check: section structure matches template
+        API->>KV: Validate CSS classes against catalogue
+        KV-->>API: Class validation results
+        API->>API: Check: HTML well-formedness
+
+        alt Validation passes
+            API->>D1: Store page + page_version (source: batch)
+            API->>D1: Update job status: complete
+        else Validation fails (retry <= 3)
+            API->>Claude: Retry with adjusted prompt
+            Claude-->>API: Revised HTML
+        else Validation fails (retries exhausted)
+            API->>D1: Update job status: failed + error_message
+        end
+    end
+
+    API-->>UI: Batch processing complete
+    UI-->>User: Show results summary
+
+    Note over User,KV: 6. Review Gate
+    User->>UI: Open batch review dashboard
+    UI->>D1: Fetch all generated pages for batch
+    D1-->>UI: Pages with status indicators
+
+    loop For each generated page
+        User->>UI: Preview page in iframe
+        alt Approved
+            User->>UI: Approve page
+            UI->>D1: Update page status: approved
+        else Needs edit
+            User->>UI: Edit content or provide feedback
+            UI->>API: Regenerate with feedback
+            API->>Claude: Refine prompt
+            Claude-->>API: Updated HTML
+            API->>D1: Save new page_version (source: ai_refine)
+        else Rejected
+            User->>UI: Regenerate from scratch
+            UI->>API: POST /api/generate {page_id, regenerate: true}
+        end
+    end
+
+    Note over User,KV: 7. Batch Export
+    User->>UI: Export approved pages
+    UI->>API: POST /api/export/batch {page_ids[]}
+    API->>D1: Fetch latest approved versions
+    D1-->>API: HTML content per page
+    API->>API: Final class validation on each page
+    API-->>UI: Validated HTML bundle (zip or individual)
+    UI-->>User: Copy to clipboard / download zip

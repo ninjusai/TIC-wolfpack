@@ -1,0 +1,13 @@
+{
+  "constraints": "I dont think so. Id like to use cloudflare to deploy it for internal use.",
+  "prior_art": "none",
+  "problem": "I have multiple businesses all using bookingtimes.com as a booking platform. These business are driving schools based in Queensland, Australia. The bookingtimes.com platform is designed to handle bookings, its not really a CMS so functionality is lacking. I want to be able to visit the bookingtimes.com live site and pull the css files and whatever else we need so we can create a framework to then generate content with AI assistance that will correctly use all of that bookingtimes.com css styling so that we can then seamlessly copy and paste html content into the content editor on the bookingtimes.com install. For each bookingtimes site we can create multiple templates/pages that can then be used to batch create ai content (think longtail pages). In these templates we could break it down into sections and create rules/styles for each that might be used randomly. The power is that we can view them first in our emulator to make sure that the content is styled correctly as it would on the bookingtimes.com instance. So in effect we are simulating the target site to design and optimise our content be deploying it to the real site.",
+  "scope_in": [
+    "As much of the functionality as I have outlined. Ability to create each bookingtimes.com instance as a project. It scrapes all the assets from that instance and create a simulated view of the pages we mean to edit. We can then create/design the content using ai (Oauth - which is fine as this is an internal work tool). The content creation page will be ai chat enabled so we can iterate the design with the help of ai. AI will use the css assets present in the site to create designs that fit the theme of the website perfectly"
+  ],
+  "scope_out": [],
+  "success_criteria": [
+    "We will be able to create beautiful designed content that fits seamlessly into each bookingtimes.com instance. We will also have templates so that we can batch create content pages (longtail pages so think we will add a list of suburbs and it will create datasets and local data for each to use to generate the content)."
+  ],
+  "users": "This is an internal tool that will be used almost exclusively by me but potentially by a select few other owners or staff members. They might need to create/edit/generate content in the same fashion before exporting. So full access essentially"
+}

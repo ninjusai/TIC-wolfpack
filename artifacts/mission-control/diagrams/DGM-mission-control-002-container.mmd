@@ -1,0 +1,61 @@
+%% id: DGM-mission-control-002
+%% type: architecture
+%% format: mermaid
+%% traces-to: [REQ-mission-control-018, REQ-mission-control-019]
+%% author: sketch
+%% last-updated: 2026-03-30
+
+graph TB
+    %% ── Actor ──
+    owner["<b>Pack Owner</b><br/>Windows 11 User"]
+
+    subgraph tauri ["Tauri v2 Desktop Shell"]
+        direction TB
+
+        subgraph frontend ["SolidJS Frontend<br/><i>TypeScript + Tailwind CSS v4</i>"]
+            direction LR
+            router["Solid Router<br/><i>View Navigation</i>"]
+            views["7 Views<br/><i>Dashboard, Project,<br/>Intake, Pipeline,<br/>DB Explorer, Artifacts,<br/>Agent Roster</i>"]
+            state["SolidJS Stores<br/>+ Context<br/><i>DbContext,<br/>ProjectContext,<br/>SettingsContext</i>"]
+        end
+
+        ipc["Tauri IPC<br/><i>invoke() commands</i><br/><i>EventTarget events</i>"]
+
+        subgraph backend ["Rust Backend"]
+            direction LR
+            commands["Tauri Commands<br/><i>list_projects,<br/>get_project,<br/>read_artifact,<br/>scaffold_project, ...</i>"]
+            watcher["File Watcher<br/><i>notify crate</i><br/>Watches manifest.json<br/>& wolfpack.db"]
+            sqlmod["SQLite Module<br/><i>rusqlite crate</i><br/>WAL mode,<br/>read-only for DB"]
+        end
+    end
+
+    %% ── External Stores ──
+    db[("wolfpack.db<br/><i>SQLite</i>")]
+    fs["artifacts/{project}/<br/><i>File System</i><br/>manifests, artifacts,<br/>intake.json"]
+
+    %% ── Connections ──
+    owner -- "Interacts via<br/>native window" --> frontend
+    router -- "Routes to" --> views
+    views -- "Read/write<br/>reactive state" --> state
+    state -- "invoke() Tauri<br/>commands" --> ipc
+    ipc -- "Dispatch to<br/>Rust handlers" --> commands
+    watcher -- "Emits change<br/>events" --> ipc
+    ipc -- "Push events<br/>to frontend" --> state
+    commands -- "Query/insert" --> sqlmod
+    sqlmod -- "Read (WAL)" --> db
+    commands -- "Read/write<br/>files" --> fs
+    watcher -- "Watch for<br/>changes" --> fs
+    watcher -- "Watch for<br/>changes" --> db
+
+    %% ── Styles ──
+    classDef person fill:#f97316,stroke:#f97316,color:#0d1117,font-weight:bold
+    classDef frontendStyle fill:#161b22,stroke:#58a6ff,color:#e6edf3
+    classDef backendStyle fill:#161b22,stroke:#3fb950,color:#e6edf3
+    classDef ipcStyle fill:#161b22,stroke:#d29922,color:#e6edf3
+    classDef datastore fill:#161b22,stroke:#3fb950,color:#e6edf3
+
+    class owner person
+    class router,views,state frontendStyle
+    class commands,watcher,sqlmod backendStyle
+    class ipc ipcStyle
+    class db,fs datastore

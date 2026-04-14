@@ -1,0 +1,33 @@
+---
+title: "System Context (C4 Level 1) - BCE V2.1 Content Intelligence Platform"
+---
+graph TB
+    User["<b>Site Manager</b><br/><i>Single Operator</i><br/>Audits, reviews, approves content<br/>and pastes HTML into live sites"]
+
+    BCE["<b>BCE V2.1</b><br/><i>Local SvelteKit App</i><br/>5-stage pipeline: Audit, Research,<br/>Gap Analysis, Design, Build.<br/>Section-based generation with<br/>brand voice inference."]
+
+    BT["<b>BookingTimes Platform</b><br/><i>5 Driving School Sites</i><br/>ASP.NET SaaS with Bootstrap 5.0.2.<br/>Code view paste deployment."]
+
+    Claude["<b>Claude AI</b><br/><i>CLI Subprocess (claude -p)</i><br/>Stateless single-turn calls.<br/>Max subscription."]
+
+    GSC["<b>Google Search Console</b><br/><i>Optional Data Source</i><br/>Traffic, impressions, CTR<br/>per page for prioritization."]
+
+    User -->|"Configures sites,<br/>reviews audits,<br/>approves content,<br/>provides feedback"| BCE
+
+    BCE -->|"Scrapes CSS, HTML,<br/>sitemaps, structured data"| BT
+
+    BCE -->|"Sends 12-layer prompts,<br/>receives generated sections"| Claude
+
+    BCE -->|"Fetches traffic metrics<br/>for gap prioritization"| GSC
+
+    BCE -->|"Exports paste-ready HTML<br/>+ JSON-LD + Head JS"| User
+
+    User -->|"Pastes HTML into<br/>code view editor"| BT
+
+    classDef person fill:#08427B,stroke:#052E56,color:#fff
+    classDef system fill:#1168BD,stroke:#0B4884,color:#fff
+    classDef external fill:#999999,stroke:#6B6B6B,color:#fff
+
+    class User person
+    class BCE system
+    class BT,Claude,GSC external

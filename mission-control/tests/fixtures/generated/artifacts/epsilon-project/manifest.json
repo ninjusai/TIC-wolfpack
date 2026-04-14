@@ -1,0 +1,92 @@
+{
+  "project": {
+    "slug": "epsilon-project",
+    "title": "Epsilon Project - Fresh Start",
+    "created": "2026-03-01T12:54:05Z",
+    "mode": "standard",
+    "priority": 5,
+    "status": "active"
+  },
+  "pipeline": {
+    "current_stage": "problem",
+    "stages": {
+      "problem": {
+        "status": "in-progress",
+        "artifact_id": "PRB-epsilon-project-001",
+        "file": "artifacts/epsilon-project/problem.md",
+        "assigned_to": "framer",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": null,
+        "gate": {
+          "id": "G1",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      },
+      "eval-spec": {
+        "status": "pending",
+        "artifact_id": null,
+        "file": null,
+        "assigned_to": "eval",
+        "started": null,
+        "completed": null,
+        "gate": {
+          "id": "G2",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      },
+      "prd": {
+        "status": "pending",
+        "artifact_id": null,
+        "file": null,
+        "assigned_to": "quill",
+        "started": null,
+        "completed": null,
+        "gate": {
+          "id": "G3",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      },
+      "diagrams": {
+        "status": "pending",
+        "artifact_id": null,
+        "file": null,
+        "assigned_to": "sketch",
+        "started": null,
+        "completed": null,
+        "gate": {
+          "id": "G4",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      },
+      "build-plan": {
+        "status": "pending",
+        "artifact_id": null,
+        "file": null,
+        "assigned_to": "planner",
+        "started": null,
+        "completed": null,
+        "gate": {
+          "id": "G5",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      }
+    }
+  },
+  "slug": "epsilon-project",
+  "title": "Epsilon Project - Fresh Start",
+  "mode": "standard",
+  "priority": 5,
+  "status": "active",
+  "current_stage": "problem",
+  "created": "2026-03-01T12:54:05Z"
+}

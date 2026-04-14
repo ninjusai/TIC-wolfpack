@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicoo/tauri-v2/refs/heads/main/crates/tauri/schema/capability.json",
+  "identifier": "default",
+  "description": "Default capability for Wolf Pack Mission Control",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:default",
+    "core:window:allow-close",
+    "core:window:allow-set-size",
+    "core:window:allow-set-title",
+    "core:window:allow-center",
+    "dialog:default",
+    "dialog:allow-open",
+    "dialog:allow-save"
+  ]
+}

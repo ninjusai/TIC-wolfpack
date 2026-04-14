@@ -1,0 +1,163 @@
+# Skills Research: Cloud
+**Date:** 2026-04-01
+**Requested By:** Peter (via Alpha)
+**For Role:** Cloud - Cloudflare Workers / Edge Platform Specialist
+
+## Core Technical Skills
+
+### 1. Workers Runtime Model
+- V8 isolate-based execution (NOT containers/VMs) - 128MB memory per isolate
+- CPU time: Free=10ms, Paid=5min per request. Cron: 30s (<1hr), 15min (>=1hr)
+- Script size: 3MB gzip (free), 10MB gzip (paid), 64MB uncompressed
+- Subrequests: 50 (free), 10,000 (paid) per invocation
+- Worker startup: max 1 second. Simultaneous connections: 6
+- nodejs_compat flag (compat_date >= 2024-09-23) enables: node:crypto (full), node:buffer, node:stream, node:util, node:assert, node:events, node:async_hooks
+- NOT available: fs, net, child_process, os, cluster, dgram, http/https, worker_threads
+- Web APIs available: fetch, Request/Response, ReadableStream/WritableStream, TextEncoder/Decoder, crypto.subtle, structuredClone, AbortController, URL/URLSearchParams, FormData, Blob, WebSocket, setTimeout/setInterval
+
+### 2. Wrangler CLI Proficiency
+- wrangler init/generate for scaffolding
+- wrangler dev (Miniflare v3 built-in for local sim), wrangler dev --remote
+- wrangler deploy for deployment
+- wrangler secret put/list/delete/bulk for secrets
+- wrangler d1 create/execute/migrations for D1
+- wrangler kv namespace create/list, kv key put/get/list/delete
+- wrangler r2 bucket create/list/delete, r2 object put/get/delete
+- --local flag for local data seeding, --persist-to for storage dir
+- wrangler tail for live logs
+- Auto resource provisioning (wrangler >= 4.45.0)
+
+### 3. wrangler.toml Configuration
+- Top-level: name, main, compatibility_date, compatibility_flags = ["nodejs_compat"]
+- D1: [[d1_databases]] binding/database_name/database_id
+- KV: [[kv_namespaces]] binding/id
+- R2: [[r2_buckets]] binding/bucket_name
+- Cron: [triggers] crons = ["*/5 * * * *"]
+- Vars: [vars] for non-secrets
+- Env overrides: [env.staging], [env.production]
+- Remote bindings: add remote = true to binding
+
+### 4. Miniflare / Local Dev
+- Miniflare v3 built into wrangler dev
+- Simulates D1, KV, R2, Cache, Queues, Durable Objects locally
+- Local D1 = actual SQLite file, inspectable directly
+- Local data in .wrangler/state/
+- --test-scheduled exposes /__scheduled for cron testing
+- Remote bindings proxy to deployed resources
+
+### 5. Hono on Workers
+- Type-safe bindings: new Hono<{ Bindings: Env; Variables: Vars }>()
+- c.env.DB, c.env.KV, c.env.BUCKET for access
+- c.get()/c.set() for request-scoped variables
+- Built-in middleware: cors(), secureHeaders(), logger(), basicAuth(), bearerAuth(), etag()
+- Custom middleware: createMiddleware(async (c, next) => { ... })
+- Error handling: app.onError(), app.notFound()
+- Route grouping: app.route('/api', apiApp)
+- Context helpers: c.json(), c.text(), c.redirect(), c.header()
+
+### 6. D1 Database Bindings
+- Prepared statements: env.DB.prepare('...').bind(val).first()/all()/run()/raw()
+- Batch: env.DB.batch([stmt1, stmt2]) - sequential, rolls back all on failure
+- Parameter limit: 100 per query. Only ? and ?NNN binding styles
+- Large mutations must be chunked (~1000 rows at a time)
+- Auto-commit mode. Read replicas for scaling reads.
+
+### 7. KV Session Management
+- Eventually consistent: up to 60s propagation delay across regions
+- TTL: minimum 60 seconds, via expirationTtl (seconds) or expiration (Unix timestamp)
+- Write limit: 1 write/key/second (429 if exceeded)
+- Max value: 25MB, max key: 512 bytes
+- Metadata: up to 1024 bytes JSON per key
+- List: NAMESPACE.list({ prefix, limit, cursor })
+- Session pattern: session:{token} key, JSON value, role/expiry in metadata, TTL for auto-cleanup
+
+### 8. R2 Storage Operations
+- Workers API: env.BUCKET.put/get/delete/list/head
+- put() accepts: ReadableStream, ArrayBuffer, string, Blob, null
+- get() returns R2ObjectBody with .body, .text(), .json(), .arrayBuffer()
+- Multipart: createMultipartUpload -> uploadPart (min 5MB) -> complete(parts)
+- Incomplete multipart auto-aborts after 7 days
+- Presigned URLs via aws4fetch (S3-compatible signing)
+- Strongly consistent (unlike KV)
+
+### 9. Cron Triggers
+- Config: [triggers] crons = ["0 */6 * * *"]
+- Handler: export default { async scheduled(event, env, ctx) { ... } }
+- event.cron, event.scheduledTime for routing logic
+- ctx.waitUntil() for async completion
+- At-least-once delivery - must be idempotent
+- Day-of-week: 1=Sunday (use 3-letter abbrevs)
+- Test: wrangler dev --test-scheduled, curl /__scheduled
+
+### 10. Web Push Infrastructure
+- CANNOT use web-push npm (depends on Node.js crypto.createECDH)
+- USE PushForge: zero-dep, TS-first, Web Crypto API based
+- VAPID keys: npx @pushforge/builder vapid (JWK format)
+- Send: buildPushHTTPRequest() + fetch()
+- ES256 algorithm for VAPID JWT signing
+- Store subscriptions in D1, VAPID keys as secrets
+
+### 11. Security Patterns
+- CORS: Hono cors() middleware with specific origins
+- CSP: Hono secureHeaders() for X-Frame-Options, X-Content-Type-Options, Referrer-Policy, CSP
+- Rate limiting: native Workers Rate Limiting binding, or @hono-rate-limiter/cloudflare
+- Input validation: Zod schemas
+- Auth: bearerAuth() or custom KV session middleware
+
+## Tools and Technologies
+- Runtime: Cloudflare Workers (workerd/V8 isolates)
+- Framework: Hono v4+ (best TS support, middleware ecosystem)
+- CLI: Wrangler v3+ (includes Miniflare v3)
+- Database: D1 (SQLite at edge)
+- Cache: KV (eventually consistent key-value)
+- Storage: R2 (S3-compatible object storage)
+- Web Push: PushForge (NOT web-push)
+- Presigned URLs: aws4fetch
+- Validation: Zod
+- Testing: Miniflare v3, vitest
+
+## Common Pitfalls
+1. Using web-push npm - fails on Workers, use PushForge
+2. Assuming KV strong consistency - 60s propagation delay
+3. Exceeding D1 100 param limit - chunk bulk ops
+4. Large D1 mutations in one query - will timeout
+5. Writing same KV key >1/sec - causes 429
+6. Forgetting nodejs_compat flag
+7. Using fs/net/child_process - not available
+8. Not using ctx.waitUntil() - async work killed
+9. Hardcoding secrets in wrangler.toml
+10. R2 multipart parts <5MB (except last)
+11. Cron day-of-week 1=Sunday confusion
+12. Not testing cron with --test-scheduled
+13. Blocking event loop with sync CPU work
+
+## Quality Criteria
+- All D1 uses prepared statements (no SQL injection)
+- All KV ops include TTL and metadata
+- Hono routes type-safe with Bindings generics
+- Secrets via wrangler secret only
+- Cron handlers are idempotent
+- CORS uses specific origins in production
+- Security headers applied via middleware
+- Consistent JSON error responses
+- ctx.waitUntil() for async cleanup
+- Local dev works with seeded test data
+
+## Recommended Prompt Elements
+1. ALWAYS use prepared statements for D1. NEVER concatenate SQL.
+2. ALWAYS define Bindings type for Hono generic.
+3. ALWAYS use ctx.waitUntil() for post-response async work.
+4. ALWAYS store secrets via wrangler secret put.
+5. KV sessions: ALWAYS set expirationTtl and metadata.
+6. D1 batch: ALWAYS handle rollback-on-failure.
+7. Cron handlers: ALWAYS make idempotent.
+8. Web Push: use PushForge, NOT web-push npm.
+9. R2 presigned URLs: use aws4fetch.
+10. ALWAYS include app.onError() middleware.
+11. NEVER exceed 100 D1 bound params per query.
+12. Use secureHeaders() as baseline security.
+13. Prefer native Rate Limiting binding.
+14. Test cron locally with --test-scheduled.
+15. Include nodejs_compat in compatibility_flags.
+16. D1 schema changes require Sigma review.
+17. NEVER touch frontend, CI/CD, or deploy to production.

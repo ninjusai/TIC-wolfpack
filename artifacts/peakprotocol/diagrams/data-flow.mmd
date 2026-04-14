@@ -1,0 +1,69 @@
+%% PeakProtocol Data Flow Diagram
+%% Shows key data flows through the system
+
+flowchart TB
+    subgraph User["User Device (Android)"]
+        PWA["SolidJS PWA"]
+        SW["Service Worker"]
+        IDB["IndexedDB<br/>(Offline Cache)"]
+    end
+
+    subgraph Cloudflare["Cloudflare Edge"]
+        Workers["Workers API<br/>(Hono)"]
+        D1["D1 Database"]
+        KV["KV Store"]
+        R2["R2 Storage"]
+        Cron["Cron Trigger"]
+    end
+
+    subgraph External["External Services"]
+        USDA["USDA FoodData<br/>Central API"]
+        Push["Web Push<br/>Service"]
+    end
+
+    %% User Input Flow
+    PWA -->|"1. Log supplement/food/training"| SW
+    SW -->|"2a. Online: Forward request"| Workers
+    SW -->|"2b. Offline: Queue in"| IDB
+    Workers -->|"3. Persist data"| D1
+    Workers -->|"4. Return confirmation"| PWA
+    IDB -->|"5. Background sync when online"| Workers
+
+    %% Food Lookup Flow
+    PWA -->|"Search food"| Workers
+    Workers -->|"Check cache"| D1
+    D1 -->|"Cache miss"| Workers
+    Workers -->|"Fetch from API"| USDA
+    USDA -->|"Return nutrition data"| Workers
+    Workers -->|"Cache result"| D1
+    Workers -->|"Return to client"| PWA
+
+    %% Notification Flow
+    Cron -->|"Check missed supplements"| Workers
+    Workers -->|"Query scheduled items"| D1
+    Workers -->|"Send push"| Push
+    Push -->|"Deliver notification"| SW
+    SW -->|"Display alert"| PWA
+
+    %% Offline Sync Flow
+    IDB -.->|"Sync pending changes"| SW
+    SW -.->|"Replay queued requests"| Workers
+    Workers -.->|"Resolve conflicts"| D1
+
+    %% Export Flow
+    PWA -->|"Request export"| Workers
+    Workers -->|"Generate JSON"| D1
+    Workers -->|"Store backup"| R2
+
+    %% Session Flow
+    Workers <-->|"Validate session"| KV
+
+    classDef user fill:#e1f5fe,stroke:#01579b
+    classDef edge fill:#fff3e0,stroke:#e65100
+    classDef external fill:#f3e5f5,stroke:#7b1fa2
+    classDef storage fill:#e8f5e9,stroke:#2e7d32
+
+    class PWA,SW,IDB user
+    class Workers,Cron edge
+    class D1,KV,R2 storage
+    class USDA,Push external

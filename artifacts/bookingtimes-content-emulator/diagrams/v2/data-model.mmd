@@ -1,0 +1,307 @@
+---
+title: "Data Model ERD - BCE V2.1 (25+ Tables, 5 Functional Groups)"
+---
+erDiagram
+    %% === CORE GROUP ===
+    sites {
+        int id PK
+        text name
+        text url UK
+        text slug UK
+        text bootstrap_version "default 5.0.2"
+        text pipeline_stage "not_started|stage_1-5|maintaining"
+        text last_scraped_at
+    }
+
+    pages {
+        int id PK
+        int site_id FK
+        text url
+        text page_type "homepage|service|location|about|faq|resource"
+        text title
+        int current_version
+        text status
+    }
+
+    page_versions {
+        int id PK
+        int page_id FK
+        int version_number
+        text html_content
+        text source "manual|ai_generate|ai_refine"
+        text change_summary
+        int parent_version
+    }
+
+    ai_sessions {
+        int id PK
+        int page_id FK
+        text session_type "audit|generation|refinement"
+        text started_at
+        int turn_count
+    }
+
+    ai_turns {
+        int id PK
+        int session_id FK
+        text role "user|assistant"
+        text content
+        int token_count
+    }
+
+    %% === BRAND INTELLIGENCE GROUP ===
+    brand_profiles {
+        int id PK
+        int site_id FK
+        text voice_description
+        text tone_keywords "JSON"
+        text terminology_patterns "JSON"
+        text sentence_style
+        text recurring_phrases "JSON"
+        text anti_patterns "JSON"
+        real inference_confidence "0.0-1.0"
+        int source_page_count
+        int user_confirmed
+    }
+
+    brand_rules {
+        int id PK
+        int site_id FK
+        text rule_text
+        text source "inferred|research|feedback|manual"
+        text scope "global|brand|page_type|section_type|page"
+        real confidence "0.0-1.0"
+        int confirmed
+        int active
+    }
+
+    brand_examples {
+        int id PK
+        int site_id FK
+        text section_type
+        text page_type
+        text html_content
+        int quality_rating "1-5"
+        int is_negative
+        text rejection_reason
+    }
+
+    brand_profile_history {
+        int id PK
+        int profile_id FK
+        text snapshot "JSON"
+        text change_reason
+        text created_at
+    }
+
+    %% === AUDIT & BENCHMARK GROUP ===
+    site_structure_map {
+        int id PK
+        int site_id FK
+        text url
+        text page_type
+        text url_pattern
+        int depth_from_home
+    }
+
+    content_audit {
+        int id PK
+        int site_id FK
+        text page_url
+        real seo_score
+        real geo_score
+        real voice_score
+        text deficiencies "JSON"
+    }
+
+    schema_audit {
+        int id PK
+        int site_id FK
+        text page_url
+        text existing_types "JSON"
+        text missing_types "JSON"
+        int valid_jsonld
+        int has_graph_pattern
+    }
+
+    css_audit {
+        int id PK
+        int site_id FK
+        text class_name
+        text tier "bootstrap|site_custom|platform|fa6"
+        text css_properties "JSON"
+        int usage_count
+    }
+
+    benchmark_standards {
+        int id PK
+        text dimension "seo|geo|schema|design"
+        text page_type
+        text rule_text
+        text rule_data "JSON"
+    }
+
+    page_taxonomy {
+        int id PK
+        text page_type
+        int hierarchy_level
+        text required_sections "JSON"
+        text url_pattern
+    }
+
+    %% === PLANNING GROUP ===
+    gap_analysis {
+        int id PK
+        int site_id FK
+        text page_url
+        text status "missing|weak|adequate|strong"
+        real seo_gap
+        real geo_gap
+        real schema_gap
+        real design_gap
+        real voice_gap
+        real composite_score
+    }
+
+    work_backlog {
+        int id PK
+        int site_id FK
+        text page_url
+        text page_type
+        text action "create|improve"
+        int priority
+        text status "pending|in_progress|complete"
+    }
+
+    page_blueprints {
+        int id PK
+        int backlog_id FK
+        int site_id FK
+        text page_type
+        text seo_requirements "JSON"
+        text geo_requirements "JSON"
+        text schema_spec "JSON-LD template"
+        int section_count
+    }
+
+    section_specs {
+        int id PK
+        int blueprint_id FK
+        text section_type
+        int section_order
+        text heading_text
+        int target_word_count_min
+        int target_word_count_max
+        text content_requirements "JSON"
+        text links_required "JSON"
+        text css_classes "JSON"
+        int direct_answer_block_required
+        text status "pending|generated|approved|rejected"
+        text generated_html
+        text last_feedback
+    }
+
+    silo_definitions {
+        int id PK
+        int site_id FK
+        text silo_name "services|locations|trust"
+        text hub_page_url
+        text linking_rules "JSON"
+    }
+
+    internal_link_graph {
+        int id PK
+        int site_id FK
+        text source_url
+        text target_url
+        text link_type "service_to_location|location_to_service|adjacent|contextual|breadcrumb"
+        text anchor_text
+        text anchor_variant "exact|partial|branded|natural|generic"
+        text target_section
+    }
+
+    anchor_text_bank {
+        int id PK
+        int site_id FK
+        text target_url
+        text anchor_text
+        text variant_type "exact|partial|branded|natural|generic"
+        int usage_count
+    }
+
+    css_patterns {
+        int id PK
+        int site_id FK
+        text pattern_name
+        text css_classes "JSON"
+        text tier "1|2|3"
+    }
+
+    css_decisions {
+        int id PK
+        int section_spec_id FK
+        text tier_used "1|2|3"
+        text classes_used "JSON"
+        text new_css_draft
+        int approved
+    }
+
+    %% === OPERATIONS GROUP ===
+    gsc_metrics {
+        int id PK
+        int site_id FK
+        text page_url
+        int clicks
+        int impressions
+        real ctr
+        real position
+        text date_range
+    }
+
+    scribe_checkpoints {
+        int id PK
+        int site_id FK
+        text stage
+        text deliverables "JSON"
+        text decisions "JSON"
+        text issues "JSON"
+        text created_at
+    }
+
+    content_freshness {
+        int id PK
+        int site_id FK
+        text page_url
+        text last_generated_at
+        text last_approved_at
+        text last_deployed_at
+        text freshness_status "fresh|aging|stale|unknown"
+        text next_review_due
+        int alert_sent
+    }
+
+    %% === RELATIONSHIPS ===
+    sites ||--o{ pages : "hosts"
+    sites ||--o{ brand_profiles : "has one active"
+    sites ||--o{ brand_rules : "accumulates"
+    sites ||--o{ brand_examples : "stores"
+    sites ||--o{ site_structure_map : "inventories"
+    sites ||--o{ content_audit : "audits"
+    sites ||--o{ schema_audit : "audits"
+    sites ||--o{ css_audit : "catalogues"
+    sites ||--o{ gap_analysis : "analyzes"
+    sites ||--o{ work_backlog : "plans"
+    sites ||--o{ page_blueprints : "blueprints"
+    sites ||--o{ silo_definitions : "organizes"
+    sites ||--o{ internal_link_graph : "links"
+    sites ||--o{ anchor_text_bank : "rotates"
+    sites ||--o{ gsc_metrics : "tracks"
+    sites ||--o{ scribe_checkpoints : "persists"
+    sites ||--o{ content_freshness : "monitors"
+    pages ||--o{ page_versions : "versions"
+    pages ||--o{ ai_sessions : "generates via"
+    ai_sessions ||--o{ ai_turns : "contains"
+    brand_profiles ||--o{ brand_profile_history : "snapshots"
+    work_backlog ||--o{ page_blueprints : "specifies"
+    page_blueprints ||--o{ section_specs : "defines"
+    section_specs ||--o{ css_decisions : "styled by"

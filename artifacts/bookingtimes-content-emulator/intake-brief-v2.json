@@ -1,0 +1,127 @@
+{
+  "id": "INT-bookingtimes-content-emulator-002",
+  "project_slug": "bookingtimes-content-emulator",
+  "project_title": "Bookingtimes Content Emulator V2.1",
+  "version": "2.0.0",
+  "status": "complete",
+  "created_at": "2026-04-02T21:45:00Z",
+  "updated_at": "2026-04-02T21:45:00Z",
+  "interview": {
+    "session_id": "intake-bce-v2.1-rebuild",
+    "started_at": "2026-04-02T21:30:00Z",
+    "completed_at": "2026-04-02T21:45:00Z",
+    "turn_count": 6,
+    "abandoned": false
+  },
+  "fields": {
+    "problem_statement": "Managing content across 5 Australian driving school websites on the BookingTimes SaaS platform is manual, slow, and produces inconsistent quality. There is no tooling to audit existing content across all sites, identify gaps against best-in-class driving school content, or generate SEO/GEO-optimized, brand-voice-consistent content at scale. The workflow requires paste-ready HTML for BookingTimes' code view editor, and there is no feedback loop to compound quality over time. A local tool is needed that can scrape and audit existing site content, research competitive benchmarks, perform gap analysis, and generate section-by-section content that matches each site's unique brand voice — with a learning system that improves from human feedback across iterations.",
+    "users": [
+      {
+        "role": "Site manager (single user)",
+        "goal": "Audit, generate, review, approve, and paste high-quality SEO/GEO-optimized content across all 5 driving school sites with minimal manual effort",
+        "context": "Sole operator managing all 5 BookingTimes driving school sites. Handles the entire content lifecycle end-to-end: writing, reviewing, approving, and pasting into BookingTimes code view editor. No other users. No auth system required."
+      }
+    ],
+    "scope_in": [
+      "Homepage-first content strategy — homepage built first per site as the framework/template, then trickle down to subpages",
+      "Existing content scraping and analysis — scrape live pages to understand current message, services, and brand voice before generating",
+      "SEO-optimized content generation — target suburb + service keywords, proper heading hierarchy, internal linking",
+      "GEO-optimized content generation — direct answer blocks, TLDR-first structure, FAQ schema for AI citation",
+      "Section-based content generation — content produced section-by-section with per-section specialist validation",
+      "Brand voice inference from existing content — system infers each site's unique voice rather than requiring manual brand profiles",
+      "Custom CSS generation targeting Bootstrap 5.0.2 — three-tier approach (Bootstrap base, site custom, new custom)",
+      "Content freshness alerts — system alerts when content is stale, roughly every 2-month cycles",
+      "Interactive page elements via custom JavaScript — exploration of JS capability in BookingTimes for clicks, engagement, and time on site (new V2.1 requirement, needs platform capability confirmation)",
+      "Paste-ready HTML output for BookingTimes code view editor — no automated deployment, manual paste workflow",
+      "Learning and feedback loop per site — system remembers per-site context and improves from human feedback over time",
+      "All 5 target driving school sites in scope",
+      "Gap analysis against best-in-class driving school content benchmarks",
+      "Site-wide content architecture planning before any individual page generation"
+    ],
+    "scope_out": [
+      "Multi-user access or authorization system — single user only, no auth needed",
+      "Automated deployment to BookingTimes — manual paste is the confirmed workflow",
+      "Real-time collaboration features",
+      "URL structure changes — platform-controlled, not modifiable",
+      "UIKit CSS framework support — ignored per decision DEC-029, Bootstrap 5.0.2 only"
+    ],
+    "constraints": [
+      "Tech stack locked: SvelteKit frontend, better-sqlite3 for local data, Claude CLI subprocess (Max subscription) for AI, Bootstrap 5.0.2, Font Awesome 6 Pro",
+      "Local deployment only — runs on user's machine, no cloud hosting for the tool itself",
+      "BookingTimes platform constraints: WYSIWYG editor with code view for HTML paste, no API exists",
+      "Sidebar constraint: only long-tail pages have fixed sidebar; it can be pushed vertically (e.g., below hero) but not removed; all other page types have full viewport",
+      "No deadlines — quality over speed, 'it comes together when it comes together'",
+      "Update cadence is ad hoc, roughly every couple of months per site",
+      "Content approach: always scrape existing content for context first, then enhance and fill gaps — never generate from scratch",
+      "JavaScript capability in BookingTimes needs exploration/confirmation before interactive elements can be designed",
+      "Claude AI via CLI subprocess on Max subscription — no separate API key management"
+    ],
+    "success_criteria": [
+      {
+        "criterion": "Generated content passes human review with minimal edits most of the time",
+        "testable": true,
+        "measurement": "Track edit distance between generated content and final approved version; target is decreasing edits over time as the system learns",
+        "priority": 1
+      },
+      {
+        "criterion": "Pages rank for target suburb + service keywords",
+        "testable": true,
+        "measurement": "Monitor Google Search Console position data for target keyword clusters per page; pages appear in relevant local search results",
+        "priority": 2
+      },
+      {
+        "criterion": "Content structured for AI citation (GEO optimization)",
+        "testable": true,
+        "measurement": "Validate presence of direct answer blocks, TLDR-first structure, and FAQ schema markup on all generated pages; content surfaces in AI-generated answers",
+        "priority": 2
+      },
+      {
+        "criterion": "Per-site brand voice consistency — content sounds like it belongs on that specific site",
+        "testable": true,
+        "measurement": "Human review confirms generated content is tonally consistent with existing site content; each site maintains its own distinct identity",
+        "priority": 3
+      },
+      {
+        "criterion": "System learns and improves from feedback over time",
+        "testable": true,
+        "measurement": "Feedback loop persists per-site preferences and corrections; subsequent generations for the same site reflect prior feedback; edit rates decrease over sessions",
+        "priority": 4
+      },
+      {
+        "criterion": "Interactive elements drive user engagement on pages",
+        "testable": true,
+        "measurement": "Pages with interactive JS elements show increased clicks, engagement metrics, and time on site compared to static equivalents",
+        "priority": 5
+      },
+      {
+        "criterion": "System alerts when content becomes stale",
+        "testable": true,
+        "measurement": "Freshness alerts trigger approximately every 2 months for content that hasn't been reviewed or updated; no stale content goes unnoticed",
+        "priority": 6
+      }
+    ],
+    "prior_art": [
+      "V1 intake brief (INT-bookingtimes-content-emulator-001) — original problem definition focused on CSS scraping, emulator preview, and template-based batch generation",
+      "V2 design document — proposed Brand Knowledge Amplifier with manually-authored brand profiles",
+      "V2.1 design document — final architecture: Infer-First Brand Intelligence Pipeline with multi-agent audit, section-based generation, and 5-stage pipeline",
+      "5 existing driving school sites on BookingTimes platform — live production content serves as the baseline for scraping and brand voice inference",
+      "Previous template-based batch content creation system — produced insufficient quality, motivating the AI-driven approach",
+      "DEC-029: UIKit exclusion decision — Bootstrap 5.0.2 is the sole CSS framework target"
+    ]
+  },
+  "validation": {
+    "passed": true,
+    "checks": {
+      "problem_no_solution_language": true,
+      "has_user": true,
+      "has_scope_in": true,
+      "scope_out_addressed": true,
+      "has_testable_criterion": true,
+      "constraints_addressed": true,
+      "all_five_stages_confirmed": true,
+      "success_criteria_prioritized": true,
+      "prior_art_documented": true
+    },
+    "gaps": []
+  }
+}

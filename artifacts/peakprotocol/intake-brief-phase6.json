@@ -1,0 +1,139 @@
+{
+  "id": "INT-peakprotocol-phase6-001",
+  "project_slug": "peakprotocol-phase6",
+  "project_title": "PeakProtocol Phase 6: Calendar Supplement Visibility + Multi-Source Food Diary",
+  "version": "1.0.0",
+  "status": "complete",
+  "created_at": "2026-04-05T12:00:00Z",
+  "updated_at": "2026-04-05T12:00:00Z",
+  "interview": {
+    "session_id": "alpha-delegated-phase6",
+    "started_at": "2026-04-05T12:00:00Z",
+    "completed_at": "2026-04-05T12:00:00Z",
+    "turn_count": 1,
+    "abandoned": false
+  },
+  "fields": {
+    "problem_statement": "The Pack Owner tracks a complex supplement routine with multiple scheduling types (daily, every N days, weekly, specific days), but the calendar view provides no visibility into which supplements are due or taken on any given day. The only indicator is a generic green activity dot — there is no way to see at a glance whether the morning stack was completed without drilling into supplement-specific views. Separately, the food diary is constrained to a single data source (USDA FoodData Central API), which lacks coverage for prepared meals, restaurant food, international cuisine, branded products, and custom recipes. When a food cannot be found, there is no fallback — the user must abandon the entry or guess at macros. Both gaps create daily friction: the supplement blind spot risks missed doses, and the food source limitation makes consistent nutrition tracking unreliable.",
+
+    "users": [
+      {
+        "role": "Pack Owner (sole user)",
+        "goal": "See supplement schedule compliance at a glance on the calendar and log all food intake accurately regardless of data source availability",
+        "context": "Single-user personal health optimization PWA. Uses the app morning and evening daily. Manages 10+ supplements across 4 schedule types. Tracks diverse food intake including home-cooked meals, restaurant food, and branded items that may not exist in USDA database."
+      }
+    ],
+
+    "scope_in": [
+      "Supplement dots on calendar day cells — each active supplement scheduled for that day renders as a small colored dot on the calendar grid cell, with color coding to distinguish taken (green), skipped (amber), and pending/not-yet-logged (gray)",
+      "Calendar day detail supplement checklist — tapping a day opens a supplement checklist showing each scheduled supplement as a checkbox with name, dose, and time-of-day; checking a box logs it as taken with current timestamp; unchecking reverts to pending",
+      "Supplement color assignment — each supplement gets a persistent color from a predefined palette, stored in the supplements table, so dots are visually distinguishable across the calendar",
+      "Monthly supplement compliance heatmap — calendar cells with all supplements taken show a subtle green background tint; partial completion shows amber; nothing logged shows no tint — providing instant monthly compliance visibility",
+      "Batch supplement check-in — a 'Mark All Taken' button on the day detail for mornings when the entire stack was taken together, with individual override capability",
+      "Multi-source food search — expand food lookup beyond USDA to include OpenFoodFacts API for branded/packaged products, with USDA remaining the primary source and OpenFoodFacts as fallback",
+      "Manual food entry with AI macro estimation — when no API source has the food, user can type a free-text food description (e.g., 'homemade chicken stir fry with rice, large bowl') and request AI-powered calorie and macro estimation via a 'Calculate' button",
+      "Daily food list with deferred calculation — food items can be listed as text entries throughout the day without macro data; a 'Calculate All' button triggers batch lookup/estimation for all unresolved items at once, so logging is fast and calculation is on-demand",
+      "Food source indicator — each food entry displays a small badge showing its data source (USDA, OpenFoodFacts, AI estimate, Manual) so the user knows the confidence level of the macro data",
+      "Manual macro override — regardless of source, the user can tap any food entry to manually edit calories, protein, carbs, fat, and fiber values",
+      "Improved Quick-Add for foods — extend the existing Quick-Add UI to support typing a food name and getting results from all available sources (USDA + OpenFoodFacts) in a unified search results list"
+    ],
+
+    "scope_out": [
+      "Meal planning or meal prep scheduling — v2 feature",
+      "Supplement interaction warnings or contraindication checks — requires medical database, v2",
+      "Barcode scanning for food products — requires native camera access, v2",
+      "Supplement purchase tracking or restock reminders — v2",
+      "Social or sharing features — single-user app",
+      "Recipe builder with ingredient-level macro calculation — v2",
+      "Photo-based food recognition — requires ML model, v2",
+      "Nutrition goal setting or macro target alerts — v2",
+      "Integration with fitness trackers or wearables — v2",
+      "OpenAI/Anthropic API key management UI — key will be configured as a Wrangler secret like existing API keys"
+    ],
+
+    "constraints": [
+      "Must deploy on existing Cloudflare stack: Workers (Hono backend), Pages (SolidJS frontend), D1 (database), KV (sessions), R2 (storage)",
+      "Frontend must use SolidJS + UnoCSS + Vite — no framework changes",
+      "Single-user app with fixed 'owner' user ID and passcode auth — no multi-tenant considerations",
+      "D1 has no ALTER TABLE ADD COLUMN support in all contexts — new columns may require migration with table recreation or new tables",
+      "Cloudflare Workers have 128MB memory limit and 30s CPU time for standard plan — AI macro estimation must use external API call, not local inference",
+      "Existing supplement_logs table schema must be preserved for backward compatibility — new fields should be additive",
+      "OpenFoodFacts API is free but rate-limited — must implement caching similar to existing USDA food_cache pattern",
+      "AI macro estimation requires an LLM API key (e.g., Anthropic or OpenAI) configured as a Wrangler secret",
+      "Calendar component currently uses a single 'activeDates' Set<string> prop — supplement dots require richer per-day data",
+      "Existing food_entries table already has fdc_id column — needs a source column to distinguish data origins"
+    ],
+
+    "success_criteria": [
+      {
+        "criterion": "Calendar day cells display colored dots for each supplement scheduled on that date",
+        "testable": true,
+        "measurement": "For a day with 3 scheduled supplements (1 taken, 1 skipped, 1 pending), the calendar cell renders 3 dots: 1 green, 1 amber, 1 gray"
+      },
+      {
+        "criterion": "Tapping a calendar day shows a supplement checklist with checkboxes",
+        "testable": true,
+        "measurement": "Day detail view lists all supplements scheduled for selected date with checkbox, name, dose, and time-of-day; checking a box calls supplement log API and persists taken status"
+      },
+      {
+        "criterion": "Batch 'Mark All Taken' logs all pending supplements for the day in a single action",
+        "testable": true,
+        "measurement": "Clicking 'Mark All Taken' on a day with 5 pending supplements results in 5 supplement_logs records with taken_at timestamps; all checkboxes show as checked"
+      },
+      {
+        "criterion": "Food search returns results from both USDA and OpenFoodFacts APIs",
+        "testable": true,
+        "measurement": "Searching 'Coca-Cola' returns branded result from OpenFoodFacts; searching 'chicken breast' returns USDA result; results are labeled with source"
+      },
+      {
+        "criterion": "Manual food entry with AI estimation returns calorie and macro breakdown",
+        "testable": true,
+        "measurement": "Entering 'large bowl of chicken fried rice' and clicking Calculate returns estimated calories, protein, carbs, fat, and fiber values with 'AI estimate' source badge"
+      },
+      {
+        "criterion": "Food items can be listed without macros and batch-calculated later",
+        "testable": true,
+        "measurement": "User adds 3 food items as text-only entries (no macros); clicking 'Calculate All' populates macro data for all 3 items; daily totals update accordingly"
+      },
+      {
+        "criterion": "Each food entry displays its data source",
+        "testable": true,
+        "measurement": "Food entries show a visible badge: 'USDA', 'OFF' (OpenFoodFacts), 'AI', or 'Manual' depending on how the macro data was obtained"
+      },
+      {
+        "criterion": "Manual macro override works on any food entry regardless of original source",
+        "testable": true,
+        "measurement": "Tapping a food entry with USDA-sourced data opens an edit form; changing calories from 200 to 250 persists the change and updates daily totals; source badge changes to 'Manual'"
+      },
+      {
+        "criterion": "Supplement color assignments persist across sessions",
+        "testable": true,
+        "measurement": "Supplement 'Vitamin D' is assigned color #F59E0B; after page reload, calendar dots for Vitamin D still render in #F59E0B"
+      },
+      {
+        "criterion": "Calendar monthly compliance heatmap provides visual feedback",
+        "testable": true,
+        "measurement": "A day with all supplements taken shows green tint on cell background; a day with partial compliance shows amber tint; a day with no logs shows no tint"
+      }
+    ],
+
+    "prior_art": [
+      "PeakProtocol Phases 1-5: existing supplement CRUD (5 endpoints), scheduling engine (4 schedule types), supplement logging API, compliance calculator, Calendar component with activeDates, food logging via USDA with cache, food search/entry APIs, saved foods library, FoodLogger UI, Quick-Add UI",
+      "D1 schema: supplements, supplement_logs, food_cache, saved_foods, food_entries tables already exist with indexes",
+      "Daily Summary API (GET /api/daily-summary/:date) already joins supplement_logs with supplements table and aggregates food entries by meal",
+      "Calendar.tsx component currently renders a single green dot per day via activeDates Set<string> — needs enhancement for per-supplement colored dots"
+    ]
+  },
+  "validation": {
+    "passed": true,
+    "checks": {
+      "problem_no_solution_language": true,
+      "has_user": true,
+      "has_scope_in": true,
+      "scope_out_addressed": true,
+      "has_testable_criterion": true,
+      "constraints_addressed": true
+    },
+    "gaps": []
+  }
+}

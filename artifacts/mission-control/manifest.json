@@ -1,0 +1,32 @@
+{
+  "slug": "mission-control",
+  "name": "Wolf Pack Mission Control",
+  "description": "Desktop application for monitoring and managing Wolf Pack project development pipeline",
+  "status": "complete",
+  "stage": "build-plan",
+  "created": "2026-03-30",
+  "updated": "2026-03-31",
+  "pipeline": {
+    "problem": {
+      "status": "passed",
+      "artifact": "problem.md"
+    },
+    "eval-spec": {
+      "status": "passed",
+      "artifact": "eval-spec.md"
+    },
+    "prd": {
+      "status": "passed",
+      "artifact": "prd.md"
+    },
+    "diagrams": {
+      "status": "passed",
+      "artifact": "diagrams/"
+    },
+    "build-plan": {
+      "status": "passed",
+      "artifact": "build-plan.md"
+    }
+  },
+  "tags": ["desktop", "tauri", "solidjs", "rust", "monitoring"]
+}

@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+
+# Databases
+*.db
+
+# Build output
+.svelte-kit/
+_site/
+dist/
+build/
+target/
+*.exe
+*.pdb
+*.dll
+*.dll.exp
+*.dll.lib
+*.wixobj
+*.wixpdb
+*.msi
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+nul
+
+# IDE
+.vscode/
+.idea/
+
+# Wrangler
+.wrangler/
+
+# Backups
+squad/backups/
+
+# Cache
+.cache/

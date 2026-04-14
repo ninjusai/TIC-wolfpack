@@ -1,0 +1,58 @@
+{
+  "created": "2026-05-31T15:44:58Z",
+  "current_stage": "problem",
+  "mode": "standard",
+  "pipeline": {
+    "stages": {
+      "build-plan": {
+        "agent": null,
+        "artifact": null,
+        "gate": {
+          "attempts": 0,
+          "status": "pending"
+        },
+        "status": "pending"
+      },
+      "diagrams": {
+        "agent": null,
+        "artifact": null,
+        "gate": {
+          "attempts": 0,
+          "status": "pending"
+        },
+        "status": "pending"
+      },
+      "eval-spec": {
+        "agent": null,
+        "artifact": null,
+        "gate": {
+          "attempts": 0,
+          "status": "pending"
+        },
+        "status": "pending"
+      },
+      "prd": {
+        "agent": null,
+        "artifact": null,
+        "gate": {
+          "attempts": 0,
+          "status": "pending"
+        },
+        "status": "pending"
+      },
+      "problem": {
+        "agent": null,
+        "artifact": null,
+        "gate": {
+          "attempts": 0,
+          "status": "pending"
+        },
+        "status": "pending"
+      }
+    }
+  },
+  "priority": 0,
+  "slug": "peakprotocol",
+  "status": "active",
+  "title": "PeakProtocol"
+}

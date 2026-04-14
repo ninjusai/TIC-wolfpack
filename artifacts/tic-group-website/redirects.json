@@ -1,0 +1,56 @@
+[
+  {
+    "from": "/",
+    "to": "/",
+    "status": 301,
+    "reason": "Homepage to homepage — canonical redirect for domain migration"
+  },
+  {
+    "from": "/Contact",
+    "to": "/contact/",
+    "status": 301,
+    "reason": "Contact page carries over to new site"
+  },
+  {
+    "from": "/About-Us",
+    "to": "/about/",
+    "status": 301,
+    "reason": "About page carries over to new site"
+  },
+  {
+    "from": "/Our-Group-of-Businesses",
+    "to": "/our-group/",
+    "status": 301,
+    "reason": "Group overview page maps to new Our Group page"
+  },
+  {
+    "from": "/Become-an-Accredited-Driving-School",
+    "to": "/about/",
+    "status": 301,
+    "reason": "Training/accreditation content removed — TIC is no longer an RTO. Redirect to about page."
+  },
+  {
+    "from": "/Instructor-Commission-Split-Initiative",
+    "to": "/about/",
+    "status": 301,
+    "reason": "Training/instructor content removed — TIC is no longer an RTO. Redirect to about page."
+  },
+  {
+    "from": "/Policies-and-Procedures",
+    "to": "/privacy/",
+    "status": 301,
+    "reason": "Old policies page redirects to privacy/terms utility page"
+  },
+  {
+    "from": "/Student-Information",
+    "to": "/",
+    "status": 301,
+    "reason": "Student/training content removed — TIC is no longer an RTO. Redirect to homepage."
+  },
+  {
+    "from": "/Courses/TLI41222-Certificate-IV-in-Transport-and-Logistics-Road-Transport-Car-Driving-Instruction",
+    "to": "/",
+    "status": 301,
+    "reason": "Course page removed entirely — TIC is NOT an RTO. Redirect to homepage."
+  }
+]

@@ -1,0 +1,169 @@
+{
+  "id": "INT-tic-group-website-001",
+  "project_slug": "tic-group-website",
+  "project_title": "TIC Group Website Rebuild",
+  "version": "1.0.0",
+  "status": "complete",
+  "created_at": "2026-04-11T00:00:00Z",
+  "updated_at": "2026-04-11T00:00:00Z",
+  "interview": {
+    "session_id": "pre-completed-human-brief",
+    "started_at": "2026-04-11T00:00:00Z",
+    "completed_at": "2026-04-11T00:00:00Z",
+    "turn_count": 1,
+    "abandoned": false
+  },
+  "fields": {
+    "problem_statement": "The Instructor College (TIC) has pivoted from being a training provider to being a group that acquires, operates, and supports driving school businesses, but the current public website still leads with nationally recognised training course language ('Complete TLI41222', 'we train the instructors'). This creates two compounding problems: first, a compliance risk where ASQA states only registered RTOs can advertise or deliver VET, and TIC's current site implies it delivers nationally recognised training which may not be legally accurate; second, a positioning mismatch where the site fails to reflect TIC's actual business model as an investor, operator, acquirer, and services platform for driving schools, undermining acquisition conversations and industry credibility with potential sellers, partners, and recruits.",
+    "users": [
+      {
+        "role": "Driving school owner considering sale",
+        "goal": "Evaluate whether TIC is a credible, trustworthy acquirer and understand the sale process, continuity assurances, and next steps for a confidential enquiry",
+        "context": "Business owners who have built driving schools and are exploring exit or succession options. They need reassurance about staff continuity, brand preservation, and a clear simple path to begin a conversation."
+      },
+      {
+        "role": "Driving school operator needing support services",
+        "goal": "Understand what operational support services TIC offers, see clear outcomes and practical details, and initiate a service enquiry",
+        "context": "Operators of existing driving schools who may not be selling but need help with compliance, fleet management, marketing, bookings, or other operational challenges."
+      },
+      {
+        "role": "General credibility audience (partners, recruits, media, prospects)",
+        "goal": "Quickly understand who TIC is, what it does, its scale and track record, and how to get in contact",
+        "context": "Includes potential business partners, job candidates, journalists, and general industry observers who need a clear picture of TIC's identity and positioning as a driving industry group."
+      }
+    ],
+    "scope_in": [
+      "Reposition TIC as group/operator/acquirer brand (core messaging pivot)",
+      "Home page: hero, what TIC is, proof strip, value creation model (Acquire/Operate/Support), group brands preview, services preview, acquisition CTA, insights preview, contact CTA",
+      "About page: who we are, story, leadership, operating model, values, FAQ",
+      "Our Group page: overview, brand directory rendered from markdown content model, regions/locations, individual brand detail pages",
+      "Acquisitions page: why owners choose TIC, what we look for, what happens after sale, process steps, seller FAQ, confidential enquiry form",
+      "Contact page: general enquiry, acquisition enquiry, service enquiry, media/partnerships forms",
+      "Utility pages: privacy policy, terms, cookie policy, accessibility statement, sitemap, 404 page, thank-you confirmation page",
+      "11ty (Eleventy) static site generator with collections, pagination, global data, Image plugin",
+      "Cloudflare Pages deployment (Workers functions only where needed)",
+      "Nunjucks or Liquid templating",
+      "Vanilla JS or Alpine.js for client-side interaction",
+      "GSAP only if tightly controlled motion is needed",
+      "Cloudflare Turnstile for form spam protection",
+      "Cloudflare Web Analytics",
+      "WCAG 2.2 AA accessibility target",
+      "Core Web Vitals compliance (LCP < 2.5s, CLS < 0.1, INP < 200ms)",
+      "Structured data: Organisation and breadcrumb JSON-LD",
+      "Responsive mobile-first design",
+      "Dark/light layered sections, strong typography, editorial layouts",
+      "Documentary-style photography direction, minimal stock imagery",
+      "Content model: brands/*.md, services/*.md, insights/*.md, case-studies/*.md with defined frontmatter schemas",
+      "Remove or noindex any pages that imply TIC delivers nationally recognised training (ASQA compliance)"
+    ],
+    "scope_out": [
+      "Services section detail pages (Phase 2)",
+      "Insights/blog hub (Phase 2)",
+      "Case studies section (Phase 2)",
+      "Interactive tools: portfolio map, acquisition fit self-check, service maturity quiz (Phase 3)",
+      "Advanced directory filters (Phase 3)",
+      "Bookkeeping/accounting service pages (Phase 3, pending validation)",
+      "Heavy WebGL or 3D elements",
+      "SPA architecture or heavy frontend frameworks",
+      "Any content implying TIC delivers nationally recognised training"
+    ],
+    "constraints": [
+      "ASQA compliance: must remove or noindex any pages implying TIC delivers nationally recognised training; only registered RTOs can advertise/offer/deliver VET",
+      "Static site generator must be 11ty (Eleventy)",
+      "Hosting must be Cloudflare Pages",
+      "Templating must be Nunjucks or Liquid",
+      "Client-side JS limited to vanilla JS or Alpine.js; no heavy SPA frameworks",
+      "GSAP permitted only for tightly controlled motion; no heavy animation libraries",
+      "Performance constraints: fast LCP, minimal CLS, lightweight interaction especially on mobile",
+      "Design direction: dark/light layered sections, strong typography, editorial layouts, documentary-style photography",
+      "Optional infrastructure: Cloudflare R2 for media storage, Workers for server-side functions",
+      "Phased delivery: Phase 1 (core pages) must ship independently of Phase 2 (services, insights, case studies) and Phase 3 (interactive tools)"
+    ],
+    "success_criteria": [
+      {
+        "criterion": "Site launches on pages.dev with all Phase 1 pages live and responding",
+        "testable": true,
+        "measurement": "Successful Cloudflare Pages deployment with all defined routes returning HTTP 200"
+      },
+      {
+        "criterion": "Zero compliance risk — no page implies TIC delivers VET or nationally recognised training",
+        "testable": true,
+        "measurement": "Content audit of every page passes with zero instances of VET delivery language, RTO advertising, or nationally recognised training claims"
+      },
+      {
+        "criterion": "Core Web Vitals pass on all pages",
+        "testable": true,
+        "measurement": "Lighthouse/PageSpeed audit: LCP < 2.5s, CLS < 0.1, INP < 200ms on all Phase 1 pages"
+      },
+      {
+        "criterion": "WCAG 2.2 AA accessibility compliance",
+        "testable": true,
+        "measurement": "axe-core automated audit returns zero critical violations on all Phase 1 pages"
+      },
+      {
+        "criterion": "Acquisition enquiry form works end-to-end",
+        "testable": true,
+        "measurement": "Form submits successfully, Cloudflare Turnstile validates, confirmation page displays"
+      },
+      {
+        "criterion": "Brand directory renders all brands from markdown content model",
+        "testable": true,
+        "measurement": "All brands/*.md entries render on the Our Group page with correct title, region, summary, and links"
+      },
+      {
+        "criterion": "Structured data validates for Organisation and breadcrumb",
+        "testable": true,
+        "measurement": "Organisation and breadcrumb JSON-LD pass Google Rich Results Test with zero errors"
+      }
+    ],
+    "prior_art": [
+      "Tiny (tiny.com) — plain-English acquisition pitch, proof metrics, founder-friendly tone",
+      "Halma (halma.com) — purpose + portfolio + operating model site structure",
+      "Permanent Equity — acquisition criteria, seller reassurance, operational transparency",
+      "Breakthrough Energy — three-part model analogous to Acquire/Operate/Support",
+      "Inspired Education / Nord Anglia — group site positioned above operating brands",
+      "Total Drive / MyDriveTime — driving school industry service page references",
+      "Lightship, Joby, Shift5 — premium motion and content architecture (Awwwards winners)",
+      "TIC's existing website (to be replaced) — current site implies RTO training delivery, creating the compliance and positioning problems this project solves"
+    ]
+  },
+  "validation": {
+    "passed": true,
+    "checks": {
+      "problem_no_solution_language": true,
+      "has_user": true,
+      "has_scope_in": true,
+      "scope_out_addressed": true,
+      "has_testable_criterion": true,
+      "constraints_addressed": true
+    },
+    "gaps": []
+  },
+  "metadata": {
+    "positioning": {
+      "core": "A driving industry group that acquires, operates, and supports driving school businesses.",
+      "brand_promise": "We help driving schools grow through better systems, stronger operations, and specialist industry support.",
+      "pillars": ["Acquire", "Operate", "Support"]
+    },
+    "phased_rollout": {
+      "phase_1": "Home, About, Our Group, Acquisitions, Contact + utility pages",
+      "phase_2": "Services, Insights, Case Studies",
+      "phase_3": "Interactive tools, advanced filters, validated service lines"
+    },
+    "tech_stack": {
+      "generator": "11ty (Eleventy)",
+      "templating": "Nunjucks or Liquid",
+      "client_js": "Vanilla JS or Alpine.js",
+      "hosting": "Cloudflare Pages",
+      "forms": "Cloudflare Turnstile",
+      "analytics": "Cloudflare Web Analytics",
+      "optional": ["Cloudflare R2 for media", "Cloudflare Workers for server functions"]
+    },
+    "content_model": {
+      "brands": "brands/*.md — title, region, service_areas, brand_summary, website_url, featured_image, status, order",
+      "services": "services/*.md — title, audience, outcomes, features, CTA",
+      "insights": "insights/*.md — title, category, summary, author, published_date, related",
+      "case_studies": "case-studies/*.md — title, business_type, challenge, intervention, outcomes, metrics, testimonial"
+    }
+  }
+}

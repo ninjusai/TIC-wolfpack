@@ -1,0 +1,20 @@
+%% PeakProtocol System Context Diagram (C4 Level 1)
+%% Shows the system in context with its users and external dependencies
+
+C4Context
+    title PeakProtocol System Context
+
+    Person(optimizer, "The Optimizer", "Health-conscious individual optimizing body composition via supplements, nutrition, and training tracking")
+
+    System(peakprotocol, "PeakProtocol", "Personal health optimization platform for supplement scheduling, food logging, training tracking, and pattern analysis")
+
+    System_Ext(usda, "USDA FoodData Central", "Free API providing nutritional data for foods (calories, macros)")
+
+    System_Ext(webpush, "Web Push Service", "Browser vendor push notification service for missed supplement alerts")
+
+    Rel(optimizer, peakprotocol, "Logs supplements, food, weight, training; views compliance and correlations", "HTTPS/PWA")
+    Rel(peakprotocol, usda, "Searches food nutritional data", "HTTPS/REST API")
+    Rel(peakprotocol, webpush, "Sends missed supplement notifications", "Web Push Protocol")
+    Rel(webpush, optimizer, "Delivers push notifications", "Push Notification")
+
+    UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")

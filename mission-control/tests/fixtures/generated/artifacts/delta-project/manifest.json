@@ -1,0 +1,92 @@
+{
+  "project": {
+    "slug": "delta-project",
+    "title": "Delta Project - PRD Stage",
+    "created": "2026-03-01T12:54:05Z",
+    "mode": "standard",
+    "priority": 4,
+    "status": "active"
+  },
+  "pipeline": {
+    "current_stage": "prd",
+    "stages": {
+      "problem": {
+        "status": "approved",
+        "artifact_id": "PRB-delta-project-001",
+        "file": "artifacts/delta-project/problem.md",
+        "assigned_to": "framer",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": "2026-03-31T12:54:05Z",
+        "gate": {
+          "id": "G1",
+          "status": "passed",
+          "passed_at": "2026-03-31T12:54:05Z",
+          "attempts": 1
+        }
+      },
+      "eval-spec": {
+        "status": "approved",
+        "artifact_id": "EVL-delta-project-001",
+        "file": "artifacts/delta-project/eval-spec.md",
+        "assigned_to": "eval",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": "2026-03-31T12:54:05Z",
+        "gate": {
+          "id": "G2",
+          "status": "passed",
+          "passed_at": "2026-03-31T12:54:05Z",
+          "attempts": 1
+        }
+      },
+      "prd": {
+        "status": "in-progress",
+        "artifact_id": "PRD-delta-project-001",
+        "file": "artifacts/delta-project/prd.md",
+        "assigned_to": "quill",
+        "started": "2026-03-01T12:54:05Z",
+        "completed": null,
+        "gate": {
+          "id": "G3",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      },
+      "diagrams": {
+        "status": "pending",
+        "artifact_id": null,
+        "file": null,
+        "assigned_to": "sketch",
+        "started": null,
+        "completed": null,
+        "gate": {
+          "id": "G4",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      },
+      "build-plan": {
+        "status": "pending",
+        "artifact_id": null,
+        "file": null,
+        "assigned_to": "planner",
+        "started": null,
+        "completed": null,
+        "gate": {
+          "id": "G5",
+          "status": "pending",
+          "passed_at": null,
+          "attempts": 0
+        }
+      }
+    }
+  },
+  "slug": "delta-project",
+  "title": "Delta Project - PRD Stage",
+  "mode": "standard",
+  "priority": 4,
+  "status": "active",
+  "current_stage": "prd",
+  "created": "2026-03-01T12:54:05Z"
+}
