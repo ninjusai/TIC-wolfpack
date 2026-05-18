@@ -18,4 +18,4 @@ Metro Driving School is one of Queensland's most recognised driving schools, ope
 
 Metro's approach centres on individual instruction tailored to each student's pace and learning style. Whether you are a complete beginner or looking to refine your skills before your driving test, Metro's professional instructors provide patient, practical guidance every step of the way.
 
-As part of The Instructor College group, Metro Driving School benefits from the operational support, shared systems, and consistent quality standards that come with being part of Queensland's largest network of driving schools.
+As part of The Instructor College group, Metro Driving School benefits from the operational support, shared systems, and consistent quality standards that come with being part of an established driving school network across Queensland.

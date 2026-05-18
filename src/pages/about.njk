@@ -1,6 +1,6 @@
 ---
 title: "About TIC Group"
-description: "TIC is a driver training group, built by people who run driving schools. We acquire, operate, and support a growing portfolio of trusted brands across the industry."
+description: "TIC is a Queensland-based driver training group, built by people who run driving schools. We acquire, operate, and support a growing portfolio of trusted brands, with national growth in our plans."
 layout: "layouts/page.njk"
 permalink: "/about/"
 breadcrumb: true
@@ -15,7 +15,7 @@ breadcrumb: true
 <section class="section section--light" id="who-we-are" data-animate="fade-up">
   <div class="container">
     <h2>Who We Are</h2>
-    <p>TIC was built by people who understand the driver training industry from the inside. We started out operating driving schools, and we still do. Everything we have built since has grown from that base: shared admin, shared systems, shared support, and a group of trusted brands operating across the country.</p>
+    <p>TIC was built by people who understand the driver training industry from the inside. We started out operating driving schools, and we still do. Everything we have built since has grown from that base: shared admin, shared systems, shared support, and a group of trusted brands operating across Queensland, with national growth in our plans.</p>
     <p>The Instructor College is a driver training group. We acquire established driving schools, we operate them as part of our group, and we build practical services for the wider industry. We know what it takes to run a driving school because we do it every day.</p>
   </div>
 </section>
@@ -52,8 +52,21 @@ breadcrumb: true
   </div>
 </section>
 
+{# Behind the brands: the operating model in practice #}
+<section class="section section--alt" id="behind-the-brands" data-animate="fade-up">
+  <div class="container">
+    <h2>Behind the brands</h2>
+    <p>Most of what TIC does day to day sits behind the brands rather than in front of them. The central team runs the admin, customer support, and instructor support for every school in the group, so each brand keeps a strong local identity while sharing the workload that quietly eats an owner's week. Bookings, enquiries, follow-ups, agency communication, issue resolution, instructor questions: these come to one place and get handled by people who know the industry.</p>
+    <p>The booking and scheduling systems sit underneath that. Online bookings, learner accounts, package management, instructor diaries, reminders, and the small everyday automations that keep a busy week from falling apart. We invest in this layer because it makes the difference between an instructor having a clean diary and an instructor losing an hour a day on admin.</p>
+    <p>Marketing and lead flow sit alongside it. We run the websites, the search presence, the suburb pages, the conversion work, and the brand positioning for the group brands. Owners stay close to their community and their instructors; the central team carries the bulk of the marketing load.</p>
+    <p>Compliance and risk management is the other quiet half of the work. Working-with-children clearances, privacy and data handling, incident reporting, child safety policies, QFCC-aligned procedures, instructor conduct expectations, and the operating procedures that keep a school on the right side of every requirement. It is becoming more important every year, and a small group team is much better placed to keep it tight than a busy owner-operator working alone.</p>
+    <p>Agency and funded work runs through the group as well. We coordinate lesson delivery for employment agencies, charities, support coordinators, government-funded programs, and youth and NDIS-related providers, with centralised invoicing and a single point of contact across multiple instructors and locations.</p>
+    <p>And underneath all of that is the slow, steady work of business improvement. Pricing, booking conversion, customer experience, instructor utilisation, reporting, sensible use of automation. We are not just running the brands; we are working to make them stronger every quarter.</p>
+  </div>
+</section>
+
 {# What we believe #}
-<section class="section section--alt" id="what-we-believe" data-animate="fade-up">
+<section class="section section--light" id="what-we-believe" data-animate="fade-up">
   <div class="container">
     <h2>What We Believe</h2>
     <p>Good driving schools need more than just leads. They need admin, systems, structure, compliance, marketing, and real support behind the scenes. A great instructor and a good local reputation are the heart of a school, but on their own they are not enough to keep the business running smoothly week after week.</p>
@@ -62,7 +75,7 @@ breadcrumb: true
 </section>
 
 {# Our values #}
-<section class="section section--light" id="our-values">
+<section class="section section--alt" id="our-values">
   <div class="container">
     <h2 data-animate="fade-up">Our Values</h2>
     <ul class="values-list" data-stagger>
@@ -79,13 +92,13 @@ breadcrumb: true
 <!-- Placeholder: leadership content pending per Phase 1 OQ-6 -->
 
 {# FAQ #}
-<section class="section section--alt" id="faq">
+<section class="section section--light" id="faq">
   <div class="container">
     <h2 data-animate="fade-up">Frequently Asked Questions</h2>
     {% set faqs = [
       { question: "What does TIC do?", answer: "TIC is a driver training group. We acquire established driving schools, we operate them as part of our group of trusted brands, and we build practical services for instructors and driving school operators across the wider industry." },
       { question: "Is TIC a driving school itself?", answer: "No. TIC is the group behind several driving school brands. Each brand operates with its own identity, its own instructors, and its own local presence. TIC provides the systems, admin, marketing, and support that sit behind them." },
-      { question: "Where does TIC operate?", answer: "Our group brands operate across Australia, with our central team based in Queensland. Different brands have different regional footprints." },
+      { question: "Where does TIC operate?", answer: "Our group operates across Queensland today, with our central team also based in Queensland. Different brands have different regional footprints across the state, and we have national growth in our plans." },
       { question: "Who do you work with?", answer: "<p>We work with driving school owners thinking about their next move, professional instructors looking for a stronger base, and agencies and organisations that need coordinated lesson delivery at scale. <a href=\"/contact/\">Reach out</a> if any of that sounds like you.</p>" }
     ] %}
     {% include "components/faq-accordion.njk" %}

@@ -97,6 +97,7 @@ alpine: true
           { value: "industry-services", label: "Industry services or Driving Instructor Car Hire" },
           { value: "agencies", label: "Agencies and organisations" },
           { value: "instructor", label: "Instructor opportunities" },
+          { value: "acquisitions", label: "Selling your driving school (acquisitions)" },
           { value: "other", label: "Other" }
         ] %}
         {% include "components/form-field.njk" %}
@@ -132,7 +133,7 @@ alpine: true
         try {
           const params = new URLSearchParams(window.location.search);
           const interest = params.get('service_interest');
-          const validInterests = ['industry-services', 'agencies', 'instructor', 'other'];
+          const validInterests = ['industry-services', 'agencies', 'instructor', 'acquisitions', 'other'];
           if (interest && validInterests.includes(interest)) {
             this.activeTab = 'service';
             this.$nextTick(() => {
