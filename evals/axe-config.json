@@ -1,0 +1,43 @@
+{
+  "$comment": "axe-core / pa11y config - SC-4 / WRK-TIC-P2-023. Phase 2 route surface. Per eval-spec-phase2.md, zero critical or serious violations allowed on any rendered page.",
+  "standard": "WCAG2AA",
+  "level": "error",
+  "ignore": [],
+  "runners": ["axe"],
+  "axe": {
+    "rules": {
+      "color-contrast": { "enabled": true },
+      "image-alt": { "enabled": true },
+      "label": { "enabled": true },
+      "link-name": { "enabled": true },
+      "button-name": { "enabled": true },
+      "landmark-one-main": { "enabled": true },
+      "page-has-heading-one": { "enabled": true },
+      "region": { "enabled": true }
+    },
+    "resultTypes": ["violations"],
+    "reporter": "v2"
+  },
+  "urls": [
+    "http://localhost:8080/",
+    "http://localhost:8080/about/",
+    "http://localhost:8080/our-group/",
+    "http://localhost:8080/our-group/affordable-driving-school/",
+    "http://localhost:8080/our-group/easyas-driver-training/",
+    "http://localhost:8080/our-group/learners-driver-training/",
+    "http://localhost:8080/our-group/metro-driving-school/",
+    "http://localhost:8080/our-group/rac-school-of-motoring/",
+    "http://localhost:8080/our-group/driving-instructor-car-hire/",
+    "http://localhost:8080/acquisitions/",
+    "http://localhost:8080/industry-services/",
+    "http://localhost:8080/agencies/",
+    "http://localhost:8080/instructor-opportunities/",
+    "http://localhost:8080/contact/",
+    "http://localhost:8080/privacy-policy/",
+    "http://localhost:8080/terms/",
+    "http://localhost:8080/cookie-policy/",
+    "http://localhost:8080/accessibility/",
+    "http://localhost:8080/thank-you/"
+  ],
+  "fail-on-violation-level": "serious"
+}

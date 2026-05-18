@@ -1,0 +1,56 @@
+name: Lighthouse and Accessibility
+
+# Lighthouse + axe-core gates - SC-3, SC-4 / WRK-TIC-P2-023.
+# Runs against the full Phase 2 route surface listed in evals/lighthouserc.js.
+# Targets:
+#   Performance >= 90
+#   LCP < 2.5s, CLS < 0.1, TBT < 200 (as INP proxy)
+#   Accessibility >= 100, zero critical / serious axe violations
+#
+# This job runs in parallel to build-and-eval (see build.yml) and is also
+# blocking before deploy promotion.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    name: Lighthouse and axe-core
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+
+      - name: Build site for production
+        run: ELEVENTY_ENV=production npx eleventy
+
+      - name: Run Lighthouse CI
+        run: lhci autorun --config=evals/lighthouserc.js
+        env:
+          LHCI_PORT: "8080"
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: evals/lighthouse-reports/
+          if-no-files-found: ignore
+          retention-days: 30

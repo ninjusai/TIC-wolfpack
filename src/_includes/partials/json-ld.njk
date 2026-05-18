@@ -1,11 +1,11 @@
-{# Organisation JSON-LD — home page only #}
+{# Organisation JSON-LD: home page only #}
 {% if page.url == "/" %}
 <script type="application/ld+json">
 {{ organisation | dump | safe }}
 </script>
 {% endif %}
 
-{# BreadcrumbList JSON-LD — all pages except home #}
+{# BreadcrumbList JSON-LD: all pages except home #}
 {% if page.url != "/" %}
 {% set segments = page.url | split("/") | reject("equalto", "") %}
 {% set segmentList = [] %}

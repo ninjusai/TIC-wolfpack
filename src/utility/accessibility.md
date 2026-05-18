@@ -14,14 +14,14 @@ TIC Group is committed to ensuring our website is accessible to all users, inclu
 
 Our website includes the following accessibility features:
 
-- **Semantic HTML** — proper use of headings, landmarks, and ARIA attributes to support screen readers
-- **Keyboard navigation** — all interactive elements are accessible via keyboard
-- **Skip to content link** — allows keyboard users to bypass repeated navigation
-- **Form labels** — all form fields have associated labels and clear error messages
-- **Colour contrast** — text and background colour combinations are designed to meet WCAG 2.2 AA contrast requirements
-- **Responsive design** — the website adapts to different screen sizes and zoom levels
-- **Alt text** — images include descriptive alternative text where appropriate
-- **Focus indicators** — visible focus styles for interactive elements
+- **Semantic HTML:** proper use of headings, landmarks, and ARIA attributes to support screen readers
+- **Keyboard navigation:** all interactive elements are accessible via keyboard
+- **Skip to content link:** allows keyboard users to bypass repeated navigation
+- **Form labels:** all form fields have associated labels and clear error messages
+- **Colour contrast:** text and background colour combinations are designed to meet WCAG 2.2 AA contrast requirements
+- **Responsive design:** the website adapts to different screen sizes and zoom levels
+- **Alt text:** images include descriptive alternative text where appropriate
+- **Focus indicators:** visible focus styles for interactive elements
 
 ## Known Limitations
 

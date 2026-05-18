@@ -1,40 +1,59 @@
 ---
 title: "Our Group of Brands"
-description: "TIC Group owns and operates a portfolio of driving school brands across Queensland. Explore our group."
+description: "The Instructor College is the group behind a portfolio of trusted driving school brands across Queensland, plus Driving Instructor Car Hire as an industry service for professional instructors."
 layout: "layouts/page.njk"
 permalink: "/our-group/"
 breadcrumb: true
 ---
 
 {# Hero #}
-{% set hero_title = "Our Group of Brands" %}
-{% set hero_subtitle = "Driving school brands across Queensland — each with its own identity, team, and local reputation." %}
+{% set hero_title = "Our group of brands" %}
+{% set hero_subtitle = "The Instructor College is the group behind a portfolio of trusted driving school brands across Queensland, plus an industry service built for professional instructors." %}
 {% include "components/hero.njk" %}
 
 {# Overview #}
 <section class="section section--light" id="overview" data-animate="fade-up">
   <div class="container">
-    <h2>Our Portfolio</h2>
-    <p>TIC Group owns and operates a portfolio of driving school brands across Queensland. Each brand maintains its own identity, team, and local reputation while benefiting from the group's shared operational systems, support, and investment.</p>
+    <h2>The group at a glance</h2>
+    <p>The Instructor College is a driver training group. We acquire established driving schools, we operate them as part of our group of trusted brands, and we build services for the wider driver training industry. The brands on this page are real driving schools we operate every day, plus one industry service for professional instructors. Good local brands belong to the community, and we do not erase them.</p>
+    <p>We have been in driver training since 2019, we run the admin, bookings, marketing, and compliance for the group, and we are building for the long term.</p>
   </div>
 </section>
 
-{# Brand Directory #}
-<section class="section section--alt" id="brand-directory">
+{# Driving school brands #}
+<section class="section section--alt" id="driving-school-brands">
   <div class="container">
-    <h2 data-animate="fade-up">Our Brands</h2>
+    <h2 data-animate="fade-up">Driving school brands</h2>
+    <p data-animate="fade-up">Each driving school in our group keeps its own identity, team, and local reputation. The group provides shared systems, admin, marketing, and compliance support behind the scenes.</p>
     <div class="brand-grid" data-stagger>
       {% for brand in collections.brands %}
-        {% include "components/brand-card.njk" %}
+        {% if brand.data.type == "driving-school" %}
+          {% include "components/brand-card.njk" %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{# Industry services #}
+<section class="section section--light" id="industry-services">
+  <div class="container">
+    <h2 data-animate="fade-up">Industry services</h2>
+    <p data-animate="fade-up">Alongside our driving school brands, we operate services for the wider driver training industry. Industry services are B2B: the customer is a professional instructor or a driving school operator, not a learner.</p>
+    <div class="brand-grid" data-stagger>
+      {% for brand in collections.brands %}
+        {% if brand.data.type == "industry-service" %}
+          {% include "components/brand-card.njk" %}
+        {% endif %}
       {% endfor %}
     </div>
   </div>
 </section>
 
 {# CTA #}
-{% set cta_heading = "Want to join our group?" %}
-{% set cta_body = "We're always interested in speaking with driving school owners who are considering their next chapter." %}
+{% set cta_heading = "Thinking about your next move?" %}
+{% set cta_body = "If you own a driving school and want a confidential, no-pressure conversation about joining the group, we would like to hear from you." %}
 {% set cta_url = "/acquisitions/" %}
-{% set cta_text = "Learn About Selling" %}
+{% set cta_text = "Start a confidential chat" %}
 {% set cta_variant = "dark" %}
 {% include "components/cta-section.njk" %}

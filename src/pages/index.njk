@@ -1,5 +1,5 @@
 ---
-title: "TIC Group — Acquire. Operate. Support."
+title: "TIC Group: Acquire. Operate. Support."
 description: "TIC Group is a driving industry group that acquires, operates, and supports driving school businesses across Australia."
 layout: "layouts/page.njk"
 permalink: "/"
@@ -17,24 +17,24 @@ permalink: "/"
 ] %}
 {% include "components/proof-strip.njk" %}
 
-{# Value Creation — Acquire. Operate. Support. #}
+{# What we do: Acquire. Operate. Support. #}
 <section class="section section--light" id="value-creation">
   <div class="container">
     <h2 data-animate="fade-up">Acquire. Operate. Support.</h2>
     <div class="pillar-grid" data-stagger>
       {% set pillar_number = "01" %}
       {% set pillar_title = "Acquire" %}
-      {% set pillar_description = "We acquire driving school businesses with continuity and respect for owners, teams, and brand equity." %}
+      {% set pillar_description = "We acquire established driving schools and help owners transition with care." %}
       {% include "components/pillar-block.njk" %}
 
       {% set pillar_number = "02" %}
       {% set pillar_title = "Operate" %}
-      {% set pillar_description = "We operate schools better through shared systems, management, marketing, fleet, and operational standards." %}
+      {% set pillar_description = "We operate and support our group of trusted driving school brands." %}
       {% include "components/pillar-block.njk" %}
 
       {% set pillar_number = "03" %}
       {% set pillar_title = "Support" %}
-      {% set pillar_description = "We support the wider industry with specialist services built for driving schools." %}
+      {% set pillar_description = "We develop practical services for instructors and driving school operators." %}
       {% include "components/pillar-block.njk" %}
     </div>
   </div>
@@ -53,27 +53,45 @@ permalink: "/"
   </div>
 </section>
 
-{# Services Preview #}
-<section class="section section--alt" id="services-preview" data-animate="fade-up">
+{# For driving school owners #}
+<section class="section section--alt" id="for-owners" data-animate="fade-up">
   <div class="container">
-    <h2>Services for Driving Schools</h2>
-    <p>From operational systems to fleet support, TIC Group provides specialist services designed for driving school businesses. Full details coming soon.</p>
-    <a href="/contact/" class="btn btn--primary">Get in Touch</a>
+    <h2>For driving school owners</h2>
+    <p>If you own a driving school and are thinking about your next move, we are open to a quiet, confidential conversation. We acquire established driving schools and help owners step back, exit, or join a larger group, while protecting the brand and instructors they have built.</p>
+    <a href="/acquisitions/" class="btn btn--primary">Talk about your driving school</a>
   </div>
 </section>
 
-{# Acquisition CTA #}
-{% set cta_heading = "Thinking of selling your driving school?" %}
-{% set cta_body = "Contact us for a confidential conversation." %}
-{% set cta_url = "/acquisitions/" %}
-{% set cta_text = "Sell Your Driving School" %}
-{% set cta_variant = "dark" %}
-{% include "components/cta-section.njk" %}
+{# For instructors and operators #}
+<section class="section section--light" id="for-instructors" data-animate="fade-up">
+  <div class="container">
+    <h2>For instructors and operators</h2>
+    <p>We are building practical services for professional driving instructors and driving school operators. Our first service is Driving Instructor Car Hire, a dual-control vehicle hire service for accredited instructors who need to keep teaching when their own car is off the road. More industry services will follow as the group grows.</p>
+    <a href="/industry-services/" class="btn btn--secondary">See industry services</a>
+  </div>
+</section>
 
-{# Contact CTA #}
-{% set cta_heading = "Ready to talk?" %}
-{% set cta_body = "Get in touch with the TIC Group team today." %}
+{# For agencies and organisations #}
+<section class="section section--alt" id="for-agencies" data-animate="fade-up">
+  <div class="container">
+    <h2>For agencies and organisations</h2>
+    <p>Through our group of driving school brands, we can coordinate lesson delivery for agencies, community organisations, charities, and funded programs that need reliable lessons at scale. One point of contact, multiple instructors, multiple locations.</p>
+    <a href="/agencies/" class="btn btn--secondary">Discuss your programme</a>
+  </div>
+</section>
+
+{# Mission #}
+<section class="section section--light" id="mission" data-animate="fade-up">
+  <div class="container">
+    <h2>Our mission</h2>
+    <p>We are working to lift standards in driver training and to build a stronger, more sustainable industry for instructors, owners, and the learners they teach. We are building for the long term, not flipping businesses.</p>
+  </div>
+</section>
+
+{# Final CTA #}
+{% set cta_heading = "Want to talk?" %}
+{% set cta_body = "Want to talk about your driving school, instructor services or organisation's driver training needs? We would like to hear from you." %}
 {% set cta_url = "/contact/" %}
-{% set cta_text = "Contact Us" %}
-{% set cta_variant = "light" %}
+{% set cta_text = "Get in touch" %}
+{% set cta_variant = "dark" %}
 {% include "components/cta-section.njk" %}

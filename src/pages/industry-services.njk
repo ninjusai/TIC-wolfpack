@@ -1,0 +1,65 @@
+---
+title: "Industry Services"
+description: "TIC is building practical services for driving instructors and driving school operators, starting with Driving Instructor Car Hire."
+layout: "layouts/page.njk"
+permalink: "/industry-services/"
+breadcrumb: true
+pillar: "support"
+seo:
+  title: "Services for driving instructors and driving school operators"
+  description: "TIC builds practical services for the wider driver training industry. Our first service is Driving Instructor Car Hire, a B2B dual-control vehicle hire for professional instructors."
+---
+
+{# Hero #}
+{% set hero_title = "Services for driving instructors and driving school operators" %}
+{% set hero_subtitle = "TIC is building practical services for the wider driver training industry, starting with Driving Instructor Car Hire." %}
+{% include "components/hero.njk" %}
+
+{# Intro #}
+<section class="section section--light" id="industry-services-intro" data-animate="fade-up">
+  <div class="container">
+    <h2>Practical services, built for the industry</h2>
+    <p>The Instructor College is a driver training group. Alongside our group of driving school brands, we are developing services for the wider industry. Our first service is Driving Instructor Car Hire, a vehicle hire offering for professional driving instructors who need a dual-control car.</p>
+  </div>
+</section>
+
+{# Driving Instructor Car Hire feature block #}
+<section class="section section--alt" id="driving-instructor-car-hire">
+  <div class="container">
+    <h2 data-animate="fade-up">Driving Instructor Car Hire</h2>
+    <p data-animate="fade-up">Driving Instructor Car Hire is a specialist vehicle hire service for accredited driving instructors. It is a B2B service for professional instructors. It is not a learner-driver hire service.</p>
+    <ul class="feature-list" data-stagger>
+      <li><strong>Dual-control vehicles</strong>, ready for professional instruction.</li>
+      <li><strong>Servicing, repairs, and accident replacement</strong> covered, so vehicle downtime does not stop your work.</li>
+      <li><strong>Business continuity</strong> for instructors whose own car is off the road.</li>
+      <li><strong>Support for instructors who need a dual-control vehicle</strong> to keep teaching.</li>
+    </ul>
+    {# TODO: replace placeholder href with the live DICH website URL once confirmed by Alpha. #}
+    <p data-animate="fade-up"><a href="#" class="btn btn--secondary" rel="noopener">Visit Driving Instructor Car Hire</a></p>
+  </div>
+</section>
+
+{# Future support services #}
+<section class="section section--light" id="future-support-services">
+  <div class="container">
+    <h2 data-animate="fade-up">Where we are heading next</h2>
+    <p data-animate="fade-up">As TIC continues to grow, we are exploring additional ways to support instructors and driving school operators through practical, industry-specific services. These are directions we are working towards, not promises of services that exist today.</p>
+    <ul class="feature-list" data-stagger>
+      <li><strong>Vehicle access</strong>, building on what we have learned operating dual-control fleets.</li>
+      <li><strong>Business continuity</strong> for instructors and school operators.</li>
+      <li><strong>Systems</strong> that take the friction out of running a small school.</li>
+      <li><strong>Marketing support</strong> drawn from operating our group brands every day.</li>
+      <li><strong>Admin support</strong> for bookings, payments, and follow-up.</li>
+      <li><strong>Growth support</strong> for independent driving schools that want to scale carefully.</li>
+      <li><strong>Industry resources</strong>: practical tools, templates, and shared knowledge across our brands.</li>
+    </ul>
+  </div>
+</section>
+
+{# CTA #}
+{% set cta_heading = "Need a dual-control vehicle, or want to talk about industry services?" %}
+{% set cta_body = "Driving Instructor Car Hire supports professional instructors when their own car is out of action. For other industry-services enquiries, we are happy to have a conversation." %}
+{% set cta_url = "/contact/?service_interest=industry-services" %}
+{% set cta_text = "Talk to us about hire" %}
+{% set cta_variant = "dark" %}
+{% include "components/cta-section.njk" %}

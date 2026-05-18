@@ -9,12 +9,13 @@ featured_image: "/assets/images/brands/metro-driving-school.png"
 status: "published"
 order: 1
 type: "driving-school"
+pillar: "operate"
 ---
 
 ## About Metro Driving School
 
-Metro Driving School is one of Queensland's most recognised driver training brands, operating across Brisbane, Gold Coast, Sunshine Coast, and Cairns. With a reputation built on an exceptional standard of tuition, Metro has helped thousands of learner drivers develop the skills and confidence they need to succeed on the road.
+Metro Driving School is one of Queensland's most recognised driving schools, operating across Brisbane, Gold Coast, Sunshine Coast, and Cairns. With a reputation built on an exceptional standard of tuition, Metro has helped thousands of learner drivers develop the skills and confidence they need to succeed on the road.
 
-Metro's approach centres on individual instruction tailored to each student's pace and learning style. Whether you're a complete beginner or looking to refine your skills before your driving test, Metro's accredited instructors provide patient, professional guidance every step of the way.
+Metro's approach centres on individual instruction tailored to each student's pace and learning style. Whether you are a complete beginner or looking to refine your skills before your driving test, Metro's professional instructors provide patient, practical guidance every step of the way.
 
-As part of The Instructor College group, Metro Driving School benefits from the operational support and quality standards that come with being part of Queensland's largest network of driving schools.
+As part of The Instructor College group, Metro Driving School benefits from the operational support, shared systems, and consistent quality standards that come with being part of Queensland's largest network of driving schools.

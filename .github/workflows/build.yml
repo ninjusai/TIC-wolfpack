@@ -1,0 +1,64 @@
+name: Build and Eval Gates
+
+# CI pipeline for TIC Group Website (Phase 2).
+# Order (all blocking unless noted):
+#   1. Install Node deps
+#   2. Eleventy build (SC-1)
+#   3. compliance-check.sh         (SC-2: ASQA / VET language)
+#   4. emdash-check.sh             (EVL-P2-001: no U+2014 in built HTML)
+#   5. voice-blocklist.sh          (EVL-P2-002: no forbidden phrases)
+#   6. brand-check.sh              (SC-6: brand directory parity)
+#   7. structured-data-check.js    (SC-7: JSON-LD validation)
+#
+# Strict-mode source scans for emdash + voice run after the built-HTML
+# gates so source-only violations are caught even when the built HTML
+# is clean.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-and-eval:
+    name: Build and run eval gates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site with Eleventy
+        run: npx eleventy
+
+      - name: Compliance check (SC-2 ASQA / VET language)
+        run: bash evals/compliance-check.sh
+
+      - name: Emdash check (EVL-P2-001, built HTML)
+        run: bash evals/emdash-check.sh
+
+      - name: Voice and phrase blocklist (EVL-P2-002, built HTML)
+        run: bash evals/voice-blocklist.sh
+
+      - name: Brand directory check (SC-6)
+        run: bash evals/brand-check.sh
+
+      - name: Structured data check (SC-7)
+        run: node evals/structured-data-check.js
+
+      - name: Emdash check strict mode (source files)
+        run: bash evals/emdash-check.sh --strict
+
+      - name: Voice and phrase blocklist strict mode (source files)
+        run: bash evals/voice-blocklist.sh --strict

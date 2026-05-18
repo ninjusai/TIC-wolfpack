@@ -1,5 +1,5 @@
 {# Page title #}
-<title>{{ seo.title or title }}{% if title != site.name %} — {{ site.name }}{% endif %}</title>
+<title>{{ seo.title or title }}{% if title != site.name %} | {{ site.name }}{% endif %}</title>
 
 {# Meta description #}
 <meta name="description" content="{{ seo.description or description or site.description }}">
@@ -8,7 +8,7 @@
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
 
 {# Open Graph #}
-<meta property="og:title" content="{{ seo.title or title }} — {{ site.name }}">
+<meta property="og:title" content="{{ seo.title or title }} | {{ site.name }}">
 <meta property="og:description" content="{{ seo.description or description or site.description }}">
 <meta property="og:url" content="{{ site.url }}{{ page.url }}">
 <meta property="og:type" content="website">
@@ -19,13 +19,13 @@
 
 {# Twitter Card #}
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ seo.title or title }} — {{ site.name }}">
+<meta name="twitter:title" content="{{ seo.title or title }} | {{ site.name }}">
 <meta name="twitter:description" content="{{ seo.description or description or site.description }}">
 {% if seo.image or featured_image %}
 <meta name="twitter:image" content="{{ site.url }}{{ seo.image or featured_image }}">
 {% endif %}
 
-{# Robots — noindex preview/staging deploys #}
+{# Robots: noindex preview/staging deploys #}
 {% if not env.isProduction %}
 <meta name="robots" content="noindex, nofollow">
 {% endif %}

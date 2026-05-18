@@ -1,6 +1,6 @@
 ---
 title: "About TIC Group"
-description: "Learn about TIC Group — a driving industry group that owns, operates, and supports driving school businesses across Queensland."
+description: "TIC is a driver training group, built by people who run driving schools. We acquire, operate, and support a growing portfolio of trusted brands across the industry."
 layout: "layouts/page.njk"
 permalink: "/about/"
 breadcrumb: true
@@ -8,71 +8,85 @@ breadcrumb: true
 
 {# Hero #}
 {% set hero_title = "About TIC Group" %}
-{% set hero_subtitle = "A driving industry group built on 20+ years of experience." %}
+{% set hero_subtitle = "A driver training group built by people who run driving schools, not by people who only read about them." %}
 {% include "components/hero.njk" %}
 
-{# Who We Are #}
+{# Who we are #}
 <section class="section section--light" id="who-we-are" data-animate="fade-up">
   <div class="container">
     <h2>Who We Are</h2>
-    <p>TIC Group is a driving industry group based in Queensland. We own, operate, and support a growing portfolio of driving school businesses across the state.</p>
+    <p>TIC was built by people who understand the driver training industry from the inside. We started out operating driving schools, and we still do. Everything we have built since has grown from that base: shared admin, shared systems, shared support, and a group of trusted brands operating across the country.</p>
+    <p>The Instructor College is a driver training group. We acquire established driving schools, we operate them as part of our group, and we build practical services for the wider industry. We know what it takes to run a driving school because we do it every day.</p>
   </div>
 </section>
 
-{# Our Story #}
+{# Our story #}
 <section class="section section--alt" id="our-story" data-animate="fade-up">
   <div class="container">
     <h2>Our Story</h2>
-    <p>Founded with over 20 years of experience in the driving instruction industry, TIC Group has evolved from a single operation into a group of driving school brands and industry services. Our journey is built on a belief that driving schools thrive when they have access to better systems, stronger operations, and specialist industry support.</p>
+    <p>TIC has grown from operating driving schools into managing a broader group of brands and services. Each step was practical, not theoretical: when we saw something that needed fixing in how a school was run, we built the system, the team, or the process to fix it. Over time, that work became the backbone for the brands we now operate.</p>
+    <p>Today the group includes several established driving school brands, our industry service Driving Instructor Car Hire, and a small central team supporting bookings, admin, marketing, instructor onboarding, and compliance across all of them. We are focused on quality driver instruction, strong systems, professional instructors, and long-term industry growth.</p>
   </div>
 </section>
 
-{# Our Model #}
+{# Our model #}
 <section class="section section--light" id="our-model">
   <div class="container">
-    <h2 data-animate="fade-up">Our Model — Acquire. Operate. Support.</h2>
+    <h2 data-animate="fade-up">Our Model: Acquire. Operate. Support.</h2>
     <div class="pillar-grid" data-stagger>
       {% set pillar_number = "01" %}
       {% set pillar_title = "Acquire" %}
-      {% set pillar_description = "We acquire driving school businesses with continuity and respect for owners, teams, and brand equity." %}
+      {% set pillar_description = "We acquire established driving schools and help owners step back with care, protecting the brand, the team, and the trust they have built." %}
       {% include "components/pillar-block.njk" %}
 
       {% set pillar_number = "02" %}
       {% set pillar_title = "Operate" %}
-      {% set pillar_description = "We operate schools better through shared systems, management, marketing, fleet, and operational standards." %}
+      {% set pillar_description = "We operate our group brands ourselves: bookings, admin, marketing, compliance, instructor support. Instructors focus on teaching, owners step back from the day-to-day." %}
       {% include "components/pillar-block.njk" %}
 
       {% set pillar_number = "03" %}
       {% set pillar_title = "Support" %}
-      {% set pillar_description = "We support the wider industry with specialist services built for driving schools." %}
+      {% set pillar_description = "We build practical services for instructors and driving school operators across the wider industry. Driving Instructor Car Hire is our first." %}
       {% include "components/pillar-block.njk" %}
     </div>
   </div>
 </section>
 
-{# Our Values #}
-<section class="section section--alt" id="our-values">
+{# What we believe #}
+<section class="section section--alt" id="what-we-believe" data-animate="fade-up">
+  <div class="container">
+    <h2>What We Believe</h2>
+    <p>Good driving schools need more than just leads. They need admin, systems, structure, compliance, marketing, and real support behind the scenes. A great instructor and a good local reputation are the heart of a school, but on their own they are not enough to keep the business running smoothly week after week.</p>
+    <p>The schools that thrive over time are the ones with a proper operating backbone. Building that backbone is what we do, and it is why owners and instructors come to us.</p>
+  </div>
+</section>
+
+{# Our values #}
+<section class="section section--light" id="our-values">
   <div class="container">
     <h2 data-animate="fade-up">Our Values</h2>
     <ul class="values-list" data-stagger>
-      <li><strong>Quality</strong> — We hold ourselves and our brands to the highest operational and instructional standards.</li>
-      <li><strong>Continuity</strong> — We protect the identity, reputation, and teams of the businesses we acquire.</li>
-      <li><strong>Transparency</strong> — We operate with honesty and openness in every relationship.</li>
-      <li><strong>Growth</strong> — We invest in our people, our brands, and the systems that drive improvement.</li>
-      <li><strong>Support</strong> — We exist to help driving school businesses succeed through shared expertise and resources.</li>
+      <li><strong>Quality.</strong> We hold ourselves, and the brands we operate, to high standards for instruction, admin, and customer experience.</li>
+      <li><strong>Continuity.</strong> When we acquire a driving school, we protect the brand, the instructors, the customers, and the trust they have built together.</li>
+      <li><strong>Transparency.</strong> We operate openly with owners, instructors, agencies, and learners. We say what we mean.</li>
+      <li><strong>Long-term thinking.</strong> We are building over years, not running a campaign for a quarter. Every decision is made with that horizon in mind.</li>
+      <li><strong>Practical support.</strong> We help the schools and instructors in our group with the work that actually slows them down: admin, bookings, marketing, compliance.</li>
     </ul>
   </div>
 </section>
 
+{# Leadership placeholder #}
+<!-- Placeholder: leadership content pending per Phase 1 OQ-6 -->
+
 {# FAQ #}
-<section class="section section--light" id="faq">
+<section class="section section--alt" id="faq">
   <div class="container">
     <h2 data-animate="fade-up">Frequently Asked Questions</h2>
     {% set faqs = [
-      { question: "What does TIC Group do?", answer: "TIC Group is a driving industry group that acquires, operates, and supports driving school businesses across Queensland." },
-      { question: "Is TIC Group a driving school?", answer: "No. TIC Group is the parent company behind multiple driving school brands. Each brand operates independently under the TIC Group umbrella." },
-      { question: "Where does TIC Group operate?", answer: "TIC Group is based in Queensland, Australia, with brands operating across the state." },
-      { question: "How can I work with TIC Group?", answer: "<p>We'd love to hear from you. <a href=\"/contact/\">Contact us through our enquiry form</a> and our team will be in touch.</p>" }
+      { question: "What does TIC do?", answer: "TIC is a driver training group. We acquire established driving schools, we operate them as part of our group of trusted brands, and we build practical services for instructors and driving school operators across the wider industry." },
+      { question: "Is TIC a driving school itself?", answer: "No. TIC is the group behind several driving school brands. Each brand operates with its own identity, its own instructors, and its own local presence. TIC provides the systems, admin, marketing, and support that sit behind them." },
+      { question: "Where does TIC operate?", answer: "Our group brands operate across Australia, with our central team based in Queensland. Different brands have different regional footprints." },
+      { question: "Who do you work with?", answer: "<p>We work with driving school owners thinking about their next move, professional instructors looking for a stronger base, and agencies and organisations that need coordinated lesson delivery at scale. <a href=\"/contact/\">Reach out</a> if any of that sounds like you.</p>" }
     ] %}
     {% include "components/faq-accordion.njk" %}
   </div>

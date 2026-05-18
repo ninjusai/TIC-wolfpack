@@ -24,7 +24,7 @@ You may use the Website for lawful purposes only. You agree not to:
 
 ## Intellectual Property
 
-All content on the Website — including text, graphics, logos, images, and software — is the property of TIC Group or its licensors and is protected by Australian and international intellectual property laws.
+All content on the Website (including text, graphics, logos, images, and software) is the property of TIC Group or its licensors and is protected by Australian and international intellectual property laws.
 
 You may not reproduce, distribute, modify, or create derivative works from any content on the Website without our prior written consent.
 

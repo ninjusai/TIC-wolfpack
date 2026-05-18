@@ -1,0 +1,68 @@
+# Voice & Phrase Blocklist - EVL-P2-002
+# Forbidden phrases per Proposal section 12 (Messaging to avoid) plus section 6
+# soft-watch anti-examples. Used by voice-blocklist.sh.
+#
+# Rules:
+#   - One phrase per line, lowercase.
+#   - Lines starting with '#' are comments and ignored.
+#   - Lines starting with '!' are whitelist overrides (allow the phrase
+#     when followed inline by an explicit annotation in source).
+#   - Matching is case-insensitive with word-boundary aware grep.
+#
+# Inline whitelist (source level only):
+#   Add a comment near a legitimate use to allow that phrase on the next
+#   matched line. Example:
+#     <!-- voice-allow: consolidation -->
+#     The Phase 1 ASQA consolidation step was completed in April.
+#
+# Sources:
+#   - artifacts/tic-group-website/TIC Website _ Content Ideas _ Proposal.md
+#     section 12 "Messaging to avoid" (hard-block list)
+#   - section 6 About page tone anti-examples (soft-watch list)
+#   - section 13 tone of voice "Not" example
+
+# --- Hard block: Proposal section 12 phrases ---
+synergies
+synergy
+disrupting
+disrupt the industry
+market consolidation
+portfolio optimisation
+portfolio optimization
+end-to-end ecosystem
+private equity
+roll-up
+roll up strategy
+roll-up strategy
+deploy capital
+deploying capital
+under-optimised assets
+under-optimized assets
+under-optimised
+under-optimized
+unlock efficiencies
+leading investment group
+investment group
+fragmented market
+fragmented markets
+lead generation company
+
+# --- Soft watch: Proposal section 6 / section 13 anti-examples ---
+# These phrases appear verbatim in the "Avoid" examples of the Proposal
+# and must never reach rendered HTML. Flagged separately so reviewers
+# can see they came from the anti-example block.
+deploying capital across fragmented markets
+identify under-optimised assets
+identify under-optimized assets
+
+# --- Soft watch: framing terms ---
+# 'franchise' is forbidden as a business-model term (per section 12).
+# Allowed only when annotated (see whitelist note above).
+franchise
+
+# --- Whitelist overrides (annotation-based) ---
+# These do not remove the terms above; they let a single in-source use
+# pass when accompanied by the matching annotation. See voice-blocklist.sh.
+!consolidation
+!asset
+!assets

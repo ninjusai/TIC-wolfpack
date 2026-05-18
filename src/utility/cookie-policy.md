@@ -18,21 +18,21 @@ The TIC Group website uses cookies and similar technologies for the following pu
 
 These cookies are necessary for the Website to function and cannot be switched off. They include:
 
-- **Cloudflare cookies** — used for security, performance, and bot protection (including Turnstile verification on forms)
-- **Session cookies** — used to maintain your session while browsing the Website
+- **Cloudflare cookies:** used for security, performance, and bot protection (including Turnstile verification on forms)
+- **Session cookies:** used to maintain your session while browsing the Website
 
 ### Analytics Cookies
 
 We use analytics cookies to understand how visitors interact with our Website. This helps us improve the user experience.
 
-- **Google Analytics** — collects anonymised data about page views, session duration, traffic sources, and user behaviour. Google Analytics uses cookies such as `_ga` and `_gid`.
+- **Google Analytics:** collects anonymised data about page views, session duration, traffic sources, and user behaviour. Google Analytics uses cookies such as `_ga` and `_gid`.
 
 ### Third-Party Cookies
 
 Some third-party services embedded on our Website may set their own cookies:
 
-- **Google Fonts** — may set cookies when loading web fonts
-- **Cloudflare Turnstile** — sets cookies for form spam protection
+- **Google Fonts:** may set cookies when loading web fonts
+- **Cloudflare Turnstile:** sets cookies for form spam protection
 
 ## Managing Cookies
 

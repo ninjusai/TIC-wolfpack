@@ -3,6 +3,9 @@
     { "label": "About", "url": "/about/" },
     { "label": "Our Group", "url": "/our-group/" },
     { "label": "Acquisitions", "url": "/acquisitions/" },
+    { "label": "Industry Services", "url": "/industry-services/" },
+    { "label": "Agencies", "url": "/agencies/" },
+    { "label": "Instructor Opportunities", "url": "/instructor-opportunities/" },
     { "label": "Contact", "url": "/contact/" }
   ],
   "footer": [

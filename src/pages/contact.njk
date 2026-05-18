@@ -1,6 +1,6 @@
 ---
 title: "Contact TIC Group"
-description: "Get in touch with TIC Group. Whether you have a general enquiry, want to discuss selling your driving school, or explore partnership opportunities."
+description: "Get in touch with The Instructor College. Whether you own a driving school, work as an instructor, run an agency, or have a general enquiry, we would like to hear from you."
 layout: "layouts/page.njk"
 permalink: "/contact/"
 breadcrumb: true
@@ -8,12 +8,19 @@ alpine: true
 ---
 
 {# Hero #}
-{% set hero_title = "Contact TIC Group" %}
-{% set hero_subtitle = "We'd love to hear from you. Choose the enquiry type that best fits your needs." %}
+{% set hero_title = "Contact us" %}
+{% set hero_subtitle = "We would love to hear from you. Choose the enquiry type that best fits your needs." %}
 {% include "components/hero.njk" %}
 
+{# Five-Question lead-in #}
+<section class="section section--light" id="contact-intro" data-animate="fade-up">
+  <div class="container">
+    <p>The Instructor College is the group behind a portfolio of driving school brands and driver training services. We acquire driving schools, operate our group brands, and build practical services for the wider driver training industry. Whoever you are, instructor, owner, agency, or industry observer, we read every enquiry.</p>
+  </div>
+</section>
+
 {# Contact Info #}
-<section class="section section--light" id="contact-info" data-animate="fade-up">
+<section class="section section--alt" id="contact-info" data-animate="fade-up">
   <div class="container">
     <div class="contact-details">
       <div class="contact-detail">
@@ -33,29 +40,29 @@ alpine: true
 </section>
 
 {# Form Tabs #}
-<section class="section section--alt" id="enquiry-forms" x-data="{ activeTab: 'general' }" data-animate="fade-up">
+<section class="section section--light" id="enquiry-forms" x-data="contactForms()" x-init="init()" data-animate="fade-up">
   <div class="container">
-    <h2>Send an Enquiry</h2>
+    <h2>Send an enquiry</h2>
 
     {# Tab Buttons #}
     <div class="form-tabs" role="tablist">
-      <button role="tab" class="form-tab" :class="{ 'form-tab--active': activeTab === 'general' }" @click="activeTab = 'general'" :aria-selected="activeTab === 'general'">General Enquiry</button>
-      <button role="tab" class="form-tab" :class="{ 'form-tab--active': activeTab === 'acquisition' }" @click="activeTab = 'acquisition'" :aria-selected="activeTab === 'acquisition'">Acquisition Enquiry</button>
-      <button role="tab" class="form-tab" :class="{ 'form-tab--active': activeTab === 'service' }" @click="activeTab = 'service'" :aria-selected="activeTab === 'service'">Service Enquiry</button>
-      <button role="tab" class="form-tab" :class="{ 'form-tab--active': activeTab === 'media' }" @click="activeTab = 'media'" :aria-selected="activeTab === 'media'">Media / Partnerships</button>
+      <button role="tab" class="form-tab" :class="{ 'form-tab--active': activeTab === 'general' }" @click="activeTab = 'general'" :aria-selected="activeTab === 'general'">General enquiry</button>
+      <button role="tab" class="form-tab" :class="{ 'form-tab--active': activeTab === 'acquisition' }" @click="activeTab = 'acquisition'" :aria-selected="activeTab === 'acquisition'">Acquisition enquiry</button>
+      <button role="tab" class="form-tab" :class="{ 'form-tab--active': activeTab === 'service' }" @click="activeTab = 'service'" :aria-selected="activeTab === 'service'">Service enquiry</button>
+      <button role="tab" class="form-tab" :class="{ 'form-tab--active': activeTab === 'media' }" @click="activeTab = 'media'" :aria-selected="activeTab === 'media'">Media or partnerships</button>
     </div>
 
     {# General Enquiry Form #}
     <div x-show="activeTab === 'general'" role="tabpanel">
       <form data-enquiry-form>
         <input type="hidden" name="type" value="general">
-        {% set field_name = "name" %}{% set field_label = "Your Name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
-        {% set field_name = "email" %}{% set field_label = "Email Address" %}{% set field_type = "email" %}{% set field_required = true %}{% include "components/form-field.njk" %}
-        {% set field_name = "phone" %}{% set field_label = "Phone Number" %}{% set field_type = "tel" %}{% set field_required = false %}{% include "components/form-field.njk" %}
+        {% set field_name = "name" %}{% set field_label = "Your name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+        {% set field_name = "email" %}{% set field_label = "Email address" %}{% set field_type = "email" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+        {% set field_name = "phone" %}{% set field_label = "Phone number" %}{% set field_type = "tel" %}{% set field_required = false %}{% include "components/form-field.njk" %}
         {% set field_name = "message" %}{% set field_label = "Message" %}{% set field_type = "textarea" %}{% set field_required = true %}{% include "components/form-field.njk" %}
         {% include "partials/turnstile.njk" %}
         <div class="form-message" aria-live="polite"></div>
-        <button type="submit" class="btn btn--primary">Send Enquiry</button>
+        <button type="submit" class="btn btn--primary">Send enquiry</button>
       </form>
     </div>
 
@@ -63,15 +70,15 @@ alpine: true
     <div x-show="activeTab === 'acquisition'" role="tabpanel">
       <form data-enquiry-form>
         <input type="hidden" name="type" value="acquisition">
-        {% set field_name = "name" %}{% set field_label = "Your Name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
-        {% set field_name = "email" %}{% set field_label = "Email Address" %}{% set field_type = "email" %}{% set field_required = true %}{% include "components/form-field.njk" %}
-        {% set field_name = "phone" %}{% set field_label = "Phone Number" %}{% set field_type = "tel" %}{% set field_required = false %}{% include "components/form-field.njk" %}
-        {% set field_name = "business_name" %}{% set field_label = "Business Name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+        {% set field_name = "name" %}{% set field_label = "Your name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+        {% set field_name = "email" %}{% set field_label = "Email address" %}{% set field_type = "email" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+        {% set field_name = "phone" %}{% set field_label = "Phone number" %}{% set field_type = "tel" %}{% set field_required = false %}{% include "components/form-field.njk" %}
+        {% set field_name = "business_name" %}{% set field_label = "Business name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
         {% set field_name = "region" %}{% set field_label = "Region" %}{% set field_type = "text" %}{% set field_required = false %}{% include "components/form-field.njk" %}
         {% set field_name = "message" %}{% set field_label = "Tell us about your business" %}{% set field_type = "textarea" %}{% set field_required = true %}{% include "components/form-field.njk" %}
         {% include "partials/turnstile.njk" %}
         <div class="form-message" aria-live="polite"></div>
-        <button type="submit" class="btn btn--primary">Send Confidential Enquiry</button>
+        <button type="submit" class="btn btn--primary">Send confidential enquiry</button>
       </form>
     </div>
 
@@ -79,28 +86,68 @@ alpine: true
     <div x-show="activeTab === 'service'" role="tabpanel">
       <form data-enquiry-form>
         <input type="hidden" name="type" value="service">
-        {% set field_name = "name" %}{% set field_label = "Your Name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
-        {% set field_name = "email" %}{% set field_label = "Email Address" %}{% set field_type = "email" %}{% set field_required = true %}{% include "components/form-field.njk" %}
-        {% set field_name = "phone" %}{% set field_label = "Phone Number" %}{% set field_type = "tel" %}{% set field_required = false %}{% include "components/form-field.njk" %}
+        {% set field_name = "name" %}{% set field_label = "Your name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+        {% set field_name = "email" %}{% set field_label = "Email address" %}{% set field_type = "email" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+        {% set field_name = "phone" %}{% set field_label = "Phone number" %}{% set field_type = "tel" %}{% set field_required = false %}{% include "components/form-field.njk" %}
+        {% set field_name = "service_interest" %}
+        {% set field_label = "What are you enquiring about?" %}
+        {% set field_type = "select" %}
+        {% set field_required = true %}
+        {% set field_options = [
+          { value: "industry-services", label: "Industry services or Driving Instructor Car Hire" },
+          { value: "agencies", label: "Agencies and organisations" },
+          { value: "instructor", label: "Instructor opportunities" },
+          { value: "other", label: "Other" }
+        ] %}
+        {% include "components/form-field.njk" %}
         {% set field_name = "message" %}{% set field_label = "Message" %}{% set field_type = "textarea" %}{% set field_required = true %}{% include "components/form-field.njk" %}
         {% include "partials/turnstile.njk" %}
         <div class="form-message" aria-live="polite"></div>
-        <button type="submit" class="btn btn--primary">Send Service Enquiry</button>
+        <button type="submit" class="btn btn--primary">Send service enquiry</button>
       </form>
     </div>
 
-    {# Media / Partnerships Form #}
+    {# Media or Partnerships Form #}
     <div x-show="activeTab === 'media'" role="tabpanel">
       <form data-enquiry-form>
         <input type="hidden" name="type" value="media">
-        {% set field_name = "name" %}{% set field_label = "Your Name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
-        {% set field_name = "email" %}{% set field_label = "Email Address" %}{% set field_type = "email" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+        {% set field_name = "name" %}{% set field_label = "Your name" %}{% set field_type = "text" %}{% set field_required = true %}{% include "components/form-field.njk" %}
+        {% set field_name = "email" %}{% set field_label = "Email address" %}{% set field_type = "email" %}{% set field_required = true %}{% include "components/form-field.njk" %}
         {% set field_name = "organisation" %}{% set field_label = "Organisation" %}{% set field_type = "text" %}{% set field_required = false %}{% include "components/form-field.njk" %}
         {% set field_name = "message" %}{% set field_label = "Message" %}{% set field_type = "textarea" %}{% set field_required = true %}{% include "components/form-field.njk" %}
         {% include "partials/turnstile.njk" %}
         <div class="form-message" aria-live="polite"></div>
-        <button type="submit" class="btn btn--primary">Send Enquiry</button>
+        <button type="submit" class="btn btn--primary">Send enquiry</button>
       </form>
     </div>
   </div>
 </section>
+
+{# Alpine.js controller for contact forms #}
+<script>
+  function contactForms() {
+    return {
+      activeTab: 'general',
+      init() {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          const interest = params.get('service_interest');
+          const validInterests = ['industry-services', 'agencies', 'instructor', 'other'];
+          if (interest && validInterests.includes(interest)) {
+            this.activeTab = 'service';
+            this.$nextTick(() => {
+              const select = document.querySelector('form input[name="type"][value="service"]')
+                ?.closest('form')
+                ?.querySelector('select[name="service_interest"]');
+              if (select) {
+                select.value = interest;
+              }
+            });
+          }
+        } catch (err) {
+          // No-op: pre-fill is a progressive enhancement.
+        }
+      }
+    };
+  }
+</script>

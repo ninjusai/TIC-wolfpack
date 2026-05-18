@@ -71,12 +71,22 @@ export async function onRequestPost(context) {
       if (extra.region) htmlBody += `<p><strong>Region:</strong> ${escapeHtml(extra.region)}</p>`;
     } else if (type === 'service') {
       if (extra.brand) htmlBody += `<p><strong>Brand:</strong> ${escapeHtml(extra.brand)}</p>`;
+      if (extra.service_interest) {
+        const serviceInterestLabels = {
+          'industry-services': 'Industry services or Driving Instructor Car Hire',
+          'agencies': 'Agencies and organisations',
+          'instructor': 'Instructor opportunities',
+          'other': 'Other'
+        };
+        const label = serviceInterestLabels[extra.service_interest] || extra.service_interest;
+        htmlBody += `<p><strong>Service interest:</strong> ${escapeHtml(label)}</p>`;
+      }
     } else if (type === 'media') {
       if (extra.organisation) htmlBody += `<p><strong>Organisation:</strong> ${escapeHtml(extra.organisation)}</p>`;
     }
 
     htmlBody += `<p><strong>Message:</strong></p><p>${escapeHtml(message)}</p>`;
-    htmlBody += `<hr><p><small>Submitted via TIC Group Website — ${new Date().toISOString()}</small></p>`;
+    htmlBody += `<hr><p><small>Submitted via TIC Group Website at ${new Date().toISOString()}</small></p>`;
 
     // Send via Resend
     const resendResponse = await fetch('https://api.resend.com/emails', {
