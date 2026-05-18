@@ -10,6 +10,8 @@ status: "published"
 order: 6
 type: "industry-service"
 pillar: "support"
+brand_accent: "#06b6d4"
+brand_accent_soft: "rgba(6, 182, 212, 0.22)"
 ---
 
 ## About Driving Instructor Car Hire

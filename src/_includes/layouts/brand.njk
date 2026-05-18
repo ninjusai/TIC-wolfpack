@@ -1,34 +1,201 @@
 ---
 layout: layouts/base.njk
 ---
-{% include "partials/breadcrumb.njk" %}
-<article class="brand-detail">
+{# Brand detail page layout.
+   Editorial portfolio entry: hero -> proof band -> story body -> other brands -> CTA.
+   Mirrors Phase 1 dark/light section rhythm, proof strip, brand-card grid, cta-section. #}
+
+{% set brandTypeLabel = "Driving school in our group" %}
+{% if type == "industry-service" %}
+  {% set brandTypeLabel = "Industry service" %}
+{% endif %}
+
+{% set brandAccent = brand_accent | default("#2563eb") %}
+{% set brandAccentSoft = brand_accent_soft | default("rgba(37, 99, 235, 0.18)") %}
+
+{% set ctaTarget = "/contact/" %}
+{% if type == "industry-service" %}
+  {% set ctaTarget = "/contact/?service_interest=industry-services" %}
+{% endif %}
+
+{# Breadcrumb: Home > Our Group > Brand #}
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list">
+    <li class="breadcrumb__item"><a href="/">Home</a></li>
+    <li class="breadcrumb__item"><a href="/our-group/">Our Group</a></li>
+    <li class="breadcrumb__item" aria-current="page">{{ title }}</li>
+  </ol>
+</nav>
+
+<article class="brand-detail" style="--brand-accent: {{ brandAccent }}; --brand-accent-soft: {{ brandAccentSoft }};">
+
+  {# Hero #}
   <header class="brand-hero">
-    {% if featured_image %}
-    <img src="{{ featured_image }}" alt="{{ title }}" class="brand-hero__image" width="1200" height="600" loading="eager">
-    {% endif %}
-    <h1>{{ title }}</h1>
-    <p class="brand-region">{{ region }}</p>
-  </header>
-  <div class="brand-content">
-    <div class="brand-body">
-      {{ content | safe }}
-    </div>
-    <aside class="brand-sidebar">
-      {% if service_areas %}
-      <div class="brand-meta">
-        <h2>Service Areas</h2>
-        <ul>
-          {% for area in service_areas %}
-          <li>{{ area }}</li>
-          {% endfor %}
-        </ul>
+    <div class="brand-hero__bg" aria-hidden="true"></div>
+    <div class="container brand-hero__inner">
+      <div class="brand-hero__content">
+        <span class="brand-hero__eyebrow">
+          <span class="brand-hero__dot" aria-hidden="true"></span>
+          {{ brandTypeLabel }}
+        </span>
+        <h1 class="brand-hero__title">{{ title }}</h1>
+        <p class="brand-hero__region">
+          <svg class="brand-hero__pin" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5c-2.5 0-4.5 2-4.5 4.5 0 3.4 4.5 8.5 4.5 8.5s4.5-5.1 4.5-8.5c0-2.5-2-4.5-4.5-4.5zm0 6.3a1.8 1.8 0 110-3.6 1.8 1.8 0 010 3.6z" fill="currentColor"/></svg>
+          {{ region }}{% if service_areas and service_areas.length %} <span class="brand-hero__sep" aria-hidden="true">/</span> {{ service_areas | join(", ") }}{% endif %}
+        </p>
+        {% if brand_summary %}
+        <p class="brand-hero__lede">{{ brand_summary }}</p>
+        {% endif %}
+        <div class="brand-hero__actions">
+          {% if website_url %}
+          <a href="{{ website_url }}" target="_blank" rel="noopener" class="btn btn--primary brand-hero__cta-primary">
+            Visit {{ title }}
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11l8-8M5 3h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          {% endif %}
+          <a href="{{ ctaTarget }}" class="btn btn--secondary brand-hero__cta-secondary">Start a conversation</a>
+        </div>
+      </div>
+
+      {% if featured_image %}
+      <div class="brand-hero__mark">
+        <div class="brand-hero__mark-frame">
+          <img src="{{ featured_image }}" alt="{{ title }} logo" class="brand-hero__mark-img" width="320" height="320" loading="eager">
+        </div>
       </div>
       {% endif %}
-      {% if website_url %}
-      <a href="{{ website_url }}" target="_blank" rel="noopener" class="brand-website-link">Visit Website →</a>
-      {% endif %}
-    </aside>
-  </div>
-  <a href="/our-group/" class="back-link">← Back to Our Group</a>
+    </div>
+  </header>
+
+  {# Facts band: region, service areas count, role, group #}
+  <section class="brand-facts" aria-label="At a glance">
+    <div class="container">
+      <ul class="brand-facts__grid">
+        <li class="brand-facts__item">
+          <span class="brand-facts__label">Region</span>
+          <span class="brand-facts__value">{{ region }}</span>
+        </li>
+        <li class="brand-facts__item">
+          <span class="brand-facts__label">Service area{% if service_areas and service_areas.length != 1 %}s{% endif %}</span>
+          <span class="brand-facts__value">{% if service_areas and service_areas.length %}{{ service_areas | join(", ") }}{% else %}Queensland{% endif %}</span>
+        </li>
+        <li class="brand-facts__item">
+          <span class="brand-facts__label">Role in the group</span>
+          <span class="brand-facts__value">{% if type == "industry-service" %}Industry service for accredited instructors{% else %}Brand we operate{% endif %}</span>
+        </li>
+        <li class="brand-facts__item">
+          <span class="brand-facts__label">Group</span>
+          <span class="brand-facts__value">The Instructor College</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {# Story body: constrained, editorial #}
+  <section class="brand-story section section--light">
+    <div class="container brand-story__container">
+      <div class="brand-story__inner">
+        <span class="brand-story__eyebrow">The brand</span>
+        <div class="brand-body">
+          {{ content | safe }}
+        </div>
+      </div>
+      <aside class="brand-story__aside" aria-label="More about this brand">
+        <div class="brand-aside-card">
+          <h2 class="brand-aside-card__heading">Want to know more?</h2>
+          <p class="brand-aside-card__body">{% if type == "industry-service" %}If you are an accredited instructor or driving school operator and want to talk about hire, we are happy to help.{% else %}If you are a learner driver, an instructor looking for work, or an owner thinking about your next move, we would like to hear from you.{% endif %}</p>
+          <ul class="brand-aside-card__list">
+            {% if website_url %}
+            <li>
+              <a href="{{ website_url }}" target="_blank" rel="noopener" class="brand-aside-card__link">
+                <span>Visit the {{ title }} site</span>
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11l8-8M5 3h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </li>
+            {% endif %}
+            <li>
+              <a href="{{ ctaTarget }}" class="brand-aside-card__link">
+                <span>Contact The Instructor College</span>
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </li>
+            <li>
+              <a href="/our-group/" class="brand-aside-card__link">
+                <span>See all our group brands</span>
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  {# Other brands: rotate selection so each brand surfaces different siblings.
+     Find current index in the brands collection, then take next two (wrap around). #}
+  {% set currentIndex = 0 %}
+  {% for b in collections.brands %}
+    {% if b.fileSlug == page.fileSlug %}
+      {% set currentIndex = loop.index0 %}
+    {% endif %}
+  {% endfor %}
+  {% set brandsCount = collections.brands.length %}
+  {% set otherBrands = [] %}
+  {% for offset in [1, 2] %}
+    {% set pickIndex = (currentIndex + offset) % brandsCount %}
+    {% set pick = collections.brands[pickIndex] %}
+    {% if pick and pick.fileSlug != page.fileSlug %}
+      {% set otherBrands = (otherBrands.push(pick), otherBrands) %}
+    {% endif %}
+  {% endfor %}
+
+  {% if otherBrands.length %}
+  <section class="section section--alt brand-related">
+    <div class="container">
+      <header class="brand-related__header">
+        <span class="brand-related__eyebrow">Other brands in our group</span>
+        <h2 class="brand-related__heading">More from The Instructor College</h2>
+        <p class="brand-related__intro">We operate a group of trusted brands across Queensland. Each one keeps its own identity. Each one shares the same operational backbone.</p>
+      </header>
+      <div class="brand-grid">
+        {% for b in otherBrands %}
+          {% set brand = b %}
+          {% include "components/brand-card.njk" %}
+        {% endfor %}
+      </div>
+      <p class="brand-related__more">
+        <a href="/our-group/" class="brand-related__more-link">
+          See all six brands
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </p>
+    </div>
+  </section>
+  {% endif %}
+
+  {# CTA section #}
+  <section class="cta-section cta-section--dark brand-cta">
+    <div class="container">
+      <h2 class="cta-section__heading">
+        {% if type == "industry-service" %}Talk to us about hire{% else %}Thinking about your next move?{% endif %}
+      </h2>
+      <p class="cta-section__body">
+        {% if type == "industry-service" %}
+          Driving Instructor Car Hire supports professional instructors when their own vehicle is off the road. Have a confidential, no-pressure chat with our team.
+        {% else %}
+          Whether you want a lesson with {{ title }}, you are an instructor looking for work, or you own a driving school and want to talk about your options, we are open to a confidential conversation.
+        {% endif %}
+      </p>
+      <div class="brand-cta__actions">
+        <a href="{{ ctaTarget }}" class="btn btn--primary">Start a confidential chat</a>
+        {% if website_url %}
+        <a href="{{ website_url }}" target="_blank" rel="noopener" class="btn btn--outline">
+          Visit {{ title }}
+          <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 11l8-8M5 3h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
 </article>

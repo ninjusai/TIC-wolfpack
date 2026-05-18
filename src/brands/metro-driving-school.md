@@ -10,6 +10,8 @@ status: "published"
 order: 1
 type: "driving-school"
 pillar: "operate"
+brand_accent: "#3b82f6"
+brand_accent_soft: "rgba(59, 130, 246, 0.22)"
 ---
 
 ## About Metro Driving School

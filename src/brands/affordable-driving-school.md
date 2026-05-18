@@ -10,6 +10,8 @@ status: "published"
 order: 5
 type: "driving-school"
 pillar: "operate"
+brand_accent: "#10b981"
+brand_accent_soft: "rgba(16, 185, 129, 0.22)"
 ---
 
 ## About Affordable Driving School

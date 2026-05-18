@@ -10,6 +10,8 @@ status: "published"
 order: 2
 type: "driving-school"
 pillar: "operate"
+brand_accent: "#f59e0b"
+brand_accent_soft: "rgba(245, 158, 11, 0.22)"
 ---
 
 ## About EasyAs Driver Training Australia

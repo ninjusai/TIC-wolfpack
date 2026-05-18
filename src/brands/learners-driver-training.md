@@ -10,6 +10,8 @@ status: "published"
 order: 4
 type: "driving-school"
 pillar: "operate"
+brand_accent: "#a855f7"
+brand_accent_soft: "rgba(168, 85, 247, 0.22)"
 ---
 
 ## About Learners Driver Training

@@ -10,6 +10,8 @@ status: "published"
 order: 3
 type: "driving-school"
 pillar: "operate"
+brand_accent: "#ef4444"
+brand_accent_soft: "rgba(239, 68, 68, 0.22)"
 ---
 
 ## About RAC School of Motoring
