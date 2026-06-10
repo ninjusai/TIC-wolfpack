@@ -8,10 +8,10 @@
   "description": "A Queensland-based driver training group that acquires, operates, and supports driving school businesses, growing nationally over time.",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Level 1, Unit 1/44 Proprietary Street",
-    "addressLocality": "Tingalpa",
+    "streetAddress": "PO BOX 3149",
+    "addressLocality": "Victoria Point West",
     "addressRegion": "QLD",
-    "postalCode": "4173",
+    "postalCode": "4165",
     "addressCountry": "AU"
   },
   "contactPoint": {

@@ -39,7 +39,7 @@ We welcome your feedback on the accessibility of our website. If you encounter a
 
 - **Email:** hello@theinstructorcollege.com.au
 - **Phone:** 1300 68 72 92
-- **Address:** Level 1, Unit 1/44 Proprietary Street, Tingalpa QLD 4173
+- **Address:** PO BOX 3149, Victoria Point West QLD 4165
 
 We aim to respond to accessibility feedback within 5 business days and to resolve any issues as promptly as possible.
 

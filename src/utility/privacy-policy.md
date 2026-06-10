@@ -94,7 +94,7 @@ If you have questions about this Privacy Policy or wish to exercise your privacy
 
 - **Email:** hello@theinstructorcollege.com.au
 - **Phone:** 1300 68 72 92
-- **Address:** Level 1, Unit 1/44 Proprietary Street, Tingalpa QLD 4173
+- **Address:** PO BOX 3149, Victoria Point West QLD 4165
 
 If you are not satisfied with our response, you may lodge a complaint with the [Office of the Australian Information Commissioner (OAIC)](https://www.oaic.gov.au/).
 
